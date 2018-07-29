@@ -24,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <test.version>4.11</test.version>
+        <test.version>4.12</test.version>
         <spring.version>4.3.18.RELEASE</spring.version>
         <servlet-api.version>2.5</servlet-api.version>
         <jstl.version>1.2</jstl.version>
@@ -37,6 +37,7 @@
         <aspectj.version>1.8.13</aspectj.version>
         <hibernate.version>5.1.15.Final</hibernate.version>
         <hibernate-validator.version>6.0.10.Final</hibernate-validator.version>
+        <javax.el.version>3.0.1-b09</javax.el.version>
         <!-- aliyun repos download -->
         <ojdbc6.version>11.2.0.3</ojdbc6.version>
     </properties>
@@ -73,6 +74,14 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!-- spring-test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- servlet -->
        <dependency>
@@ -123,6 +132,13 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
+        </dependency>
+
+        <!-- javax.el -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${javax.el.version}</version>
         </dependency>
 
         <!-- jdbc -->

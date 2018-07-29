@@ -17,6 +17,9 @@
 
     <context:property-placeholder location="classpath:application.properties"/>
 
+    <mvc:annotation-driven validator="validator"/>
+    <mvc:default-servlet-handler />
+
     <!--package scan-->
     <context:annotation-config></context:annotation-config>
     <context:component-scan base-package="com.group1.admin.controller"></context:component-scan>
@@ -44,4 +47,14 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!-- validator-->
+    <bean id="requestHandler" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="useSuffixPatternMatch" value="false"/><!--关闭自动使用 .* 后缀-->
+    </bean>
+    <bean id="requestAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="synchronizeOnSession" value="true"/>
+    </bean>
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+    </bean>
 </beans>
