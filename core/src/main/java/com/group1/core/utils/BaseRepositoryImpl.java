@@ -21,16 +21,16 @@ public abstract class BaseRepositoryImpl <T,ID extends Serializable> implements 
 
     @Transactional
     @Override
-    public boolean save(Object entity) {
-        boolean flag = false;
+    public T save(T entity) {
+        T result = null;
         try {
             entityManager.persist(entity);
-            flag = true;
+            result = entity;
         }catch (Exception e){
             System.out.println("---------------保存出错---------------");
             throw e;
         }
-        return flag;
+        return result;
     }
 
     @Override
@@ -39,7 +39,7 @@ public abstract class BaseRepositoryImpl <T,ID extends Serializable> implements 
     }
 
     @Override
-    public List<T> findBysql(String filed, Object o) {
+    public List<T> findByFiled(String filed, Object o) {
         String sql="from "+getTableName()+" u WHERE u."+filed+"=?";
         System.out.println(sql+"--------sql语句-------------");
         Query query=entityManager.createQuery(sql);
