@@ -18,7 +18,7 @@ import java.util.Map;
 public class JPARepositoryImpl<T, TD extends Serializable> implements JpaRepository<T, TD> {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     private Class<T> clz;
 
