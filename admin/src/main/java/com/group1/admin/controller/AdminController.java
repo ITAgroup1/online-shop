@@ -1,14 +1,11 @@
 package com.group1.admin.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.group1.admin.service.AdminService;
-import com.group1.core.admin.model.Admin;
+import com.group1.core.entity.admin.model.Admin;
 import com.group1.core.utils.ResultBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;

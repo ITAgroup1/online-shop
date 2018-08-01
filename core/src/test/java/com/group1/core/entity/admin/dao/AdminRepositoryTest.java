@@ -1,6 +1,6 @@
-package com.group1.core.admin.dao;
+package com.group1.core.entity.admin.dao;
 
-import com.group1.core.admin.model.Admin;
+import com.group1.core.entity.admin.model.Admin;
 import com.group1.core.utils.base.model.Page;
 import com.group1.core.utils.base.model.Pageable;
 import com.group1.core.utils.base.model.Sort;
@@ -9,15 +9,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import javax.persistence.Table;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:applicationContext.xml"})

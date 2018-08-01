@@ -1,4 +1,4 @@
-package com.group1.core.admin.model;
+package com.group1.core.entity.admin.model;
 
 import org.hibernate.annotations.GenericGenerator;
 
