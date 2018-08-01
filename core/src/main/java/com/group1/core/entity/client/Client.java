@@ -1,8 +1,8 @@
-package com.group1.core.entity.client.model;
+package com.group1.core.entity.client;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.group1.core.entity.order.model.Order;
-import com.group1.core.entity.order.model.OrderItem;
+import com.group1.core.entity.order.Order;
+import com.group1.core.entity.order.OrderItem;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

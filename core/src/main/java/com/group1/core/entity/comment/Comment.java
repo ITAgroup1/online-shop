@@ -1,4 +1,4 @@
-package com.group1.core.entity.comment.model;
+package com.group1.core.entity.comment;
 
 import org.hibernate.annotations.GenericGenerator;
 

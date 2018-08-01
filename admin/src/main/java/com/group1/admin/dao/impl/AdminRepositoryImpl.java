@@ -1,7 +1,7 @@
-package com.group1.core.entity.admin.dao.impl;
+package com.group1.admin.dao.impl;
 
-import com.group1.core.entity.admin.dao.AdminRepository;
-import com.group1.core.entity.admin.model.Admin;
+import com.group1.admin.dao.AdminRepository;
+import com.group1.core.entity.admin.Admin;
 import com.group1.core.utils.base.impl.JPARepositoryImpl;
 import org.springframework.stereotype.Repository;
 

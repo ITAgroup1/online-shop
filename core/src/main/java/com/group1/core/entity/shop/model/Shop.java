@@ -1,6 +1,7 @@
 package com.group1.core.entity.shop.model;
 
 import com.group1.core.entity.merchant.model.Merchant;
+import com.group1.core.entity.merchant.model.MerchantDetail;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -44,8 +45,8 @@ public class Shop {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "merchant_id")
-    private Merchant merchant;
+    @Column(name = "merchantDetail")
+    private MerchantDetail merchantDetail;
 
     @Column(name = "introduction")
     private String introduction;
