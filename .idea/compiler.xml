@@ -11,5 +11,8 @@
         <module name="merchant" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="online-shop" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
