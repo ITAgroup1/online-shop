@@ -10,6 +10,8 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 
+@Entity
+@Table(name = "t_merchantDetail")
 public class MerchantDetail implements Serializable {
 
     public final static Integer UNTREATED = 0;//未处理
@@ -22,7 +24,8 @@ public class MerchantDetail implements Serializable {
     @GeneratedValue(generator = "ug")
     private String id;
 
-    @Column(name = "merchant_id")
+
+    @OneToOne(mappedBy="merchantDetail",targetEntity=Merchant.class )//数据库的表并不会生成这个字段
     private Merchant merchant;
 
     @Pattern(regexp="\\d{17}(X|\\d)",message="身份证格式错误")
@@ -34,12 +37,15 @@ public class MerchantDetail implements Serializable {
     @Length(message = "商家名字长度应在1-30位之间", min = 1, max = 30)
     private String merchantName;
 
-    @OneToOne
-    @JoinColumn(name = "merchant_id")
-    private Shop shop;
+//    @OneToOne(targetEntity=Shop.class)
+//    @JoinColumn(name="shop_id")
+    @Column(name = "shopId")
+    private String shopId;
 
+    @Column(name = "score")
     private Double score;
 
+    @Column(name = "status")
     private Integer status;// 狀態：0-待處理、 1-審核通過（拉白）、 2-駁回 3、不同意（拉黑）
 
     @Length(min = 1, max = 100, message = "店铺地址应在1-100字之间")

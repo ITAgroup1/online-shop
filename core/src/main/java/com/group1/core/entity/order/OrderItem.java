@@ -1,7 +1,7 @@
-package com.group1.core.entity.order.model;
+package com.group1.core.entity.order;
 
 
-import com.group1.core.entity.recipe.model.Recipe;
+import com.group1.core.entity.recipe.Recipe;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

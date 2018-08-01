@@ -1,6 +1,6 @@
-package com.group1.core.entity.admin.dao;
+package com.group1.admin.dao;
 
-import com.group1.core.entity.admin.model.Admin;
+import com.group1.core.entity.admin.Admin;
 import com.group1.core.utils.base.model.Page;
 import com.group1.core.utils.base.model.Pageable;
 import com.group1.core.utils.base.model.Sort;
@@ -13,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:applicationContext.xml"})
@@ -27,9 +29,8 @@ public class AdminRepositoryTest {
 
     @After
     public void tearDown() throws Exception {
-        System.out.println(adminRepository);
-        System.out.println(adminRepository.getClass());
     }
+
 
     @Test
     public void saveTest(){

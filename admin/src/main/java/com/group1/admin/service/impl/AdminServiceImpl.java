@@ -1,8 +1,8 @@
 package com.group1.admin.service.impl;
 
 import com.group1.admin.service.AdminService;
-import com.group1.core.entity.admin.dao.AdminRepository;
-import com.group1.core.entity.admin.model.Admin;
+import com.group1.admin.dao.AdminRepository;
+import com.group1.core.entity.admin.Admin;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

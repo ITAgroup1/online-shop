@@ -1,4 +1,4 @@
-package com.group1.core.entity.recipe.model;
+package com.group1.core.entity.recipe;
 
 import org.hibernate.annotations.GenericGenerator;
 

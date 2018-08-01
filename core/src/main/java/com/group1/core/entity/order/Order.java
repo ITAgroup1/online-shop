@@ -1,4 +1,4 @@
-package com.group1.core.entity.order.model;
+package com.group1.core.entity.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
