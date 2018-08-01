@@ -2,7 +2,7 @@ package com.group1.admin.service.impl;
 
 import com.group1.admin.dao.MerchantDetailRepository;
 import com.group1.admin.service.MerchantDetailService;
-import com.group1.core.entity.merchant.model.MerchantDetail;
+import com.group1.core.entity.merchant.MerchantDetail;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -15,10 +15,9 @@ public class OrderItem {
     @GeneratedValue(generator = "ug")
     private String id;
 
-    @OneToOne
-    @JoinColumn(name = "recipe_id")
+    @OneToOne(targetEntity=Recipe.class)
+    @JoinColumn(name="recipe_id")
     private Recipe recipe;
-
 
     private Integer count;
 
@@ -45,4 +44,5 @@ public class OrderItem {
     public void setCount(Integer count) {
         this.count = count;
     }
+
 }
