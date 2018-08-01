@@ -24,6 +24,19 @@
     <context:annotation-config></context:annotation-config>
     <context:component-scan base-package="com.group1.admin.controller"></context:component-scan>
 
+    <mvc:interceptors>
+        <!--&lt;!&ndash; 日志拦截器 &ndash;&gt;-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**" />-->
+            <!--<mvc:exclude-mapping path="/static/**" />-->
+            <!--<bean class="拦截器java代码路径" />-->
+        <!--</mvc:interceptor>-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.group1.core.interceptor.FormTokenInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!--<mvc:annotation-driven json >-->
     <mvc:annotation-driven enable-matrix-variables="true">
         <mvc:message-converters>
@@ -57,4 +70,5 @@
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
     </bean>
+
 </beans>

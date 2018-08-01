@@ -1,7 +1,11 @@
 package com.group1.core.admin.dao;
 
 import com.group1.core.admin.model.Admin;
+import com.group1.core.utils.base.model.Page;
+import com.group1.core.utils.base.model.Pageable;
+import com.group1.core.utils.base.model.Sort;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,10 +37,25 @@ public class AdminRepositoryTest {
     }
 
     @Test
-    public void test1(){
-        Admin admin = new Admin();
-        admin.setLoginName("tony");
-        admin.setPassword("123456");
-        adminRepository.save(admin);
+    public void saveTest(){
+        for (int i = 0; i < 10; i++) {
+            Admin admin = new Admin();
+            admin.setLoginName("song");
+            admin.setPassword("123456");
+            Assert.assertNotNull(adminRepository.save(admin));
+        }
+    }
+
+    @Test
+    public void deleteTest(){
+        System.out.println(adminRepository.delete("8a5e9d1564e9fe800164e9fe85af0000"));
+    }
+
+    @Test
+    public void findAllByPage(){
+        Sort sort = new Sort("loginName","DESC");
+        Pageable pageable = new Pageable(2,2,sort);
+        Page<Admin> adminPage = adminRepository.findAll(pageable);
+        System.out.println(adminPage);
     }
 }

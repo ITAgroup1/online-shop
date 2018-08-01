@@ -14,7 +14,12 @@ public class AdminServiceImpl implements AdminService {
     private AdminRepository adminRepository;
 
     @Override
-    public boolean register(Admin admin) {
+    public Admin register(Admin admin) {
         return adminRepository.save(admin);
+    }
+
+    @Override
+    public Admin login(Admin admin) {
+        return null;
     }
 }

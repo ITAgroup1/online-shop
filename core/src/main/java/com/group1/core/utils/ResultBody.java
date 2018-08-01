@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ResultBody implements Serializable {
+
     private String status;
     private String message;
     private Map<String,Object> data = new LinkedHashMap<>();
@@ -41,4 +42,5 @@ public class ResultBody implements Serializable {
     public void setData(Map<String, Object> data) {
         this.data = data;
     }
+
 }
