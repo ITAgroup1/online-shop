@@ -1,4 +1,4 @@
-package com.group1.core.entity.merchant.model;
+package com.group1.core.entity.merchant;
 
 import org.hibernate.annotations.GenericGenerator;
 
