@@ -17,7 +17,7 @@ public interface BaseRepository<T,ID extends Serializable> {
      * @param entity
      * @return
      */
-    boolean save(T entity);
+    T save(T entity);
     /**
      * 根据id查询
      * @param id
@@ -31,7 +31,7 @@ public interface BaseRepository<T,ID extends Serializable> {
      * @param o 字段参数
      * @return
      */
-    List<T> findBysql(String filed,Object o);
+    List<T> findByFiled(String filed,Object o);
 
     Object findObjiectBysql(String filed,Object o);
 

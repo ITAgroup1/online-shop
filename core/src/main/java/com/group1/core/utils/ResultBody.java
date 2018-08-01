@@ -8,6 +8,7 @@ import java.util.*;
 
 public class ResultBody implements Serializable {
 
+
     public static final String STATUS_ERROR = "0";
     public static final String STATUS_SUCCESS = "1";
 
