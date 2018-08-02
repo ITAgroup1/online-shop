@@ -26,4 +26,52 @@ public class Recipe implements Serializable {
     private Integer price;
 
     private String shopId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getReName() {
+        return reName;
+    }
+
+    public void setReName(String reName) {
+        this.reName = reName;
+    }
+
+    public String getRePic() {
+        return rePic;
+    }
+
+    public void setRePic(String rePic) {
+        this.rePic = rePic;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
 }
