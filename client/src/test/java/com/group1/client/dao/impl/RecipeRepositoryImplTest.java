@@ -1,5 +1,6 @@
-package com.group1.client.service;
+package com.group1.client.dao.impl;
 
+import com.group1.client.dao.RecipeRepository;
 import com.group1.core.entity.shop.Shop;
 import org.junit.After;
 import org.junit.Assert;
@@ -15,23 +16,25 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:applicationContext.xml"})
-public class RecipeServiceTest {
+public class RecipeRepositoryImplTest {
 
-    @Resource(name="recipeService")
-    private RecipeService recipeService;
+    @Resource(name="recipeRepository")
+    private RecipeRepository recipeRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
-    public void getAll() {
+    public void getAll(){
         Shop shop = new Shop();
         shop.setId("1");
-        Assert.assertNotNull(recipeService.getAll(shop.getId()));
+        Assert.assertNotNull(recipeRepository.listAll(shop.getId()));
+
+
     }
 }

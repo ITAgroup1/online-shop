@@ -1,5 +1,6 @@
-package com.group1.client.dao;
+package com.group1.client.dao.impl;
 
+import com.group1.client.dao.ClientRepository;
 import com.group1.core.entity.client.Client;
 import org.junit.After;
 import org.junit.Assert;
@@ -15,7 +16,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath*:applicationContext.xml"})
-public class ClientRepositoryTest {
+public class ClientRepositoryImplTest {
 
     @Resource(name = "clientRepository")
     private ClientRepository clientRepository;
