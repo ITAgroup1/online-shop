@@ -76,7 +76,7 @@
             }
         },
         getRecipeList {
-            url : "/recipe/:merchantId/"
+            url : "/recipe/{shopId}"
             method : "GET",
             response: {
                 statuts : #String,
