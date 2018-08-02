@@ -31,21 +31,13 @@ public class MerchantServiceImpl implements MerchantService {
         try {
             Client client = jerseyPoolingClient.getObject();
             String registerUrl = "http://localhost:3000";
-//            WebTarget webTarget = client.target(registerUrl);
-//            Builder builder = webTarget.request().header("Content-Type", "application/json");
             WebTarget webTarget = client.target(registerUrl).path("merchant");
-
-
 
             Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
             Response response = invocationBuilder.post(Entity.entity(merchant, MediaType.APPLICATION_JSON_TYPE));
 
-//            String str = response.readEntity(String.class);
+            merchant1 = response.readEntity(Merchant.class);
             System.out.println(response.getStatus());
-            System.out.println(response.readEntity(String.class));
-
-//            String result = response.readEntity(String.class);
-//            merchant1 = (Merchant) JsonUtil.jsonToObject(result, Merchant.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
