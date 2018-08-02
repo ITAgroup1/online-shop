@@ -18,7 +18,8 @@
     
     let imgServer = "http://localhost:3000";
     
-   Merchant {
+    
+    Merchant {
       // update shop
       updateShop: {
         url: "/shop/",
