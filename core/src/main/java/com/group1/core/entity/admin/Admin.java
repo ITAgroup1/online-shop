@@ -15,7 +15,7 @@ public class Admin implements Serializable {
     @GeneratedValue(generator = "ug")
     private String id;
 
-    @Column(name = "loginName",nullable = false,length = 255)
+    @Column(name = "login_name",nullable = false,length = 255)
     @NotBlank(message = "admin's loginName is null")
     private String loginName;
 

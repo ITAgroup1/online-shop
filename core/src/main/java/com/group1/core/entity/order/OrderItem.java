@@ -20,6 +20,7 @@ public class OrderItem {
     @Column(name = "recipe_id")
     private String recipeId;
 
+    @Column
     private Integer count;
 
     public String getId() {

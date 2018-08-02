@@ -25,13 +25,25 @@ public class Order implements Serializable {
     @GeneratedValue(generator = "ug")
     private String id;
 
+    @Column(name = "shop_id")
     private String shopId;
 
+    @Column
     private String address;
+
+    @Column
     private String phone;
+
+    @Column
     private Double cost;
+
+    @Column
     private long orderTime;
+
+    @Column
     private String remark;
+
+    @Column
     private Integer status;
 
     @OneToOne(targetEntity = Comment.class,cascade = CascadeType.ALL)
