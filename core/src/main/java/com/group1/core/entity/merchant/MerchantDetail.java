@@ -1,6 +1,5 @@
-package com.group1.core.entity.merchant.model;
+package com.group1.core.entity.merchant;
 
-import com.group1.core.entity.shop.model.Shop;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 

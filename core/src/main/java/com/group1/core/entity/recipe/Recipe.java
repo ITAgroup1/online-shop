@@ -1,7 +1,9 @@
 package com.group1.core.entity.recipe;
 
+import com.group1.core.entity.shop.Shop;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,15 +19,21 @@ public class Recipe implements Serializable {
     @GeneratedValue(generator = "ug")
     private String id;
 
+    @Column(name = "reName")
     private String reName;
 
+    @Column(name = "rePic")
     private String rePic;
 
+    @Column(name = "detail")
     private String detail;
 
+    @Column(name = "price")
     private Integer price;
 
-    private String shopId;
+    @OneToOne(targetEntity=Shop.class)
+    @JoinColumn(name="shop_id")
+    private Shop shop;
 
     public String getId() {
         return id;
@@ -67,11 +75,11 @@ public class Recipe implements Serializable {
         this.price = price;
     }
 
-    public String getShopId() {
-        return shopId;
+    public Shop getShop() {
+        return shop;
     }
 
-    public void setShopId(String shopId) {
-        this.shopId = shopId;
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 }

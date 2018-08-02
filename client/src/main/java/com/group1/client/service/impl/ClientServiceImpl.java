@@ -2,7 +2,6 @@ package com.group1.client.service.impl;
 
 import com.group1.client.dao.ClientRepository;
 import com.group1.client.service.ClientService;
-
 import com.group1.core.entity.client.Client;
 import org.springframework.stereotype.Service;
 

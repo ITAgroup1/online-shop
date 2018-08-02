@@ -1,4 +1,4 @@
-package com.group1.core.entity.complaint.model;
+package com.group1.core.entity.complaint;
 
 import org.hibernate.annotations.GenericGenerator;
 
