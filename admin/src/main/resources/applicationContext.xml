@@ -52,7 +52,13 @@
         <property name="dataSource" ref="ds"/>
         <property name="persistenceUnitName" value="em"></property>
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
-        <property name="packagesToScan" value="com.group1"/><!--待扫描的实体类包，不再需要persistence.xml了 -->
+        <property name="packagesToScan" > <!--待扫描的实体类包，不再需要persistence.xml了 -->
+                <list>
+                    <value>com.group1.core.entity.merchant</value>
+                    <value>com.group1.core.entity.admin</value>
+                    <value>com.group1.core.entity.complaint</value>
+                </list>
+        </property>
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
@@ -60,7 +66,7 @@
                 <prop key="hibernate.format_sql">true</prop>
                 <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
                 <!--<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
     </bean>
