@@ -42,7 +42,10 @@ public class ResultBody implements Serializable {
 
 
     public void setData(String key,Object value) {
-        data.put(key,value);
+        if (data == null) {
+            data = new LinkedHashMap<>();
+        }
+        data.put(key, value);
     }
 
     public Map<String, Object> getData() {
@@ -83,10 +86,13 @@ public class ResultBody implements Serializable {
         data.put(key, value);
     }
 
+    @JsonIgnore
     public Object getData(String key){
         if (data == null) {
             data = new LinkedHashMap<>();
         }
         return data.get(key);
     }
+
+
 }
