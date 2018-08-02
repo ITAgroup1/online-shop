@@ -1,6 +1,9 @@
 package com.group1.core.entity.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.group1.core.entity.client.Client;
+import com.group1.core.entity.comment.Comment;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,7 +25,6 @@ public class Order implements Serializable {
     @GeneratedValue(generator = "ug")
     private String id;
 
-    private String clientId;
     private String shopId;
 
     private String address;
@@ -31,7 +33,16 @@ public class Order implements Serializable {
     private long orderTime;
     private String remark;
     private Integer status;
-    private String commentId;
+
+    @OneToOne(targetEntity = Comment.class,cascade = CascadeType.ALL)
+    @JoinColumn(name="comment_id")//specify the relation of the foreign key
+    @JsonIgnoreProperties("order")
+    private Comment comment;
+
+    @ManyToOne(targetEntity = Client.class,fetch=FetchType.EAGER)
+    @JoinColumn(name="c_id")
+    @JsonIgnoreProperties("orders")
+    private Client client;
 
     @OneToMany(targetEntity=OrderItem.class,cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="oid")
@@ -47,12 +58,12 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public String getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public String getShopId() {
@@ -111,13 +122,6 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public String getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
-    }
 
     public Set<OrderItem> getOrderItems() {
         return orderItems;
@@ -125,5 +129,13 @@ public class Order implements Serializable {
 
     public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 }
