@@ -6,5 +6,5 @@ public interface ShopService {
     Shop save(Shop shop);
     Shop update(Shop Shop);
     Shop findByShopId(String shopId);
-    Shop findByMerchant(String merchantId);
+    Shop findByMerchantDetailId(String merchantDetailId);
 }

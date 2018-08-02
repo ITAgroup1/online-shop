@@ -1,6 +1,7 @@
 package com.group1.merchant.service.impl;
 
 import com.group1.core.entity.shop.Shop;
+import com.group1.core.utils.ResultBody;
 import com.group1.merchant.dao.ShopRepository;
 import com.group1.merchant.service.ShopService;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public Shop findByMerchant(String merchantId) {
-        return null;
+    public Shop findByMerchantDetailId(String merchantDetailId) {
+
+        return shopRepository.findByMerchantDetailId(merchantDetailId);
     }
 }
