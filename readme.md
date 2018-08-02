@@ -62,5 +62,15 @@
                     client : #Object
                 }
             }
+        },
+        getRecipeList {
+            url : "/recipe/:merchantId/"
+            method : "GET",
+            response: {
+                statuts : #String,
+                data:{
+                    recipes: #Array
+                }
+            }
         }
     }
