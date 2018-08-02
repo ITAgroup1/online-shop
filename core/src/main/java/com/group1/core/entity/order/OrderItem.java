@@ -15,9 +15,10 @@ public class OrderItem {
     @GeneratedValue(generator = "ug")
     private String id;
 
-    @OneToOne(targetEntity=Recipe.class)
-    @JoinColumn(name="recipe_id")
-    private Recipe recipe;
+//    @OneToOne(targetEntity=Recipe.class)
+//    @JoinColumn(name="recipe_id")
+    @Column(name = "recipe_id")
+    private String recipeId;
 
     private Integer count;
 
@@ -29,12 +30,12 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public String getRecipeId() {
+        return recipeId;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipeId(String recipeId) {
+        this.recipeId = recipeId;
     }
 
     public Integer getCount() {

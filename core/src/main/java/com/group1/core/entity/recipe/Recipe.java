@@ -1,5 +1,6 @@
 package com.group1.core.entity.recipe;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.group1.core.entity.shop.Shop;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -15,19 +16,19 @@ public class Recipe implements Serializable {
     @GeneratedValue(generator = "ug")
     private String id;
 
-    @Column(name = "reName")
-    private String reName;
+    @Column(name = "recipe_name")
+    private String recipeName;
 
-    @Column(name = "rePic")
-    private String rePic;
+    @Column(name = "recipe_pic")
+    private String recipePic;
 
-    @Column(name = "detail")
-    private String detail;
+    @Column(name = "recipe_detail")
+    private String recipeDetail;
 
     @Column(name = "price")
     private Integer price;
 
-    @OneToOne(targetEntity=Shop.class)
+    @ManyToOne(targetEntity = Shop.class,fetch=FetchType.EAGER)
     @JoinColumn(name="shop_id")
     private Shop shop;
 
@@ -39,28 +40,28 @@ public class Recipe implements Serializable {
         this.id = id;
     }
 
-    public String getReName() {
-        return reName;
+    public String getRecipeName() {
+        return recipeName;
     }
 
-    public void setReName(String reName) {
-        this.reName = reName;
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
     }
 
-    public String getRePic() {
-        return rePic;
+    public String getRecipePic() {
+        return recipePic;
     }
 
-    public void setRePic(String rePic) {
-        this.rePic = rePic;
+    public void setRecipePic(String recipePic) {
+        this.recipePic = recipePic;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getRecipeDetail() {
+        return recipeDetail;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setRecipeDetail(String recipeDetail) {
+        this.recipeDetail = recipeDetail;
     }
 
     public Integer getPrice() {

@@ -43,7 +43,7 @@ public class MerchantDetail implements Serializable {
     private String shopId;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable(name="customer_shopPic",joinColumns = @JoinColumn(name="shop_id"))
+    @JoinTable(name="shop_pic",joinColumns = @JoinColumn(name="shop_id"))
     @Column(name="shop_pic")
     @NotNull(message="店内图片不能为空")
     private Set<String> shopPic;

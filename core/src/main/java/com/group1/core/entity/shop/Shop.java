@@ -1,6 +1,9 @@
 package com.group1.core.entity.shop;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group1.core.entity.merchant.MerchantDetail;
+import com.group1.core.entity.recipe.Recipe;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -45,13 +48,17 @@ public class Shop {
     private String address;
 
     @Column(name = "merchantDetail")
-    private MerchantDetail merchantDetail;
+    private String merchantDetail_id;
 
     @Column(name = "introduction")
     private String introduction;
 
     @Column(name = "score")
     private Double score;
+
+    @OneToMany(cascade={CascadeType.REMOVE,CascadeType.PERSIST},mappedBy = "shop",fetch=FetchType.LAZY)
+    @JsonIgnore
+    private Set<Recipe> recipes;
 
     public String getId() {
         return id;
@@ -125,12 +132,20 @@ public class Shop {
         this.address = address;
     }
 
-    public MerchantDetail getMerchantDetail() {
-        return merchantDetail;
+    public String getMerchantDetail_id() {
+        return merchantDetail_id;
     }
 
-    public void setMerchantDetail(MerchantDetail merchantDetail) {
-        this.merchantDetail = merchantDetail;
+    public void setMerchantDetail_id(String merchantDetail_id) {
+        this.merchantDetail_id = merchantDetail_id;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 
     public String getIntroduction() {
@@ -139,5 +154,13 @@ public class Shop {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public Set<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(Set<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }
