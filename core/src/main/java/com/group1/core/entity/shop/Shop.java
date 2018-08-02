@@ -50,6 +50,9 @@ public class Shop {
     @Column(name = "introduction")
     private String introduction;
 
+    @Column(name = "score")
+    private Double score;
+
     public String getId() {
         return id;
     }
