@@ -68,7 +68,7 @@
         Login: {
             url : "/client/login",
             method : "POST",
-            data : {
+            response : {
                 status : #String
                 data : {
                     client : #Object
