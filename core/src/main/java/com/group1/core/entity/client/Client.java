@@ -37,7 +37,6 @@ public class Client implements Serializable {
     @JsonIgnoreProperties("client")
     private Set<Order> orders;
 
-
     public String getId() {
         return id;
     }

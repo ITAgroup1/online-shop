@@ -46,6 +46,6 @@ public class ShopServiceTest {
 //        recipe.setShop(shop);
 //        recipeSet.add(recipe);
 
-        shopService.add(shop);
+        shopService.save(shop);
     }
 }

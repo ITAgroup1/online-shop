@@ -16,7 +16,26 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public Shop add(Shop shop) {
+
+    public Shop save(Shop shop) {
         return shopRepository.save(shop);
+    }
+
+    @Override
+    @Transactional
+    public Shop update(Shop Shop) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Shop findByShopId(String shop_id) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Shop findByMerchant(String merchantId) {
+        return null;
     }
 }
