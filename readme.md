@@ -23,7 +23,7 @@
       listShop: {
         url : "/shop/",
         method : 'GET',
-        data : {
+        response : {
             status : #String
             data: {
                 shops : #Array
@@ -34,7 +34,7 @@
       addShop: {
         url : "/shop/add",
         method : 'POST',
-        data : {
+        response : {
             status : #String
             data : {
                 shops : #Array
@@ -45,9 +45,11 @@
       getShop: {
         url : "/shop/{id}",
         method : 'GET',
-        data : {
+        response : {
             status : #String
-            shop: #Object
+            data : {
+                shop: #Object
+            }
         }
       },
     }
