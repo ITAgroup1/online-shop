@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("recipes")
+@RequestMapping("recipe")
 public class RecipeController {
 
     @Resource(name="recipeService")

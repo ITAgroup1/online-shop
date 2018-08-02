@@ -20,6 +20,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import java.util.ArrayList;
@@ -107,14 +109,6 @@ public class ClientServiceImplTest {
     public void testJerSey() {
         try {
 
-            String url = "http://localhost:3000/books";
-            javax.ws.rs.client.Client client = jerseyPoolingClientFactoryBean.getObject();
-
-            WebTarget webTarget = client.target(url);
-            Response response = webTarget.request().get();
-            String str = response.readEntity(String.class);
-
-            System.out.println(str);
 
         } catch (Exception e) {
             e.printStackTrace();
