@@ -19,7 +19,7 @@
 
     <!--package scan-->
     <context:annotation-config></context:annotation-config>
-    <context:component-scan base-package="com.group1.merchant.controller"></context:component-scan>
+    <context:component-scan base-package="com.group1.client.controller"></context:component-scan>
     <!--<mvc:annotation-driven json >-->
     <mvc:annotation-driven enable-matrix-variables="true">
         <mvc:message-converters>
