@@ -30,7 +30,7 @@
             }
         }
       },
-      
+
       addShop: {
         url : "/shop/add",
         method : 'POST',
@@ -39,6 +39,15 @@
             data : {
                 shops : #Array
             }
+        }
+      },
+      
+      getShop: {
+        url : "/shop/{id}",
+        method : 'GET',
+        data : {
+            status : #String
+            shop: #Object
         }
       },
     }
