@@ -5,5 +5,5 @@ import com.group1.core.entity.recipe.Recipe;
 import java.util.List;
 
 public interface RecipeService {
-    List<Recipe> getAll(String recipeId);
+    List<Recipe> getAll(String shopId);
 }
