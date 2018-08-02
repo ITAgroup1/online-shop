@@ -28,6 +28,10 @@ public class ResultBody implements Serializable {
         return status;
     }
 
+    public ResultBody() {
+        data = new HashMap<>();
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }

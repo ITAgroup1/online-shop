@@ -14,10 +14,6 @@ public class ClientServiceImpl implements ClientService {
     @Resource
     private ClientRepository clientRepository;
 
-    @Override
-    public Client login(String loginName, String password) {
-        return clientRepository.login(loginName,password);
-    }
 
     @Override
     public Client update(Client client,String id) {
@@ -27,5 +23,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client save(Client client) {
         return clientRepository.save(client);
+    }
+
+    @Override
+    public Client login(Client client) {
+        return clientRepository.login(client);
     }
 }
