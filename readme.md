@@ -18,14 +18,16 @@
     
     let imgServer = "http://localhost:3000";
     
-    export default {
+    Merchant {
       
       listShop: {
         url : "/shop/",
         method : 'GET',
         data : {
             status : #String
-            shops : #Array
+            data: {
+                shops : #Array
+            }
         }
       },
       
@@ -39,16 +41,17 @@
             }
         }
       },
-      
-      clientLogin: {
-        url : "/client/login",
-        method : "POST",
-        data : {
-            status : #String
+    }
+    
+    Client {
+        Login: {
+            url : "/client/login",
+            method : "POST",
             data : {
-                client : #Object
+                status : #String
+                data : {
+                    client : #Object
+                }
             }
         }
-      }
-      
     }
