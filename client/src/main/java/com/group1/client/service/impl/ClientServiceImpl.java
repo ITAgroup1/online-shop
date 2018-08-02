@@ -19,14 +19,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client register(Client client) {
+    public Client save(Client client) {
         return clientRepository.save(client);
     }
-
-    @Override
-    public Client login(String loginName, String password) {
-        return clientRepository.login(loginName,password);
-    }
-
-
 }
