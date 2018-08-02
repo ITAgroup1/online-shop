@@ -24,16 +24,18 @@ public class MerchantDetail implements Serializable {
     @GeneratedValue(generator = "ug")
     private String id;
 
-
     @OneToOne(mappedBy="merchantDetail",targetEntity=Merchant.class )//数据库的表并不会生成这个字段
     private Merchant merchant;
 
+    @Column
     @Pattern(regexp="\\d{17}(X|\\d)",message="身份证格式错误")
     private String idcardNum;
 
+    @Column
     @NotNull(message = "身份证照片不能为空")
     private String idcardPic;
 
+    @Column
     @Length(message = "商家名字长度应在1-30位之间", min = 1, max = 30)
     private String merchantName;
 
@@ -43,8 +45,8 @@ public class MerchantDetail implements Serializable {
     private String shopId;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable(name="shop_pic",joinColumns = @JoinColumn(name="shop_id"))
-    @Column(name="shop_pic")
+    @JoinTable(name="t_shop_pic",joinColumns = @JoinColumn(name="shop_id"))
+//    @Column(name="shop_pic")
     @NotNull(message="店内图片不能为空")
     private Set<String> shopPic;
 

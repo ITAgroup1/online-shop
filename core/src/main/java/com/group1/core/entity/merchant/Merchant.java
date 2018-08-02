@@ -12,8 +12,10 @@ public class Merchant {
     @GeneratedValue(generator = "ug")
     private String id;
 
+    @Column(name = "login_name")
     private String loginName;
 
+    @Column
     private String password;
 
     @OneToOne(targetEntity=MerchantDetail.class)
