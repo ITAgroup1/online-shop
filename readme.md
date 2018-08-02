@@ -18,38 +18,29 @@
     
     let imgServer = "http://localhost:3000";
     
-    Merchant {
+   Merchant {
       
-      listShop: {
-        url : "/shop/",
-        method : 'GET',
-        response : {
-            status : #String
-            data: {
-                shops : #Array
-            }
+      // update shop
+      updateShop: {
+        url: "/shop/",
+        method: 'PUT',
+        requestData: {
+            Shop-jsonString(contain merchantDetailId)
+        },
+        responseData: {
+            ResultBody-jsonString
         }
-      },
-
-      addShop: {
-        url : "/shop/add",
-        method : 'POST',
-        response : {
-            status : #String
-            data : {
-                shops : #Array
-            }
-        }
-      },
+      }
       
+      // get shop by merchantDetailId
       getShop: {
-        url : "/shop/{id}",
+        url : "/shop/{merchantDetailId}",
         method : 'GET',
-        response : {
-            status : #String
-            data : {
-                shop: #Object
-            }
+        requestData: {
+            merchantDetailId（contain in url）
+        }
+        responseData: {
+            ResultBody-jsonString
         }
       },
     }
