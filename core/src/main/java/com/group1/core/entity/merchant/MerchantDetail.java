@@ -150,4 +150,20 @@ public class MerchantDetail implements Serializable {
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
+
+    @Override
+    public String toString() {
+        return "MerchantDetail{" +
+                "id='" + id + '\'' +
+                ", idcardNum='" + idcardNum + '\'' +
+                ", idcardPic='" + idcardPic + '\'' +
+                ", merchantName='" + merchantName + '\'' +
+                ", shopId='" + shopId + '\'' +
+                ", shopPic=" + shopPic +
+                ", businessPic='" + businessPic + '\'' +
+                ", status=" + status +
+                ", address='" + address + '\'' +
+                ", introduction='" + introduction + '\'' +
+                '}';
+    }
 }
