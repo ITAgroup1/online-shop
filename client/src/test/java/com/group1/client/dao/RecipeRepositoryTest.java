@@ -21,11 +21,11 @@ public class RecipeRepositoryTest {
     private RecipeRepository recipeRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
