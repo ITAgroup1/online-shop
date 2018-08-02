@@ -26,7 +26,7 @@
     <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
+        <property name="username" value="tony"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
 

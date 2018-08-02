@@ -5,5 +5,7 @@ import com.group1.core.entity.client.Client;
 public interface ClientService {
     Client update(Client client);
 
-    Client save(Client client);
+    Client register(Client client);
+
+    Client login(String loginName,String password);
 }
