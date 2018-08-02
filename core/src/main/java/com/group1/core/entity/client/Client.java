@@ -1,6 +1,7 @@
 package com.group1.core.entity.client;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group1.core.entity.order.Order;
 import com.group1.core.entity.order.OrderItem;
 import org.hibernate.annotations.GenericGenerator;
@@ -26,13 +27,14 @@ public class Client implements Serializable {
     @NotBlank(message = "client's password is null")
     private String password;
 
+    @Column(name = "address")
     private String address;
 
+    @Column(name = "phone")
     private String phone;
 
-    @OneToMany(targetEntity=OrderItem.class,cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name="clientId")
-    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "client",fetch=FetchType.EAGER)
+    @JsonIgnoreProperties("client")
     private Set<Order> orders;
 
     public String getId() {

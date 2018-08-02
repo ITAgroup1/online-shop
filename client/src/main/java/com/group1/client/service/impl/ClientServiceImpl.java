@@ -7,15 +7,21 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service
+@Service("clientService")
+
 public class ClientServiceImpl implements ClientService {
 
     @Resource
     private ClientRepository clientRepository;
 
     @Override
-    public Client update(Client client) {
-        return null;
+    public Client login(String loginName, String password) {
+        return clientRepository.login(loginName,password);
+    }
+
+    @Override
+    public Client update(Client client,String id) {
+        return clientRepository.change(client,id);
     }
 
     @Override

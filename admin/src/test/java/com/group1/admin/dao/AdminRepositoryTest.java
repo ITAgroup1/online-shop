@@ -44,7 +44,7 @@ public class AdminRepositoryTest {
 
     @Test
     public void deleteTest(){
-        System.out.println(adminRepository.delete("8a5e9d1564e9fe800164e9fe85af0000"));
+        System.out.println(adminRepository.delete("8a5e9d1864f89fc20164f89fc8ef0003"));
     }
 
     @Test
