@@ -7,5 +7,5 @@ public interface ClientService {
 
     Client save(Client client);
 
-    Client login(String loginName,String password);
+    Client login(Client client);
 }

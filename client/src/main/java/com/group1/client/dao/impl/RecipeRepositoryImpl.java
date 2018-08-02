@@ -15,7 +15,7 @@ public class RecipeRepositoryImpl extends JPARepositoryImpl<Recipe,String> imple
 
     @Override
     public List<Recipe> listAll(String shopId) {
-        Query query = entityManager.createQuery("select r from Recipe r where r.shopId=:shopId");
+        Query query = entityManager.createQuery("select r from Recipe r where r.shop.id=:shopId");
         query.setParameter("shopId",shopId);
         List<Recipe> list = query.getResultList();
         return list;

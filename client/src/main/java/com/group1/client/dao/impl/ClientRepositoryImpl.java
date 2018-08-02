@@ -25,13 +25,16 @@ public class ClientRepositoryImpl extends JPARepositoryImpl<Client,String> imple
     }
 
     @Override
-    public Client login(String loginName, String password) {
+    public Client login(Client client) {
         Query query = entityManager.createQuery("select c from Client c where c.loginName=:loginName and c.password=:password");
-        query.setParameter("loginName",loginName);
-        query.setParameter("password",password);
-        Client client = (Client) query.getSingleResult();
-        return client;
+        query.setParameter("loginName",client.getLoginName());
+        query.setParameter("password",client.getPassword());
+        Client c = (Client) query.getSingleResult();
+        return c;
+
     }
+
+
 
 
 }
