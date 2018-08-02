@@ -52,6 +52,25 @@
       },
     }
     
+    Admin {
+        // merchant login
+        saveMerchant:{
+            url: "/merchant/register",
+            method: 'POST',
+            requestData: {
+                resultBody-jsonString
+            }
+        }
+        // merchant login
+        findMerchant:{
+            url: "/merchant/login",
+            method: 'POST',
+            requestData: {
+                resultBody-jsonString
+            }
+        }        
+    }    
+    
     Client {
         Login: {
             url : "/client/login",
