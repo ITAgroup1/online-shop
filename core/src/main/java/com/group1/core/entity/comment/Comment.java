@@ -1,5 +1,7 @@
 package com.group1.core.entity.comment;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.group1.core.entity.order.Order;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import java.io.Serializable;
 public class Comment implements Serializable {
 
     @Id
-    @GenericGenerator(name = "ug",strategy = "uuid")
+    @GenericGenerator(name = "ug", strategy = "uuid")
     @GeneratedValue(generator = "ug")
     private String id;
 
@@ -23,8 +25,12 @@ public class Comment implements Serializable {
     @Column(name = "shopId")
     private String shopId;
 
-    @Column(name = "orderId")
-    private String orderId;
+
+    //    one to one
+    @OneToOne(mappedBy = "comment", targetEntity = Order.class)
+    @JsonIgnoreProperties("comment")
+    private Order order;
+
 
     public String getId() {
         return id;
@@ -58,11 +64,11 @@ public class Comment implements Serializable {
         this.shopId = shopId;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

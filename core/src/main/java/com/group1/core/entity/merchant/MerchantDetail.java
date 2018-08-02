@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Set;
 
 
 @Entity
@@ -38,11 +39,18 @@ public class MerchantDetail implements Serializable {
 
 //    @OneToOne(targetEntity=Shop.class)
 //    @JoinColumn(name="shop_id")
-    @Column(name = "shopId")
+    @Column(name = "shop_id")
     private String shopId;
 
-    @Column(name = "score")
-    private Double score;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name="shop_pic",joinColumns = @JoinColumn(name="shop_id"))
+    @Column(name="shop_pic")
+    @NotNull(message="店内图片不能为空")
+    private Set<String> shopPic;
+
+    @Column(name = "business_pic")
+    @NotNull(message="工商图片不能为空")
+    private String businessPic;
 
     @Column(name = "status")
     private Integer status;// 狀態：0-待處理、 1-審核通過（拉白）、 2-駁回 3、不同意（拉黑）
@@ -53,5 +61,91 @@ public class MerchantDetail implements Serializable {
     @Length(min = 1, max = 200, message = "店铺介绍应在1-200字之间")
     private String introduction;
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Merchant getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(Merchant merchant) {
+        this.merchant = merchant;
+    }
+
+    public String getIdcardNum() {
+        return idcardNum;
+    }
+
+    public void setIdcardNum(String idcardNum) {
+        this.idcardNum = idcardNum;
+    }
+
+    public String getIdcardPic() {
+        return idcardPic;
+    }
+
+    public void setIdcardPic(String idcardPic) {
+        this.idcardPic = idcardPic;
+    }
+
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
+    }
+
+    public Set<String> getShopPic() {
+        return shopPic;
+    }
+
+    public void setShopPic(Set<String> shopPic) {
+        this.shopPic = shopPic;
+    }
+
+    public String getBusinessPic() {
+        return businessPic;
+    }
+
+    public void setBusinessPic(String businessPic) {
+        this.businessPic = businessPic;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 }

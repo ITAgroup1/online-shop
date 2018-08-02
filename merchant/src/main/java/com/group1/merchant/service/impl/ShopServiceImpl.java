@@ -16,6 +16,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
+
     public Shop save(Shop shop) {
         return shopRepository.save(shop);
     }
