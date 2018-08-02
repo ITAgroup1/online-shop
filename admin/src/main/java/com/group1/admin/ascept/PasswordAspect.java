@@ -1,6 +1,6 @@
 package com.group1.admin.ascept;
 
-import com.group1.core.entity.admin.model.Admin;
+import com.group1.core.entity.admin.Admin;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

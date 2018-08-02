@@ -1,7 +1,7 @@
 package com.group1.admin.controller;
 
 import com.group1.admin.service.AdminService;
-import com.group1.core.entity.admin.model.Admin;
+import com.group1.core.entity.admin.Admin;
 import com.group1.core.utils.ResultBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
