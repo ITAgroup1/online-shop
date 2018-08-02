@@ -39,12 +39,37 @@
         <hibernate.version>5.1.15.Final</hibernate.version>
         <hibernate-validator.version>6.0.10.Final</hibernate-validator.version>
         <javax.el.version>3.0.1-b09</javax.el.version>
-
+        <jersey.version>2.27</jersey.version>
+        <httpclient.version>4.5.2</httpclient.version>
         <!-- aliyun repos download -->
         <ojdbc6.version>11.2.0.3</ojdbc6.version>
     </properties>
 
     <dependencies>
+
+        <!--jersey client-->
+        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.connectors</groupId>
+            <artifactId>jersey-apache-connector</artifactId>
+            <version>${jersey.version}</version>
+            <!--<scope>test</scope>-->
+        </dependency>
 
         <!-- junit test -->
         <dependency>
