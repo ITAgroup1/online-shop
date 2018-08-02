@@ -46,20 +46,52 @@
     }
     
     Admin {
-        // merchant login
+        
+        //get passed shops list
+        getPassedShop:{
+            url:"/merchantDetail/shop"
+            method : "GET",
+            response: {
+                statuts : #String,
+                data:{
+                    shops: #List<String>
+                }
+            }
+        }
+        
+        //get merchantDetail
+        getPassedShop:{
+            url:"/merchantDetail"
+            method : "GET",
+            response: {
+                statuts : #String,
+                data:{
+                    merchantDetail: #MerchantDetail
+                }
+            }
+        }
+       
+        // merchant register
         saveMerchant:{
             url: "/merchant/register",
             method: 'POST',
-            requestData: {
-                resultBody-jsonString
+            response: {
+                statuts : #String,
+                data:{
+                    merchant: #Merchant
+                }
             }
         }
+        
         // merchant login
         findMerchant:{
             url: "/merchant/login",
             method: 'POST',
-            requestData: {
-                resultBody-jsonString
+            response: {
+                statuts : #String,
+                data:{
+                    merchant: #Merchant
+                }
             }
         }        
     }    
