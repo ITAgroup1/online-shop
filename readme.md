@@ -128,6 +128,9 @@
                     address : string ,
                     phone : string ,
                     cost : double ,
+                    client :{
+                        id : string 
+                    }
                     remark : string ,
                     status : integer
                     orderItems : {
