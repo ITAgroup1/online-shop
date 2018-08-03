@@ -60,7 +60,7 @@
         }
         
         //get merchantDetail
-        getPassedShop:{
+        getMerchantDetail:{
             url:"/merchantDetail"
             method : "GET",
             response: {
