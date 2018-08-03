@@ -18,57 +18,80 @@
     
     let imgServer = "http://localhost:3000";
     
+    
     Merchant {
-      
-      listShop: {
-        url : "/shop/",
-        method : 'GET',
-        response : {
-            status : #String
-            data: {
-                shops : #Array
-            }
+      // update shop
+      updateShop: {
+        url: "/shop/",
+        method: 'PUT',
+        requestData: {
+            Shop-jsonString(contain merchantDetailId)
+        },
+        responseData: {
+            ResultBody-jsonString
         }
-      },
-
-      addShop: {
-        url : "/shop/add",
-        method : 'POST',
-        response : {
-            status : #String
-            data : {
-                shops : #Array
-            }
-        }
-      },
+      }
       
+      // get shop by merchantDetailId
       getShop: {
-        url : "/shop/{id}",
+        url : "/shop/{merchantDetailId}",
         method : 'GET',
-        response : {
-            status : #String
-            data : {
-                shop: #Object
-            }
+        requestData: {
+            merchantDetailId（contain in url）
+        }
+        responseData: {
+            ResultBody-jsonString
         }
       },
     }
     
     Admin {
-        // merchant login
+        
+        //get passed shops list
+        getPassedShop:{
+            url:"/merchantDetail/shop"
+            method : "GET",
+            response: {
+                statuts : #String,
+                data:{
+                    shops: #List<String>
+                }
+            }
+        }
+        
+        //get merchantDetail
+        getPassedShop:{
+            url:"/merchantDetail"
+            method : "GET",
+            response: {
+                statuts : #String,
+                data:{
+                    merchantDetail: #MerchantDetail
+                }
+            }
+        }
+       
+        // merchant register
         saveMerchant:{
             url: "/merchant/register",
             method: 'POST',
-            requestData: {
-                resultBody-jsonString
+            response: {
+                statuts : #String,
+                data:{
+                    merchant: #Merchant
+                }
             }
         }
+        
         // merchant login
         findMerchant:{
             url: "/merchant/login",
             method: 'POST',
-            requestData: {
-                resultBody-jsonString
+            response: {
+                statuts : #String,
+                data:{
+                    merchant: #Merchant
+                }
             }
         }        
     }    
@@ -77,7 +100,7 @@
         Login: {
             url : "/client/login",
             method : "POST",
-            data : {
+            response : {
                 status : #String
                 data : {
                     client : #Object
@@ -85,7 +108,7 @@
             }
         },
         getRecipeList {
-            url : "/recipe/:merchantId/"
+            url : "/recipe/{shopId}"
             method : "GET",
             response: {
                 statuts : #String,

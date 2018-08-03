@@ -2,6 +2,7 @@ package com.group1.client.controller;
 
 import com.group1.client.service.ClientService;
 import com.group1.core.entity.client.Client;
+import com.group1.core.entity.complaint.Complaint;
 import com.group1.core.utils.ResultBody;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +31,11 @@ public class ClientController {
 
     @PutMapping("/{id}")
     @ResponseBody
-    public Client put(Client client,@PathVariable String id){
-
-        return clientService.update(client,id);
+    public ResultBody put(@RequestBody Client client,@PathVariable String id){
+        ResultBody resultBody = new ResultBody();
+        Client c = clientService.update(client,id);
+        resultBody.addData("client",c);
+        return resultBody;
 
     }
 
@@ -47,6 +50,19 @@ public class ClientController {
         }
         return resultBody;
 
+    }
+
+    @RequestMapping("/send")
+    public ResultBody login(@Valid Complaint complaint,Errors errors){
+        ResultBody resultBody = new ResultBody();
+        if(!errors.hasErrors()){
+            if(clientService.complain(complaint).getStatus()==ResultBody.STATUS_SUCCESS)
+            resultBody = clientService.complain(complaint);
+        }
+        else{
+            resultBody.addErrors(errors.getAllErrors());
+        }
+        return resultBody;
     }
 
 

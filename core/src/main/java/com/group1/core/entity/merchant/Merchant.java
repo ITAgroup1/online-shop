@@ -1,5 +1,6 @@
 package com.group1.core.entity.merchant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Merchant {
 
     @OneToOne(targetEntity=MerchantDetail.class)
     @JoinColumn(name="detail_id")
+    @JsonIgnore
     private MerchantDetail merchantDetail;
 
     public String getId() {
