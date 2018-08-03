@@ -9,6 +9,11 @@ import java.io.Serializable;
 @Table(name = "t_complaint")
 public class Complaint implements Serializable {
 
+    public final static Integer UNTREATED = 0;//未处理
+    public final static Integer DEALING = 1;//处理中
+    public final static Integer FINISHED = 2;//完成
+    public final static Integer IGNOGE = 3;//忽略
+
     @Id
     @GenericGenerator(name = "ug",strategy = "uuid")
     @GeneratedValue(generator = "ug")
