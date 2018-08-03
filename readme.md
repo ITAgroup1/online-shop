@@ -118,7 +118,7 @@
             }
         }
         
-        //添加订单
+        //添加订单（开启websocket）
         order:  {
             url ： "/order/"
             method : "post"
