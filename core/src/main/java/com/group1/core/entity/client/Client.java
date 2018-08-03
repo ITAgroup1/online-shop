@@ -33,8 +33,8 @@ public class Client implements Serializable {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(cascade=CascadeType.ALL,mappedBy = "client",fetch=FetchType.EAGER)
-    @JsonIgnoreProperties("client")
+    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    @JoinColumn(name = "c_id")
     private Set<Order> orders;
 
     public String getId() {

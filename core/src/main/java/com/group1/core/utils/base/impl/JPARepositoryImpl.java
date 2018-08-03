@@ -106,7 +106,6 @@ public class JPARepositoryImpl<T, TD extends Serializable> implements JpaReposit
         Integer row = 0;
         try {
             T result = entityManager.find(clz, td);
-            System.out.println(result);
             entityManager.remove(result);
             row = 1;
         } catch (Exception e) {
