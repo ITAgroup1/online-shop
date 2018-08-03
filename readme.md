@@ -133,10 +133,11 @@
                     }
                     remark : string ,
                     status : integer
-                    orderItems : {
-                        recipeId : String,
-                        count : integer
-                    }
+                    orderItems : [
+                        orderItem : {recipeId : String,count : integer},
+                        orderItem : {recipeId : String,count : integer},
+                        orderItem : {recipeId : String,count : integer},
+                    ]
                 }
             }
         }
