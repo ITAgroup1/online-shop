@@ -70,6 +70,18 @@
                 }
             }
         }
+        
+        //get the complaint of merchant
+        getComplaints:{
+            url:"/complaint?merchantId={merchantId}"
+            method : "GET",
+            response: {
+                statuts : #String,
+                data:{
+                    complaints: #List<Complaint>
+                }
+            }
+        }
        
         // merchant register
         saveMerchant:{
