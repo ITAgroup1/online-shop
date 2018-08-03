@@ -53,6 +53,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Shop findOne(String shopId) {
-        return shopRepository.findOne(shopId);
+        Shop shop = shopRepository.findOne(shopId);
+        shop.getRecipes();
+        return shop;
     }
 }

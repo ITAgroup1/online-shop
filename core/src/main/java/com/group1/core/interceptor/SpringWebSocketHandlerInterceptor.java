@@ -12,6 +12,7 @@ import java.util.Map;
 
 public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {
     public static final String ATTRIBUTES_USERID = "session_userId";
+    public static final String ATTRIBUTES_USER = "session_user";
 
 
     @Override

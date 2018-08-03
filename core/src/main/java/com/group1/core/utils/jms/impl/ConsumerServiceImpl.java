@@ -9,7 +9,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
-@Service("consumerService")
+//@Service("consumerService")
 public class ConsumerServiceImpl implements ConsumerService {
     @Resource
     private JmsTemplate jmsTemplate;
