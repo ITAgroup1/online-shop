@@ -11,5 +11,5 @@ public interface ClientService {
 
     Client login(Client client);
 
-    ResultBody complain(Complaint complaint);
+    Complaint complain(Complaint complaint);
 }

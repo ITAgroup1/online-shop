@@ -42,13 +42,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ResultBody complain(Complaint complaint) {
+    public Complaint complain(Complaint complaint) {
         ResultBody resultBody = new ResultBody();
         resultBody.addData("type","Complaint");
         resultBody.addData("complaint",complaint);
         String complaintJsonString = JsonUtil.objectToJson(resultBody);
         producerService.sendMessage(destination,complaintJsonString);
-        return resultBody;
+        return complaint;
 
 
     }

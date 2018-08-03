@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository(value = "clientRepository")
 public class ClientRepositoryImpl extends JPARepositoryImpl<Client,String> implements ClientRepository {
@@ -29,8 +30,13 @@ public class ClientRepositoryImpl extends JPARepositoryImpl<Client,String> imple
         Query query = entityManager.createQuery("select c from Client c where c.loginName=:loginName and c.password=:password");
         query.setParameter("loginName",client.getLoginName());
         query.setParameter("password",client.getPassword());
-        Client c = (Client) query.getSingleResult();
-        return c;
+        List<Client> list = query.getResultList();
+        if(list.size()>0){
+            return list.get(0);
+        }else{
+            return null;
+        }
+
 
     }
 
