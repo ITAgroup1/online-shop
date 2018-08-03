@@ -13,21 +13,8 @@ public class ShopRepositoryImpl extends JPARepositoryImpl<Shop,String> implement
 
     @Override
     public Shop update(Shop shop) {
-        Shop sp = entityManager.find(Shop.class, shop.getId());
-        sp.setAddress(shop.getAddress());
-        sp.setBusinessPic(shop.getBusinessPic());
-        sp.setDistributionCost(shop.getDistributionCost());
-        sp.setIntroduction(shop.getIntroduction());
-        sp.setMerchantDetailId(shop.getMerchantDetailId());
-        sp.setScore(shop.getScore());
-        sp.setRecipes(shop.getRecipes());
-        sp.setServiceEndTime(shop.getServiceEndTime());
-        sp.setServiceStartTime(shop.getServiceStartTime());
-        sp.setServiceRange(shop.getServiceRange());
-        sp.setShopName(shop.getShopName());
-        sp.setShopPic(shop.getShopPic());
-        entityManager.persist(sp);
-        return sp;
+        entityManager.persist(shop);
+        return shop;
     }
 
     @Override

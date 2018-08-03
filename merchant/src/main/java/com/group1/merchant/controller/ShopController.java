@@ -1,5 +1,6 @@
 package com.group1.merchant.controller;
 
+import com.group1.core.entity.merchant.Merchant;
 import com.group1.core.entity.shop.Shop;
 import com.group1.core.utils.ResultBody;
 import com.group1.merchant.service.ShopService;
@@ -10,6 +11,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 @RestController
+@SessionAttributes("merchant")
 public class ShopController {
 
     @Resource(name = "shopService")
@@ -17,32 +19,28 @@ public class ShopController {
 
     @PostMapping("/shop")
     public Shop addShop(Shop shop) {
-        return shopService.save(shop);
+        return shopService.saveShop(shop);
     }
 
     @PutMapping("/shop")
-    public ResultBody updateShop(@Valid Shop shop, Errors errors) {
+    public ResultBody updateShop(@Valid @RequestBody Shop shop, Errors errors) {
         ResultBody resultBody = new ResultBody();
         if(errors.hasErrors()) {
-            resultBody.setStatus(ResultBody.STATUS_ERROR);
             resultBody.setMessage("Fail to verify");
             resultBody.addErrors(errors.getAllErrors());
         }else {
-            resultBody.setStatus(ResultBody.STATUS_SUCCESS);
-            resultBody.setData("shop",shopService.update(shop));
+            resultBody.setData("shop",shopService.updateShop(shop));
         }
         return resultBody;
     }
 
-    @GetMapping("/shop/{merchantDetailId}")
-    public ResultBody getShop(@PathVariable String merchantDetailId) {
+    @GetMapping("/shop")
+    public ResultBody getShop(@ModelAttribute("merchant") Merchant merchant) {
         ResultBody resultBody = new ResultBody();
-        Shop shop = shopService.findByMerchantDetailId(merchantDetailId);
+        Shop shop = shopService.findByMerchantDetailId(merchant.getId());
         if(shop == null) {
-            resultBody.setStatus(ResultBody.STATUS_ERROR);
             resultBody.setMessage("Fail to verify");
         }else {
-            resultBody.setStatus(ResultBody.STATUS_SUCCESS);
             resultBody.setData("shop", shop);
         }
         return resultBody;
