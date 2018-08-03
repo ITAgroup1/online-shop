@@ -117,4 +117,24 @@
                 }
             }
         }
+        
+        //添加订单
+        order:  {
+            url ： "/order/"
+            method : "post"
+            requestBody : {
+                order : {
+                    shopId : string ,
+                    address : string ,
+                    phone : string ,
+                    cost : double ,
+                    remark : string ,
+                    status : integer
+                    orderItems : {
+                        recipeId : String,
+                        count : integer
+                    }
+                }
+            }
+        }
     }
