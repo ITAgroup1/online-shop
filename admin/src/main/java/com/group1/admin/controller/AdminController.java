@@ -22,13 +22,9 @@ public class AdminController {
     public ResultBody register(@Valid Admin admin,Errors errors){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
-            resultBody.setStatus("1");
-            resultBody.setMessage("ok");
             resultBody.setData("admin",adminService.register(admin));
         }else {
-            resultBody.setStatus("2");
-            resultBody.setMessage("errors");
-            resultBody.setData("errorList",errors.getAllErrors());
+            resultBody.addErrors(errors.getAllErrors());
         }
         return resultBody;
     }
@@ -38,12 +34,8 @@ public class AdminController {
     public ResultBody login(@Valid Admin admin,Errors errors){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
-            resultBody.setStatus("1");
-            resultBody.setMessage("ok");
             resultBody.setData("admin",adminService.login(admin));
         }else {
-            resultBody.setStatus("2");
-            resultBody.setMessage("errors");
             resultBody.setData("errorList",errors.getAllErrors());
         }
         return resultBody;

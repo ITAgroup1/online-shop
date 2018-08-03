@@ -72,7 +72,6 @@ public class MerchantDetailController {
         } else if (status == null) {
             resultBody.addError("status", "status is null");
         }
-        System.out.println(resultBody.getStatus());
         return resultBody;
     }
 
