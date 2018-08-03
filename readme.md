@@ -62,7 +62,7 @@
         //get merchantDetail
         getMerchantDetail:{
             url:"/merchantDetail"
-            method : "GET",
+            method : "POST",
             response: {
                 statuts : #String,
                 data:{
