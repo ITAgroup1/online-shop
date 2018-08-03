@@ -23,6 +23,9 @@ public class Complaint implements Serializable {
     @Column(name = "merchant_id")
     private String merchantId;
 
+    @Column(name = "status")
+    private Integer status;
+
     public String getId() {
         return id;
     }
@@ -53,5 +56,13 @@ public class Complaint implements Serializable {
 
     public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
