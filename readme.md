@@ -73,7 +73,7 @@
         
         //get the complaint of merchant
         getComplaints:{
-            url:"/complaint?merchantId={merchantId}"
+            url:"/complaint/{merchantId}"
             method : "GET",
             response: {
                 statuts : #String,
