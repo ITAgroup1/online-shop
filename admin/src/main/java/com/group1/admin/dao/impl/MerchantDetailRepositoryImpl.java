@@ -16,45 +16,6 @@ import java.util.List;
 @Repository("merchantDetailDao")
 public class MerchantDetailRepositoryImpl extends JPARepositoryImpl<MerchantDetail, String> implements MerchantDetailRepository {
 
-    @Override
-    @Transactional
-    public MerchantDetail insert(MerchantDetail merchantDetail) {
-        Merchant merchant = entityManager.find(Merchant.class, merchantDetail.getMerchant().getId());
-        if (merchant != null) {
-            merchantDetail.setMerchant(merchant);
-            merchant.setMerchantDetail(merchantDetail);
-            entityManager.persist(merchant);
-            entityManager.persist(merchantDetail);
-            return merchantDetail;
-        }
-        return null;
-    }
-
-    @Override
-    @Transactional
-    public MerchantDetail update(MerchantDetail merchantDetail) {
-        MerchantDetail m = entityManager.find(MerchantDetail.class, merchantDetail.getId());
-        if (m != null) {
-            if (merchantDetail.getBusinessPic() != null)
-                m.setBusinessPic(merchantDetail.getBusinessPic());
-            if (merchantDetail.getShopPic() != null)
-                m.setShopPic(merchantDetail.getShopPic());
-            if (merchantDetail.getAddress() != null)
-                m.setAddress(merchantDetail.getAddress());
-            if (merchantDetail.getIdcardNum() != null)
-                m.setIdcardNum(merchantDetail.getIdcardNum());
-            if (merchantDetail.getIdcardPic() != null)
-                m.setIdcardPic(merchantDetail.getIdcardPic());
-            if (merchantDetail.getIntroduction() != null)
-                m.setIntroduction(merchantDetail.getIntroduction());
-            if (merchantDetail.getMerchantName() != null)
-                m.setMerchantName(merchantDetail.getMerchantName());
-            if (merchantDetail.getStatus() != null)
-                m.setStatus(merchantDetail.getStatus());
-            entityManager.persist(m);
-        }
-        return m;
-    }
 
     @Override
     public MerchantDetail findByMerchatId(String merchantId) {

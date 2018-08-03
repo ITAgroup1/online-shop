@@ -18,7 +18,4 @@ public interface MerchantDetailRepository extends JpaRepository<MerchantDetail, 
 
     public List<String> findPaasedShop();
 
-    public MerchantDetail insert(MerchantDetail merchantDetail);
-
-    public MerchantDetail update(MerchantDetail merchantDetail);
 }

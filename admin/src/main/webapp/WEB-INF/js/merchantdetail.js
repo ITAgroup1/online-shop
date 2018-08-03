@@ -131,11 +131,14 @@
 			
 			let mytr = $("<tr>");
 			mytr.attr("id",merchantDetail.id);
+            let merchantId=$("<td>"+merchantDetail.merchant.id+"</td>");
 			let idcardNum=$("<td>"+merchantDetail.idcardNum+"</td>");
 			let merchantName=$("<td>"+merchantDetail.merchantName+"</td>");
 			let address=$("<td>"+merchantDetail.address+"</td>");
 			let status=getStatus(merchantDetail.status);
 			let button = getButtun(merchantDetail.id,merchantDetail.status);
+
+			mytr.append(merchantId);
 			mytr.append(idcardNum);
 			mytr.append(merchantName);
 			mytr.append(address);

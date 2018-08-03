@@ -6,6 +6,7 @@ import com.group1.core.utils.ResultBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -47,5 +48,20 @@ public class AdminController {
             resultBody.setData("errorList",errors.getAllErrors());
         }
         return resultBody;
+    }
+
+    @RequestMapping("/listVerify")
+    public String listVerify(){
+        return "listVerify";
+    }
+
+    @RequestMapping("/listUpdate")
+    public String listUpdate(){
+        return "listUpdate";
+    }
+
+    @RequestMapping("/listComplaint")
+    public String listComplaints(){
+        return "listComplaint";
     }
 }

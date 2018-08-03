@@ -10,6 +10,8 @@ public interface MerchantDetailService {
 
     public MerchantDetail add(MerchantDetail merchantDetail);
 
+    public MerchantDetail getByMerchantId(String merchantId);
+
     public MerchantDetail updateStatus(String id, Integer status);
 
     public Page<MerchantDetail> listToVerify(Pageable pageable);
