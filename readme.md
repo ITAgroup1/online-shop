@@ -93,6 +93,9 @@
                     merchant: #Merchant
                 }
             }
+            request:{
+                merchant: #Merchant
+            }
         }        
     }    
     
@@ -114,30 +117,6 @@
                 statuts : #String,
                 data:{
                     recipes: #Array
-                }
-            }
-        }
-        
-        //添加订单（开启websocket）
-        order:  {
-            url ： "/order/"
-            method : "post"
-            requestBody : {
-                order : {
-                    shopId : string ,
-                    address : string ,
-                    phone : string ,
-                    cost : double ,
-                    client :{
-                        id : string 
-                    }
-                    remark : string ,
-                    status : integer
-                    orderItems : [
-                        orderItem : {recipeId : String,count : integer},
-                        orderItem : {recipeId : String,count : integer},
-                        orderItem : {recipeId : String,count : integer},
-                    ]
                 }
             }
         }
