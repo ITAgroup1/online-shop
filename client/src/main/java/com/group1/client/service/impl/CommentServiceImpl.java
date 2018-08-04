@@ -18,6 +18,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment commit(Comment comment) {
+        if(comment.getScore()!=null){
+
+        }
         return commentRepository.save(comment);
     }
 

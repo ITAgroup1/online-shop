@@ -14,7 +14,7 @@ public class CommentRepositoryImpl extends JPARepositoryImpl<Comment,String> imp
 
     @Override
     public List<Comment> getAllByShopId(String shopId) {
-        Query query = entityManager.createQuery("select c from Comment c where c.shopId=:shopId");
+        Query query = entityManager.createQuery("select c from Comment c where c.shopId=:shopId order by c.commentTime desc");
         query.setParameter("shopId",shopId);
         List<Comment> list = query.getResultList();
         return list;

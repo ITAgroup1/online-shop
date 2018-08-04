@@ -28,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private ClientRepository clientRepository;
 
+
     @Resource
     private ShopService shopService;
 
@@ -77,11 +78,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional
-    public OrderDto findOrderDetailByOrderId(String orderId) {
-        Order order = orderRepository.findOne(orderId);
-        System.out.println(order.getOrderItems());
-        return OrderDto.byOrder(order);
+    public List<OrderItem> findOrderDetailByOrderId(String orderId) {
+        return orderRepository.getOrderItemsByOrderId(orderId);
     }
 
 

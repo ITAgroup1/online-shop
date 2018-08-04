@@ -4,6 +4,7 @@ import com.group1.client.dto.OrderDto;
 import com.group1.client.service.OrderService;
 import com.group1.core.entity.client.Client;
 import com.group1.core.entity.order.Order;
+import com.group1.core.entity.order.OrderItem;
 import com.group1.core.handler.SpringWebSocketHandler;
 import com.group1.core.utils.*;
 import com.group1.core.utils.base.model.Page;
@@ -25,6 +26,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.group1.core.interceptor.SpringWebSocketHandlerInterceptor.ATTRIBUTES_USER;
@@ -137,12 +139,9 @@ public class OrderController {
     @GetMapping("/detail/{orderId}")
     @ResponseBody
     public ResultBody findDetailByOrderId(@PathVariable String orderId){
-        ResultBody resultBody = new ResultBody();
-        OrderDto orderDto = orderService.findOrderDetailByOrderId(orderId);
-        if (orderDto == null)
-            resultBody.addError("errors", "會話超時，請重新登陸");
-        else
-            resultBody.addData("orderList", orderDto);
+         ResultBody resultBody = new ResultBody();
+        List<OrderItem> orderItems = orderService.findOrderDetailByOrderId(orderId);
+        resultBody.addData("orderItems", orderItems);
         return resultBody;
     }
 }
