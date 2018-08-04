@@ -25,36 +25,31 @@
             
              
         }
-        
+
         login = function(){
-		
+		    let admin ={};
+		    admin.loginName = loginName;
+		    admin.password =loginPassword;
             $.ajax({
                 type:"POST",
-                url:"http://localhost:9999/admin/Login.do",
-                data:"loginName="+loginName+"&loginPassword="+loginPassword,
-                success:function(data){
-                let result = JSON.parse(data);
+                url:"http://localhost:9090/admin/login",
+                data:admin,
+                success:function(result){
                 console.log(result.status);
-                if(result.status==false){
+                if(result.status=="0"){
                 	errMsg3 = result.message;
                 	warming();
-                	
+
                 }else{
-                	let currTime = new Date();
-                	let oldtime = currTime.getTime();
-                	let time =JSON.stringify(oldtime);
-                	localStorage.setItem("currTime",time);
-                	localStorage.setItem("result",data);
-                    window.location.href="http://localhost:9999/admin/MerchantDetail/ListToUpdate.html";
+                    console.log(result.data.url)
+                    window.location.href=result.data.url;
                 }
-                console.log(data);
-                
             },
                 error:function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("status:"+XMLHttpRequest.status+" readystatus:"+XMLHttpRequest.readyState+" textStatus:"+textStatus);//获取的信息即是异常中的Message
-                } 
+                }
             });
-           
+
         }
         
          warming = function(){
