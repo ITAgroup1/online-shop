@@ -24,7 +24,7 @@ public class Comment implements Serializable {
     private String content;
 
     @Column(name = "comment_time")
-    private String commentTime;
+    private long commentTime;
 
     @Column(name = "shop_id")
     private String shopId;
@@ -74,5 +74,25 @@ public class Comment implements Serializable {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public long getCommentTime() {
+        return commentTime;
+    }
+
+    public void setCommentTime(long commentTime) {
+        this.commentTime = commentTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id='" + id + '\'' +
+                ", score=" + score +
+                ", content='" + content + '\'' +
+                ", commentTime=" + commentTime +
+                ", shopId='" + shopId + '\'' +
+                ", order=" + order +
+                '}';
     }
 }

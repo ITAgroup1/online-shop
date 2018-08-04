@@ -2,6 +2,7 @@ package com.group1.client.dao.impl;
 
 import com.group1.client.dao.OrderRepository;
 import com.group1.core.entity.order.Order;
+import com.group1.core.entity.order.OrderItem;
 import com.group1.core.utils.base.impl.JPARepositoryImpl;
 import com.group1.core.utils.base.model.Page;
 import com.group1.core.utils.base.model.Pageable;
@@ -41,5 +42,12 @@ public class OrderRepositoryImpl extends JPARepositoryImpl<Order,String> impleme
         page.setSize(data.size());  //当前页面行数
         page.setTotalSize(count); //总行数
         return page;
+    }
+
+    @Override
+    public List<OrderItem> getOrderItemsByOrderId(String orderId){
+        Query query = entityManager.createQuery("select o from OrderItem o where o.order.id=:orderId ");
+        query.setParameter("orderId",orderId);
+        return query.getResultList();
     }
 }
