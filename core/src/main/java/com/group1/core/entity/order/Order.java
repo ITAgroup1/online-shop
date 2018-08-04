@@ -48,15 +48,15 @@ public class Order implements Serializable {
 
     @OneToOne(targetEntity = Comment.class,cascade = CascadeType.ALL)
     @JoinColumn(name="comment_id")//specify the relation of the foreign key
-    @JsonIgnoreProperties("order")
+    @JsonIgnore
     private Comment comment;
 
-    @ManyToOne(targetEntity = Client.class,fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="c_id")
-    @JsonIgnoreProperties("orders")
+    @JsonIgnore
     private Client client;
 
-    @OneToMany(targetEntity=OrderItem.class,cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="oid")
     @JsonIgnore
     private Set<OrderItem> orderItems;

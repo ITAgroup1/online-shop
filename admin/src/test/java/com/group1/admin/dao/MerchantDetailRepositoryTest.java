@@ -36,6 +36,7 @@ public class MerchantDetailRepositoryTest {
     public void tearDown() throws Exception {
     }
 
+
     @Test
     public void testSave() {
         MerchantDetail m = new MerchantDetail();
@@ -55,10 +56,11 @@ public class MerchantDetailRepositoryTest {
         Merchant merchant = new Merchant();
         merchant.setId("3");
         m.setMerchant(merchant);
-        MerchantDetail m2=merchantDetailRepository.insert(m);
+        MerchantDetail m2=merchantDetailRepository.save(m);
         assertNotNull(m2);
         System.out.print(m2);
     }
+
 
     @Test
     public void testUpdate() {
@@ -77,7 +79,7 @@ public class MerchantDetailRepositoryTest {
         m.setShopPic(shopPiceset);
         m.setBusinessPic("bussiner pic12");
         m.setShopId("sid308");
-        MerchantDetail m2=merchantDetailRepository.update(m);
+        MerchantDetail m2=merchantDetailRepository.save(m);
         assertNotNull(m2);
         System.out.print(m2);
     }

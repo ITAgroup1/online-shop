@@ -60,13 +60,25 @@
         }
         
         //get merchantDetail
-        getPassedShop:{
+        getMerchantDetail:{
             url:"/merchantDetail"
-            method : "GET",
+            method : "POST",
             response: {
                 statuts : #String,
                 data:{
                     merchantDetail: #MerchantDetail
+                }
+            }
+        }
+        
+        //get the complaint of merchant
+        getComplaints:{
+            url:"/complaint/{merchantId}"
+            method : "GET",
+            response: {
+                statuts : #String,
+                data:{
+                    complaints: #List<Complaint>
                 }
             }
         }
@@ -92,6 +104,9 @@
                 data:{
                     merchant: #Merchant
                 }
+            }
+            request:{
+                merchant: #Merchant
             }
         }        
     }    

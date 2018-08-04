@@ -51,11 +51,11 @@ public class ClientServiceImplTest {
     private Destination destination;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
@@ -81,8 +81,9 @@ public class ClientServiceImplTest {
         Comment comment = new Comment();
         comment.setScore(12);
         comment.setContent("hah");
-        comment.setOrder(order);
-        order.setComment(comment);
+//        comment.setOrder(order);
+//        order.setComment(comment);
+
 //        Recipe recipe = new Recipe();
 //        recipe.setDetail("a meal");
 //        recipe.setPrice(12);
@@ -95,13 +96,13 @@ public class ClientServiceImplTest {
 //        orderItem.setRecipe(recipe);
         Set<OrderItem> orderItems = new HashSet<>();
         orderItems.add(orderItem);
-        order.setOrderItems(orderItems);
+//        order.setOrderItems(orderItems);
 
         Set<Order> orders = new HashSet<>();
         orders.add(order);
         orders.add(order);
-        client.setOrders(orders);
-        order.setClient(client);
+//        client.setOrders(orders);
+//        order.setClient(client);
         clientRepository.save(client);
     }
 

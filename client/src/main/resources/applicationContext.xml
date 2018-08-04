@@ -4,6 +4,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -13,7 +14,7 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <context:property-placeholder location="classpath:application.properties"/>
 
@@ -22,6 +23,15 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+    <bean id="chatHandler" class="com.group1.core.handler.SpringWebSocketHandler"></bean>
+
+    <websocket:handlers allowed-origins="*">
+        <websocket:mapping handler="chatHandler" path="/socketServer" />
+        <websocket:handshake-interceptors>
+            <bean class="com.group1.core.interceptor.SpringWebSocketHandlerInterceptor"></bean>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
 
     <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
@@ -64,6 +74,7 @@
             <props>
                 <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
                 <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
                 <!--<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
@@ -120,13 +131,17 @@
     </bean>
 
     <!-- 消息监听器 -->
+    <!--
     <bean id="consumerMessageListener" class="com.group1.client.listener.ConsumerMessageListener" />
+    -->
     <!-- 消息监听容器 -->
+    <!--
     <bean id="jmsContainer"
           class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory" />
         <property name="destination" ref="queueDestination" />
         <property name="messageListener" ref="consumerMessageListener" />
     </bean>
+    -->
 
 </beans>

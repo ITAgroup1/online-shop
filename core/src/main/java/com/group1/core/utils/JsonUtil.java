@@ -40,7 +40,9 @@ public class JsonUtil {
 
 		return null;
 	}
-	/*
+
+	
+	/**
 	 * object转json
 	 * @param obj
 	 * @return
