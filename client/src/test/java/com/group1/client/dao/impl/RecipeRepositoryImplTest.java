@@ -2,6 +2,7 @@ package com.group1.client.dao.impl;
 
 import com.group1.client.dao.RecipeRepository;
 import com.group1.core.entity.shop.Shop;
+import com.group1.core.utils.base.model.Pageable;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,5 +37,14 @@ public class RecipeRepositoryImplTest {
         Assert.assertNotNull(recipeRepository.listAll(shop.getId()));
 
 
+    }
+
+    @Test
+    public void getAllByShopId(){
+        String shopId = "1";
+        Pageable pageable = new Pageable();
+        pageable.setOffset(1);
+        pageable.setSize(2);
+        System.out.println(recipeRepository.listByShopId(shopId,pageable));
     }
 }

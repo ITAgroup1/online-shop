@@ -117,14 +117,23 @@ public class OrderController {
         return resultBody;
     }
 
-    @GetMapping("/{offset}/{size}")
+    @GetMapping
     @ResponseBody
-    public ResultBody findAll(@PathVariable Integer offset, @PathVariable Integer size) {
+
+    public ResultBody findAll(Pageable pageable){
+        pageable = pageable != null ? pageable : new Pageable(1, 10);
         ResultBody resultBody = new ResultBody();
-        Pageable pageable = new Pageable();
-        pageable.setOffset(offset);
-        pageable.setSize(size);
-        resultBody.addData("orderList", orderService.findAll(pageable));
+        resultBody.addData("orderList",orderService.findAll(pageable));
+
+        return resultBody;
+    }
+
+    @GetMapping("/{clientId}")
+    @ResponseBody
+    public ResultBody findAll(@PathVariable String clientId,Pageable pageable){
+        pageable = pageable != null ? pageable : new Pageable(1, 10);
+        ResultBody resultBody = new ResultBody();
+        resultBody.addData("orderList",orderService.findAllById(clientId,pageable));
         return resultBody;
     }
 
