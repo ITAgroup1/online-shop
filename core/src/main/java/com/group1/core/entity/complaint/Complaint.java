@@ -70,4 +70,15 @@ public class Complaint implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Complaint{" +
+                "id='" + id + '\'' +
+                ", content='" + content + '\'' +
+                ", shopId='" + shopId + '\'' +
+                ", merchantId='" + merchantId + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
