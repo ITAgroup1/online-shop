@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     let formData = {};
-    let imgServer = "http://localhost:9090/picServer/";
+    let imgServer = "http://localhost:10086/";
 
     let IDUploadBtn = $("#add-id-img-btn");
     uploadBtn(IDUploadBtn,"idcardPic");
@@ -23,7 +23,6 @@ $(document).ready(function () {
                 let img = imgInput.prop("files")[0];
                 let data = new FormData();
                 data.append("img",img);
-
                 console.log($btn);
                 $.ajax({
                     url : imgServer + "upload",
@@ -38,7 +37,7 @@ $(document).ready(function () {
                         console.log("before send");
                     },
                     success: (data) => {
-                        if(data.status){
+                        if(data.status === "1"){
                             let url = data.data.url;
                             let imgTag = $(`<div class="image-item">
                                 <img src="${imgServer + url}">
@@ -58,23 +57,29 @@ $(document).ready(function () {
     }
 
     $("#submit-btn").on("click", () => {
-        formData.idcardNum = $idcardNum.val();
-        formData.merchantName = $merchantName.val();
-        formData.address = $address.val();
-        formData.introduction = $introduction.val();
+        let data = {};
+        data.idcardNum = $idcardNum.val();
+        data.merchantName = $merchantName.val();
+        data.address = $address.val();
+        data.introduction = $introduction.val();
+        data.idcardPic = formData.idcardPic[0];
+        data.businessPic = formData.businessPic[0];
+        data.shopPic = formData.shopPic;
         console.log(formData);
+
+
         if(validator.validateAll(formData,true)){
             $.ajax({
-                url: window.contextPath + "shop/apply",
+                url: window.contextPath + "merchantDetail/setupShop",
                 method: "post",
-                data: formData,
+                data: data,
                 dataType: "json",
                 traditional: true,
 
                 success: (data) => {
                 	console.log(data);
                     if(data.status){
-                        window.location = window.contextPath + "merchant/detail";
+                        window.location = window.contextPath + "merchantDetail";
                     }else{
                         let errors = data.data["errors"];
                         console.log(errors);

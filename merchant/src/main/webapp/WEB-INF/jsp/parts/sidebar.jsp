@@ -12,9 +12,9 @@
     <div class="sidebar-scroll">
         <nav>
             <ul class="nav">
-                <li><a href="<%=basePath%>/index" class="<%= url.endsWith("index.jsp") ? "active": "" %>">
+                <li><a href="<%=basePath%>merchantDetail" class="<%= url.endsWith("index.jsp") ? "active": "" %>">
                     <i class="lnr lnr-home"></i> <span>商家详细信息</span></a></li>
-                <li><a href="<%=basePath%>shop/new" class="<%= url.endsWith("shop_form.jsp") ? "active": "" %>">
+                <li><a href="<%=basePath%>shop_form" class="<%= url.endsWith("shop_form.jsp") ? "active": "" %>">
                     <i class="lnr lnr-code"></i> <span>申请店铺</span></a></li>
                 <li><a href="<%=basePath%>shop/new" class="<%= url.endsWith("shop_form.jsp") ? "active": "" %>">
                     <i class="lnr lnr-code"></i> <span>店铺管理</span></a></li>

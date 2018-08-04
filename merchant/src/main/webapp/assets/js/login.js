@@ -12,9 +12,9 @@ $(document).ready(function () {
                 let params = res.data;
                 if(params.status === "1"){
                     if(window.contextPath){
-                        window.location = window.contextPath + "merchant/detail";
+                        window.location = window.contextPath + "merchantDetail";
                     }else{
-                        window.location = "/merchant/detail";
+                        window.location = "merchantDetail";
                     }
                 }else{
                     console.log(params);

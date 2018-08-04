@@ -48,7 +48,6 @@
         <!-- MAIN CONTENT -->
         <div class="main-content">
             <div class="container-fluid">
-
                 <h3 class="page-title">店铺管理</h3>
                     <div class="rows">
                         <div class="col-md-6">

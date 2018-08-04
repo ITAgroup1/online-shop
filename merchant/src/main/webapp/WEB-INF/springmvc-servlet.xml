@@ -52,7 +52,7 @@
     </bean>
 
     <!--interceptor-->
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/*.jsp"/>
@@ -62,5 +62,5 @@
             <mvc:exclude-mapping path="/js/**"/>
             <bean class="com.group1.merchant.interceptor.LoginAuthenticationInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 </beans>
