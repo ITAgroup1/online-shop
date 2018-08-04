@@ -6,6 +6,7 @@ import com.group1.core.entity.client.Client;
 import com.group1.core.entity.order.Order;
 import com.group1.core.handler.SpringWebSocketHandler;
 import com.group1.core.utils.*;
+import com.group1.core.utils.base.model.Page;
 import com.group1.core.utils.base.model.Pageable;
 import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactoryImpl;
 import org.apache.http.HttpResponse;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.group1.core.interceptor.SpringWebSocketHandlerInterceptor.ATTRIBUTES_USER;
+import static com.group1.core.interceptor.SpringWebSocketHandlerInterceptor.ATTRIBUTES_USERID;
 
 @RestController
 @RequestMapping("/client/order")
@@ -56,16 +58,16 @@ public class OrderController {
 
     @PostMapping
     @ResponseBody
-    public ResultBody add(@RequestBody @Valid OrderDto orderDto,HttpSession session, Errors errors) {
+    public ResultBody add(@RequestBody @Valid OrderDto orderDto, HttpSession session, Errors errors) {
         ResultBody resultBody = new ResultBody();
         if (!errors.hasErrors()) {
             try {
                 Client user = (Client) session.getAttribute(ATTRIBUTES_USER);
-                if(user==null){
-                    resultBody.addError("user","請重新登陸");
+                if (user == null) {
+                    resultBody.addError("user", "請重新登陸");
                     return resultBody;
                 }
-                Order result = orderService.save(orderDto,user);
+                Order result = orderService.save(orderDto, user);
                 Message message = new Message(result.getClient().getId(), result.getShopId());
 
                 Map<String, Object> map = new HashMap<>();
@@ -77,7 +79,7 @@ public class OrderController {
                 WebTarget webTarget = client.target(PropertiesUtils.getProperty("merchant_ws_url"));
                 Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
                 String str = JsonUtil.objectToJson(message);
-                Response response = invocationBuilder.post(Entity.entity(str,MediaType.APPLICATION_JSON_TYPE));
+                Response response = invocationBuilder.post(Entity.entity(str, MediaType.APPLICATION_JSON_TYPE));
                 System.out.println(response.getStatus());
                 System.out.println(response);
             } catch (Exception e) {
@@ -117,25 +119,30 @@ public class OrderController {
         return resultBody;
     }
 
-    @GetMapping
+    @GetMapping("/{page}")
     @ResponseBody
-
-    public ResultBody findAll(Pageable pageable){
-        pageable = pageable != null ? pageable : new Pageable(1, 10);
+    public ResultBody findAll(@MatrixVariable(name = "offset", pathVar = "page") Integer offset,
+                              @MatrixVariable(name = "size", pathVar = "page") Integer size, HttpSession httpSession) {
+        String clientId = (String) httpSession.getAttribute(ATTRIBUTES_USERID);
+        Pageable pageable = new Pageable(offset + 1, size);
         ResultBody resultBody = new ResultBody();
-        resultBody.addData("orderList",orderService.findAll(pageable));
-
+        Page<OrderDto> page = orderService.findAllById(clientId, pageable);
+        if (page == null)
+            resultBody.addError("errors", "會話超時，請重新登陸");
+        else
+            resultBody.addData("orderList", page);
         return resultBody;
     }
 
-    @GetMapping("/{clientId}")
+    @GetMapping("/detail/{orderId}")
     @ResponseBody
-    public ResultBody findAll(@PathVariable String clientId,Pageable pageable){
-        pageable = pageable != null ? pageable : new Pageable(1, 10);
+    public ResultBody findDetailByOrderId(@PathVariable String orderId){
         ResultBody resultBody = new ResultBody();
-        resultBody.addData("orderList",orderService.findAllById(clientId,pageable));
+        OrderDto orderDto = orderService.findOrderDetailByOrderId(orderId);
+        if (orderDto == null)
+            resultBody.addError("errors", "會話超時，請重新登陸");
+        else
+            resultBody.addData("orderList", orderDto);
         return resultBody;
     }
-
-
 }
