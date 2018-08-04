@@ -6,11 +6,14 @@ import com.group1.core.entity.shop.Shop;
 import com.group1.core.utils.ResultBody;
 import com.group1.merchant.service.MerchantDetailService;
 import com.group1.merchant.service.ShopService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
-@RestController
+@Controller
 @RequestMapping("/merchantDetail")
 @SessionAttributes("merchant")
 public class MerchantDetailController {
@@ -22,7 +25,8 @@ public class MerchantDetailController {
     private ShopService shopService;
 
     @PostMapping("/setupShop")
-    public ResultBody setUpShop(@RequestBody MerchantDetail merchantDetail, @RequestBody Shop shop, @ModelAttribute("merchant") Merchant merchant) {
+    @ResponseBody
+    public ResultBody setUpShop(MerchantDetail merchantDetail,Shop shop, @ModelAttribute("merchant") Merchant merchant) {
         ResultBody resultBody = new ResultBody();
 
         Shop shop1 = shopService.saveShop(shop);
@@ -36,10 +40,21 @@ public class MerchantDetailController {
     }
 
     @PostMapping("/revalidateShop")
+    @ResponseBody
     public ResultBody revalidateShop(@ModelAttribute("merchant") Merchant merchant) {
         ResultBody resultBody = new ResultBody();
         MerchantDetail merchantDetail = merchantDetailService.getMerchantDetail(merchant);
         merchantDetailService.modifyMerchantDetail(merchantDetail);
         return resultBody;
+    }
+
+    @GetMapping
+    public ModelAndView detail(HttpSession session){
+        Merchant merchant = (Merchant) session.getAttribute("merchant");
+        MerchantDetail merchantDetail = merchantDetailService.getMerchantDetail(merchant);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("index");
+        mv.addObject("merchantDetail",merchantDetail);
+        return mv;
     }
 }
