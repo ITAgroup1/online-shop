@@ -22,7 +22,7 @@ public class RecipeController {
     public ResultBody listAll(@PathVariable String shopId){
         ResultBody resultBody = new ResultBody();
         List<Recipe> list = recipeService.getAll(shopId);
-        resultBody.addData("recipeList",list);
+        resultBody.addData("recipes",list);
         return resultBody;
     }
 
