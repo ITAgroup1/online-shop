@@ -19,4 +19,11 @@ public class CommentRepositoryImpl extends JPARepositoryImpl<Comment,String> imp
         List<Comment> list = query.getResultList();
         return list;
     }
+
+    @Override
+    public Integer count(String shopId) {
+        Query query = entityManager.createQuery("select count(1) from Comment c where c.score is not null");
+        Integer count = Integer.valueOf(String.valueOf(query.getSingleResult()));
+        return count;
+    }
 }

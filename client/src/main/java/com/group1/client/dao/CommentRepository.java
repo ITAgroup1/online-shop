@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment,String> {
     List<Comment> getAllByShopId(String shopId);
+    Integer count(String shopId);
 
 }
