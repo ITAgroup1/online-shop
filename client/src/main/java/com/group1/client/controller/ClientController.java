@@ -40,6 +40,10 @@ public class ClientController {
     public ResultBody put(@RequestBody Client client,HttpSession session){
         String id = (String) session.getAttribute(ATTRIBUTES_USERID);
         ResultBody resultBody = new ResultBody();
+        if(id==null&&"".equals(id)){
+            resultBody.addError("errors","session过期，请重新登陆");
+            return resultBody;
+        }
         Client c = clientService.update(client,id);
         resultBody.addData("client",c);
         return resultBody;
