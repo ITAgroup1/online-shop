@@ -23,6 +23,9 @@ public class Comment implements Serializable {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "comment_time")
+    private String commentTime;
+
     @Column(name = "shop_id")
     private String shopId;
 
