@@ -50,4 +50,15 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--interceptor-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/shop/**"/>
+            <mvc:mapping path="/merchantDetail/**" />
+            <mvc:mapping path="/recipe/**"/>
+            <mvc:mapping path="/complaint/**"/>
+            <mvc:exclude-mapping path="/merchant/**"/>
+            <bean class="com.group1.merchant.interceptor.LoginAuthenticationInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

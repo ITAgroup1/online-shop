@@ -3,6 +3,7 @@ package com.group1.merchant.controller;
 import com.group1.core.entity.merchant.Merchant;
 import com.group1.core.entity.merchant.MerchantDetail;
 import com.group1.core.entity.shop.Shop;
+import com.group1.core.utils.ResultBody;
 import com.group1.merchant.service.MerchantDetailService;
 import com.group1.merchant.service.ShopService;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +22,24 @@ public class MerchantDetailController {
     private ShopService shopService;
 
     @PostMapping("/setupShop")
-    public String setUpShop(MerchantDetail merchantDetail, Shop shop) {
+    public ResultBody setUpShop(@RequestBody MerchantDetail merchantDetail, @RequestBody Shop shop, @ModelAttribute("merchant") Merchant merchant) {
+        ResultBody resultBody = new ResultBody();
+
+        Shop shop1 = shopService.saveShop(shop);
+
+        merchantDetail.setShopId(shop1.getId());
+        merchantDetail.setMerchant(merchant);
+        merchantDetail.setStatus(MerchantDetail.UNTREATED);
         merchantDetailService.submitMerchantDetail(merchantDetail);
-        shopService.saveShop(shop);
-        return "ApplicationStatusPage";
+
+        return resultBody;
     }
 
     @PostMapping("/revalidateShop")
-    public String revalidateShop(@ModelAttribute("merchant") Merchant merchant) {
+    public ResultBody revalidateShop(@ModelAttribute("merchant") Merchant merchant) {
+        ResultBody resultBody = new ResultBody();
         MerchantDetail merchantDetail = merchantDetailService.getMerchantDetail(merchant);
         merchantDetailService.modifyMerchantDetail(merchantDetail);
-        return "ApplicationStatusPage";
+        return resultBody;
     }
 }

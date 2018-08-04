@@ -6,5 +6,5 @@ public interface RecipeService {
     Recipe saveRecipe(Recipe recipe);
     Recipe getRecipeByShopId(String shopId);
     Recipe updateRecipe(Recipe recipe);
-    Recipe deleteRecipeBysId(String recipeId);
+    boolean deleteRecipeById(String recipeId);
 }

@@ -26,7 +26,7 @@ public class MerchantServiceImplTest {
     @Before
     public void before() {
         merchant = new Merchant();
-        merchant.setLoginName("James37");
+        merchant.setLoginName("James38");
         merchant.setPassword("123456");
     }
 

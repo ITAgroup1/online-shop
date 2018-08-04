@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/complaints")
+@RequestMapping("/complaint")
 @SessionAttributes("merchant")
 public class ComplaintController {
 
@@ -23,5 +23,4 @@ public class ComplaintController {
         ResultBody resultBody = complaintService.getComplaints(merchant.getId());
         return resultBody;
     }
-
 }
