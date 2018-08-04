@@ -11,5 +11,6 @@ public interface OrderService {
     Integer delete(String orderId);
     Order update(String orderId,Integer status);
     Page<Order> findAll(Pageable pageable);
-    Page<Order> findAllById(String clientId,Pageable pageable);
+    Page<OrderDto> findAllById(String clientId,Pageable pageable);
+    OrderDto findOrderDetailByOrderId(String orderId);
 }

@@ -59,7 +59,6 @@ public class Order implements Serializable , Cloneable {
 
     @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="oid")
-    @JsonIgnore
     private Set<OrderItem> orderItems;
 
 

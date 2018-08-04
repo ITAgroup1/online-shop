@@ -101,6 +101,18 @@ public class ClientController {
         return resultBody;
     }
 
+    @GetMapping("/current")
+    @ResponseBody
+    public ResultBody getCurrentClient(HttpSession httpSession){
+        ResultBody resultBody = new ResultBody();
+        Client client = (Client) httpSession.getAttribute(ATTRIBUTES_USER);
+        if(client==null){
+            resultBody.addError("errors","登陸過期，請重新登陸");
+            return resultBody;
+        }
+        resultBody.addData("client",client);
+        return resultBody;
+    }
 
 
 

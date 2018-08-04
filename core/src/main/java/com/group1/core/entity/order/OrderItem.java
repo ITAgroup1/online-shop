@@ -22,6 +22,12 @@ public class OrderItem {
     @Column(name = "recipe_id")
     private String recipeId;
 
+    @Column(name = "recipe_Name")
+    private String recipeName;
+
+    @Column(name = "price")
+    private String price;
+
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="oid")
     @JsonIgnore
@@ -60,5 +66,21 @@ public class OrderItem {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public String getRecipeName() {
+        return recipeName;
+    }
+
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

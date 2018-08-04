@@ -17,7 +17,6 @@ import java.util.Map;
 public class OrderRepositoryImpl extends JPARepositoryImpl<Order,String> implements OrderRepository {
 
     @Override
-
     public Order update(String orderId, Integer status) {
         Order result = entityManager.find(Order.class,orderId);
         result.setStatus(status);
@@ -28,7 +27,7 @@ public class OrderRepositoryImpl extends JPARepositoryImpl<Order,String> impleme
     @Override
     public Page<Order> findAllById(String clientId, Pageable pageable) {
 
-        Query query = entityManager.createQuery("select o from Order o where o.client.id=:clientId")
+        Query query = entityManager.createQuery("select o from Order o where o.client.id=:clientId order by o.orderTime desc")
                 .setFirstResult((pageable.getOffset() - 1) * pageable.getSize())
                 .setMaxResults(pageable.getSize());
         query.setParameter("clientId",clientId);

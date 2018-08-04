@@ -2,17 +2,22 @@ package com.group1.client.service.impl;
 
 import com.group1.client.dao.ClientRepository;
 import com.group1.client.dao.OrderRepository;
+import com.group1.client.dao.ShopRepository;
 import com.group1.client.dto.OrderDto;
 import com.group1.client.service.OrderService;
+import com.group1.client.service.ShopService;
 import com.group1.core.entity.client.Client;
 import com.group1.core.entity.order.Order;
 import com.group1.core.entity.order.OrderItem;
+import com.group1.core.entity.shop.Shop;
 import com.group1.core.utils.base.model.Page;
 import com.group1.core.utils.base.model.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
@@ -22,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     private ClientRepository clientRepository;
+
+    @Resource
+    private ShopService shopService;
 
     @Transactional
     @Override
@@ -51,8 +59,29 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<Order> findAllById(String clientId, Pageable pageable) {
-        return orderRepository.findAllById(clientId,pageable);
+    public Page<OrderDto> findAllById(String clientId, Pageable pageable) {
+        Page<Order> orderPage = orderRepository.findAllById(clientId,pageable);
+        List<Order> orderList = orderPage.getData();
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        for (Order o: orderList) {
+            Shop shop = shopService.findOne(o.getShopId());
+            OrderDto orderDto = OrderDto.byOrder(o);
+            orderDto.setShop(shop);
+            orderDtoList.add(orderDto);
+        }
+        Page<OrderDto> orderDtoPage = new Page<OrderDto>();
+        orderDtoPage.setOffset(orderPage.getOffset());
+        orderDtoPage.setSize(orderPage.getSize());
+        orderDtoPage.setData(orderDtoList);
+        return orderDtoPage;
+    }
+
+    @Override
+    @Transactional
+    public OrderDto findOrderDetailByOrderId(String orderId) {
+        Order order = orderRepository.findOne(orderId);
+        System.out.println(order.getOrderItems());
+        return OrderDto.byOrder(order);
     }
 
 
