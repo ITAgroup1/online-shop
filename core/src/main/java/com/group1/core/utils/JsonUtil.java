@@ -63,8 +63,8 @@ public class JsonUtil {
 	 * @param clazz
 	 * @return
 	 */
-	public static Object jsonToObject(String jsonStr, Class clazz) {
-		Object obj = null;
+	public static<T> T jsonToObject(String jsonStr, Class<T> clazz) {
+		T obj = null;
 		try {
 			obj = mapper.readValue(jsonStr, clazz);
 		} catch (JsonParseException e) {

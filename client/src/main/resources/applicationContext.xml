@@ -24,15 +24,6 @@
     </context:component-scan>
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
-    <bean id="chatHandler" class="com.group1.core.handler.SpringWebSocketHandler"></bean>
-
-    <websocket:handlers allowed-origins="*">
-        <websocket:mapping handler="chatHandler" path="/socketServer" />
-        <websocket:handshake-interceptors>
-            <bean class="com.group1.core.interceptor.SpringWebSocketHandlerInterceptor"></bean>
-        </websocket:handshake-interceptors>
-    </websocket:handlers>
-
     <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
@@ -94,7 +85,6 @@
     <!--
         对使用@Transactional的方法启用AOP
         proxy-target-class:表示是否对“目标类”启用代理。true:表示使用cglib方式(类)，false:表示使用Proxy方式（接口）
-
     -->
     <tx:annotation-driven transaction-manager="transactionManager"
                           proxy-target-class="true"/>

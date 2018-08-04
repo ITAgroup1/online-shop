@@ -6,7 +6,7 @@ import java.util.Map;
 public class Message implements Serializable {
 
     private String senderId;
-    private String receviId;
+    private String receiverId;
     private Map<String,Object> map;
 
     public String getSenderId() {
@@ -17,12 +17,12 @@ public class Message implements Serializable {
         this.senderId = senderId;
     }
 
-    public String getReceviId() {
-        return receviId;
+    public String getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceviId(String receviId) {
-        this.receviId = receviId;
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
     }
 
     public Map<String, Object> getMap() {
@@ -31,5 +31,13 @@ public class Message implements Serializable {
 
     public void setMap(Map<String, Object> map) {
         this.map = map;
+    }
+
+    public Message(String senderId, String receiverId) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+    }
+
+    public Message() {
     }
 }
