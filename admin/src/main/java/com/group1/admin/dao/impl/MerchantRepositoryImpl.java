@@ -15,10 +15,21 @@ public class MerchantRepositoryImpl extends JPARepositoryImpl<Merchant, String> 
     public Merchant login(String loginName, String password) {
         Merchant merchant = null;
         Query query = entityManager.createQuery("select M From Merchant M Where M.loginName=:loginName and M.password=:password");
-        query.setParameter("loginName",loginName);
-        query.setParameter("password",password);
+        query.setParameter("loginName", loginName);
+        query.setParameter("password", password);
         List<Merchant> list = query.getResultList();
-        if(list.size()>0)
+        if (list.size() > 0)
+            merchant = list.get(0);
+        return merchant;
+    }
+
+    @Override
+    public Merchant checkUnipue(String loginName) {
+        Merchant merchant = null;
+        Query query = entityManager.createQuery("select M From Merchant M Where M.loginName=:loginName ");
+        query.setParameter("loginName", loginName);
+        List<Merchant> list = query.getResultList();
+        if (list.size() > 0)
             merchant = list.get(0);
         return merchant;
     }

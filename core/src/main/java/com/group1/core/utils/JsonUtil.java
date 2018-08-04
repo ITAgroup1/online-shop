@@ -1,6 +1,7 @@
 package com.group1.core.utils;
 
 import java.io.IOException;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,6 +14,16 @@ public class JsonUtil {
 	
 	static {
 		mapper = new ObjectMapper();
+	}
+
+	public static <T> T mapToObject(Map map , Class<T> clazz){
+		try {
+			String json = mapper.writeValueAsString(map);
+			return mapper.readValue(json, clazz);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**

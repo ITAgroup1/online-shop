@@ -30,7 +30,7 @@ public class MerchantRepositoryTest {
     @Test
     public void insert() throws Exception {
         Merchant merchant = new Merchant();
-        merchant.setLoginName("jacky");
+        merchant.setLoginName("jackyX");
         merchant.setPassword("123456");
         Merchant m2=merchantRepository.save(merchant);
         assertNotNull(m2);
@@ -39,10 +39,18 @@ public class MerchantRepositoryTest {
 
     @Test
     public void login() throws Exception {
-        String loginName = "jacky";
+        String loginName = "jackyX";
         String password ="123456";
         Merchant m=merchantRepository.login(loginName,password);
         assertNotNull(m);
         System.out.println(m.getId());
+    }
+
+    @Test
+    public void testCheckUnipue(){
+        String loginName = "jackyX";
+        Merchant merchant=merchantRepository.checkUnipue(loginName);
+        assertNotNull(merchant);
+        System.out.println(merchant);
     }
 }

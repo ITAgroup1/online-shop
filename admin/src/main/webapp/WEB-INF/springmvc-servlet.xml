@@ -45,9 +45,10 @@
     </mvc:annotation-driven>
 
     <!--static resources config-->
-    <mvc:resources mapping="/html/**" location="/html/"></mvc:resources>
-    <mvc:resources mapping="/css/**" location="/css/"></mvc:resources>
-    <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
+    <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/"></mvc:resources>
+    <mvc:resources mapping="/css/**" location="/WEB-INF/themes/"></mvc:resources>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/js/"></mvc:resources>
+    <mvc:resources mapping="/themes/**" location="/WEB-INF/themes/"></mvc:resources>
 
     <!--file upload helper-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
