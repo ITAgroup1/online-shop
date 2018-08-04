@@ -9,7 +9,7 @@
 <%--<script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script>--%>
 <script type="text/javascript">
     let websocket = null;
-    websocket = new WebSocket("ws://localhost:9090/socketServer");
+    websocket = new WebSocket("ws://localhost:9090/client/socketServer");
     websocket.onopen = onOpen;
     websocket.onmessage = onMessage;
     websocket.onerror = onError;

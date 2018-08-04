@@ -2,11 +2,12 @@ package com.group1.merchant.service.impl;
 
 import com.group1.core.entity.merchant.Merchant;
 import com.group1.core.entity.merchant.MerchantDetail;
-import com.group1.core.utils.JerseyPoolingClientFactoryBean;
+import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactoryImpl;
 import com.group1.core.utils.JsonUtil;
 import com.group1.core.utils.PropertiesUtils;
 import com.group1.core.utils.ResultBody;
 import com.group1.core.utils.jms.ProducerService;
+import com.group1.merchant.dao.MerchantDetailRepository;
 import com.group1.merchant.service.MerchantDetailService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,10 @@ import java.util.Map;
 public class MerchantDetailServiceImpl implements MerchantDetailService {
 
     @Resource
-    private JerseyPoolingClientFactoryBean jerseyPoolingClient;
+    private JerseyPoolingClientFactoryImpl jerseyPoolingClient;
+
+    @Resource
+    private MerchantDetailRepository merchantDetailRepository;
 
     @Resource(name = "producerService")
     private ProducerService producerService;
@@ -77,5 +81,11 @@ public class MerchantDetailServiceImpl implements MerchantDetailService {
             e.printStackTrace();
         }
         return merchantDetail;
+    }
+
+    @Override
+    public Merchant getMerchantDetail(String shopId) {
+        MerchantDetail merchantDetail = merchantDetailRepository.getMerchantDetailByShopId(shopId);
+        return merchantDetail.getMerchant();
     }
 }

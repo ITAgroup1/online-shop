@@ -9,4 +9,5 @@ public interface MerchantDetailService {
     MerchantDetail modifyMerchantDetail(MerchantDetail merchantDetails);
     MerchantDetail verifyMerchantDetail(Merchant merchant);
     MerchantDetail getMerchantDetail(Merchant merchant);
+    Merchant getMerchantDetail(String shopId);
 }
