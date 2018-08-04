@@ -26,7 +26,6 @@ public class MerchantDetail implements Serializable {
     private String id;
 
     @OneToOne(mappedBy="merchantDetail",targetEntity=Merchant.class )//数据库的表并不会生成这个字段
-    @JsonIgnore
     private Merchant merchant;
 
     @Column

@@ -1,7 +1,9 @@
 package com.group1.core.entity.order;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.group1.core.entity.recipe.Recipe;
+import org.aspectj.weaver.ast.Or;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -19,6 +21,11 @@ public class OrderItem {
 //    @JoinColumn(name="recipe_id")
     @Column(name = "recipe_id")
     private String recipeId;
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="oid")
+    @JsonIgnore
+    private Order order;
 
     @Column
     private Integer count;
@@ -47,4 +54,11 @@ public class OrderItem {
         this.count = count;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

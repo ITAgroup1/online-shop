@@ -3,8 +3,10 @@ package com.group1.merchant.service.impl;
 import com.group1.core.entity.merchant.Merchant;
 import com.group1.core.utils.JerseyPoolingClientFactoryBean;
 import com.group1.core.utils.JsonUtil;
+import com.group1.core.utils.PropertiesUtils;
 import com.group1.core.utils.ResultBody;
 import com.group1.merchant.service.MerchantService;
+import org.hibernate.result.ResultSetOutput;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,36 +26,33 @@ public class MerchantServiceImpl implements MerchantService {
     @Resource
     private JerseyPoolingClientFactoryBean jerseyPoolingClient;
 
+    private String adminServer = PropertiesUtils.getProperty("admin.server");
+
     @Override
     @Transactional
-    public Merchant save(Merchant merchant) {
-        Merchant merchant1 = null;
+    public ResultBody sendAndReceiveMerchant(Merchant merchant, String serverPath) {
+        ResultBody resultBody = null;
         try {
             Client client = jerseyPoolingClient.getObject();
-            String registerUrl = "http://localhost:3000";
-//            WebTarget webTarget = client.target(registerUrl);
-//            Builder builder = webTarget.request().header("Content-Type", "application/json");
-            WebTarget webTarget = client.target(registerUrl).path("merchant");
-
-
-
-            Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
-            Response response = invocationBuilder.post(Entity.entity(merchant, MediaType.APPLICATION_JSON_TYPE));
-
-//            String str = response.readEntity(String.class);
-            System.out.println(response.getStatus());
-            System.out.println(response.readEntity(String.class));
-
-//            String result = response.readEntity(String.class);
-//            merchant1 = (Merchant) JsonUtil.jsonToObject(result, Merchant.class);
+            resultBody = JerseyJsonService.post(client, adminServer, serverPath, merchant, ResultBody.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return merchant1;
+        return resultBody;
+    }
+
+
+    @Override
+    public ResultBody merchantLogin(Merchant merchant) {
+        String merchantLoginUrl = PropertiesUtils.getProperty("merchant.login.path");
+        ResultBody resultBody = sendAndReceiveMerchant(merchant, merchantLoginUrl);
+        return resultBody;
     }
 
     @Override
-    public Merchant findById(String merchantId) {
-        return null;
+    public ResultBody merchantRegister(Merchant merchant) {
+        String merchantRegisterUrl = PropertiesUtils.getProperty("merchant.register.path");
+        ResultBody resultBody = sendAndReceiveMerchant(merchant,merchantRegisterUrl);
+        return resultBody;
     }
 }

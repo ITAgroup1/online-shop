@@ -6,6 +6,7 @@ import com.group1.core.utils.ResultBody;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -22,13 +23,9 @@ public class AdminController {
     public ResultBody register(@Valid Admin admin,Errors errors){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
-            resultBody.setStatus("1");
-            resultBody.setMessage("ok");
             resultBody.setData("admin",adminService.register(admin));
         }else {
-            resultBody.setStatus("2");
-            resultBody.setMessage("errors");
-            resultBody.setData("errorList",errors.getAllErrors());
+            resultBody.addErrors(errors.getAllErrors());
         }
         return resultBody;
     }
@@ -38,14 +35,25 @@ public class AdminController {
     public ResultBody login(@Valid Admin admin,Errors errors){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
-            resultBody.setStatus("1");
-            resultBody.setMessage("ok");
             resultBody.setData("admin",adminService.login(admin));
         }else {
-            resultBody.setStatus("2");
-            resultBody.setMessage("errors");
             resultBody.setData("errorList",errors.getAllErrors());
         }
         return resultBody;
+    }
+
+    @RequestMapping("/listVerify")
+    public String listVerify(){
+        return "listVerify";
+    }
+
+    @RequestMapping("/listUpdate")
+    public String listUpdate(){
+        return "listUpdate";
+    }
+
+    @RequestMapping("/listComplaint")
+    public String listComplaints(){
+        return "listComplaint";
     }
 }

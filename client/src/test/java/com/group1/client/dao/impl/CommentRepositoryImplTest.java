@@ -39,7 +39,7 @@ public class CommentRepositoryImplTest {
         order.setAddress("here");
         comment.setScore(3);
         comment.setContent("一般");
-        comment.setOrder(order);
+//        comment.setOrder(order);
         Assert.assertNotNull(commentRepository.save(comment));
     }
 }

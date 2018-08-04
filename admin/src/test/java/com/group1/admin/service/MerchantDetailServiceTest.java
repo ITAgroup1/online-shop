@@ -38,20 +38,20 @@ public class MerchantDetailServiceTest {
     public void add() {
         MerchantDetail m = new MerchantDetail();
         m.setStatus(MerchantDetail.UNTREATED);
-        m.setAddress("Test ades4");
+        m.setAddress("Test 5");
         m.setIdcardNum("123456789012345678");
         m.setIntroduction("Test Intruce4");
-        m.setMerchantName("Test MercntName4");
+        m.setMerchantName("Test MerName4");
         m.setIdcardPic("testUrl");
         Set<String> shopPiceset =  new HashSet<>();
-        shopPiceset.add("test pc et1044");
-        shopPiceset.add("test pic st144");
-        shopPiceset.add("test pc se124");
+        shopPiceset.add("test pc et");
+        shopPiceset.add("test pic st");
+        shopPiceset.add("test pc se");
         m.setShopPic(shopPiceset);
-        m.setBusinessPic("bussiner pic244");
+        m.setBusinessPic("bussiner pic255");
         m.setShopId("opIdI47");
         Merchant merchant = new Merchant();
-        merchant.setId("4");
+        merchant.setId("8a5e9d1864fdd29a0164fdd47a690000");
         m.setMerchant(merchant);
         MerchantDetail m2=service.add(m);
         assertNotNull(m2);
@@ -67,12 +67,12 @@ public class MerchantDetailServiceTest {
     @Test
     public void update() {
         MerchantDetail m = new MerchantDetail();
-        m.setId("8a5e9d1864f937c40164f937c9670000");
+        m.setId("8a5e9d1864fa926d0164fa9272b50000");
         m.setStatus(MerchantDetail.NO_PASSED);
         m.setAddress("Test address3");
         m.setIdcardNum("123456789012345678");
         m.setIntroduction("Test Introduce7");
-        m.setMerchantName("Test MerchantName7");
+        m.setMerchantName("Service update hantName7");
         m.setIdcardPic("testUrl");
         Set<String> shopPiceset =  new HashSet<>();
         shopPiceset.add("test pic set1010");
@@ -80,11 +80,11 @@ public class MerchantDetailServiceTest {
         shopPiceset.add("test pic set100");
         m.setShopPic(shopPiceset);
         m.setBusinessPic("bussiner pic102");
-        m.setShopId("shopIdId07");
+        m.setShopId("Service update shopIdId07");
         MerchantDetail m2=service.update(m);
-        assertNotNull(m2);
         System.out.print(m2);
         assertNotNull(m2);
+
     }
 
 

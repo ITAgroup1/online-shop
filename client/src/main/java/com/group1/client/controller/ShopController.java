@@ -4,14 +4,13 @@ import com.group1.client.service.ShopService;
 import com.group1.core.entity.shop.Shop;
 import com.group1.core.utils.ResultBody;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Controller
+@RequestMapping
 public class ShopController {
 
     @Resource
@@ -24,7 +23,16 @@ public class ShopController {
     public ResultBody list(){
         List<Shop> shops = shopService.list();
         ResultBody resultBody = new ResultBody();
-        resultBody.addData("shop",shops);
+        resultBody.addData("shops",shops);
+        return resultBody;
+    }
+
+    @GetMapping("/shop/{shopId}")
+    @ResponseBody
+    public ResultBody fineOne(@PathVariable String shopId){
+        Shop shop = shopService.findOne(shopId);
+        ResultBody resultBody = new ResultBody();
+        resultBody.addData("shop",shop);
         return resultBody;
     }
 

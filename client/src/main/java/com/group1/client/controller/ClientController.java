@@ -8,7 +8,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import static com.group1.core.interceptor.SpringWebSocketHandlerInterceptor.ATTRIBUTES_USER;
+import static com.group1.core.interceptor.SpringWebSocketHandlerInterceptor.ATTRIBUTES_USERID;
 
 @RestController
 @RequestMapping("/client")
@@ -41,10 +46,20 @@ public class ClientController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResultBody login(@Valid Client client,Errors errors){
+    public ResultBody login(@RequestBody @Valid Client client, Errors errors, HttpSession session){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
-            resultBody.addData("client",clientService.login(client));
+            Client result = clientService.login(client);
+            System.out.println(result);
+            if(result!=null){
+                String userId = result.getId();
+                System.out.println(userId+" 登录");
+                session.setAttribute(ATTRIBUTES_USERID, userId);
+                session.setAttribute(ATTRIBUTES_USER, result);
+                resultBody.addData("client",result);
+            }else {
+                resultBody.addError("errors","loginName or password is wrong");
+            }
         }else {
             resultBody.addErrors(errors.getAllErrors());
         }
@@ -53,11 +68,10 @@ public class ClientController {
     }
 
     @RequestMapping("/send")
-    public ResultBody login(@Valid Complaint complaint,Errors errors){
+    public ResultBody sendComplaint(@Valid Complaint complaint,Errors errors){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
-            if(clientService.complain(complaint).getStatus()==ResultBody.STATUS_SUCCESS)
-            resultBody = clientService.complain(complaint);
+            resultBody.addData("complaint",clientService.complain(complaint));
         }
         else{
             resultBody.addErrors(errors.getAllErrors());

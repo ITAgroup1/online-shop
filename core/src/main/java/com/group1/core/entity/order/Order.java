@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group1.core.entity.client.Client;
 import com.group1.core.entity.comment.Comment;
+import com.group1.core.utils.JsonUtil;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "t_order")
-public class Order implements Serializable {
+public class Order implements Serializable , Cloneable {
 
     public static final Integer NEW_ORDER = 1;
     public static final Integer ACCEPT_ORDER = 2;
@@ -38,7 +39,7 @@ public class Order implements Serializable {
     private Double cost;
 
     @Column
-    private long orderTime;
+    private Long orderTime;
 
     @Column
     private String remark;
@@ -48,15 +49,15 @@ public class Order implements Serializable {
 
     @OneToOne(targetEntity = Comment.class,cascade = CascadeType.ALL)
     @JoinColumn(name="comment_id")//specify the relation of the foreign key
-    @JsonIgnoreProperties("order")
+    @JsonIgnore
     private Comment comment;
 
-    @ManyToOne(targetEntity = Client.class,fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="c_id")
-    @JsonIgnoreProperties("orders")
+    @JsonIgnore
     private Client client;
 
-    @OneToMany(targetEntity=OrderItem.class,cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="oid")
     @JsonIgnore
     private Set<OrderItem> orderItems;
@@ -110,11 +111,11 @@ public class Order implements Serializable {
         this.cost = cost;
     }
 
-    public long getOrderTime() {
+    public Long getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(long orderTime) {
+    public void setOrderTime(Long orderTime) {
         this.orderTime = orderTime;
     }
 
@@ -150,4 +151,6 @@ public class Order implements Serializable {
     public void setComment(Comment comment) {
         this.comment = comment;
     }
+
+
 }

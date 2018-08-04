@@ -39,7 +39,7 @@ public class CommentServiceImplTest {
         order.setAddress("here");
         comment.setScore(3);
         comment.setContent("一般");
-        comment.setOrder(order);
+//        comment.setOrder(order);
         comment.setShopId(order.getShopId());
         Assert.assertNotNull(commentService.commit(comment));
 

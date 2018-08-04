@@ -36,7 +36,6 @@ public class ShopServiceImpl implements ShopService {
             Response response = webTarget.request().get();
             String str = response.readEntity(String.class);
             List<String> ids = (List<String>) JsonUtil.jsonToObject(str, List.class);
-            System.out.println(ids.get(0));
 
             return (List<Shop>) shopRepository.findAll(ids);
 
@@ -50,5 +49,12 @@ public class ShopServiceImpl implements ShopService {
     @Transactional
     public Shop save(Shop shop) {
         return shopRepository.save(shop);
+    }
+
+    @Override
+    public Shop findOne(String shopId) {
+        Shop shop = shopRepository.findOne(shopId);
+        shop.getRecipes();
+        return shop;
     }
 }

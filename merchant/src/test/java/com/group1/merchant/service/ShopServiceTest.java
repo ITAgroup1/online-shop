@@ -1,6 +1,5 @@
 package com.group1.merchant.service;
 
-import com.group1.core.entity.recipe.Recipe;
 import com.group1.core.entity.shop.Shop;
 import org.junit.After;
 import org.junit.Before;
@@ -12,9 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")

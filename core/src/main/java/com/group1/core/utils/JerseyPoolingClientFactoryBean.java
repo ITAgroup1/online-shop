@@ -12,7 +12,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
-@Component("jerseyPoolingClient")
+@Component
 public class JerseyPoolingClientFactoryBean implements FactoryBean<Client>, InitializingBean, DisposableBean {
 
 	private Client client;
