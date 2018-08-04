@@ -37,7 +37,7 @@ public class CommentServiceImplTest {
         order.setId("1");
         order.setShopId("1");
         order.setAddress("here");
-        comment.setScore(3);
+        comment.setScore(4);
         comment.setContent("一般");
 //        comment.setOrder(order);
         comment.setShopId(order.getShopId());

@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/complaint")
+@CrossOrigin(origins = "*", maxAge = 100000)
 public class ComplaintController {
 
     @Resource(name = "complaintService")
     private ComplaintService service;
 
-    @GetMapping(value="/{merchantId}")
+    @GetMapping(value="/complaint/{merchantId}")
     @ResponseBody
     public ResultBody getComplaints(@PathVariable String merchantId) {
         ResultBody resultBody = new ResultBody();
@@ -27,7 +27,7 @@ public class ComplaintController {
         return resultBody;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/admin/complaint/list")
     @ResponseBody
     public ResultBody getAll(Pageable pageable) {
         pageable = pageable != null ? pageable : new Pageable(1, 10);
@@ -36,7 +36,7 @@ public class ComplaintController {
         return resultBody;
     }
 
-    @PutMapping(value = "/{id}/{status}")
+    @PutMapping(value = "/admin/complaint/{id}/{status}")
     @ResponseBody
     public ResultBody updateStatus(@PathVariable String id, @PathVariable Integer status) {
         ResultBody resultBody = new ResultBody();

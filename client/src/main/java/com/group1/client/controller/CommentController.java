@@ -4,13 +4,11 @@ import com.group1.client.service.CommentService;
 import com.group1.core.entity.comment.Comment;
 import com.group1.core.utils.ResultBody;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/comments")
@@ -29,5 +27,15 @@ public class CommentController {
             resultBody.addErrors(errors.getAllErrors());
         }
         return resultBody;
+    }
+
+    @GetMapping("/{shopId}")
+    @ResponseBody
+    public ResultBody listAll(@PathVariable String shopId){
+        ResultBody resultBody = new ResultBody();
+        List<Comment> list = commentService.listAllByShopId(shopId);
+        resultBody.addData("commentList",list);
+        return resultBody;
+
     }
 }

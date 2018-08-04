@@ -1,6 +1,6 @@
 package com.group1.merchant.service.impl;
 
-import com.group1.core.utils.JerseyPoolingClientFactoryBean;
+import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactoryImpl;
 import com.group1.core.utils.PropertiesUtils;
 import com.group1.core.utils.ResultBody;
 import com.group1.merchant.service.ComplaintService;
@@ -13,7 +13,7 @@ import javax.ws.rs.client.Client;
 public class ComplaintServiceImpl implements ComplaintService {
 
     @Resource
-    private JerseyPoolingClientFactoryBean jerseyPoolingClient;
+    private JerseyPoolingClientFactoryImpl jerseyPoolingClient;
 
     private String adminServer = PropertiesUtils.getProperty("admin.server");
 

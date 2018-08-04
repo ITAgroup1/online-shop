@@ -18,23 +18,55 @@
     <context:property-placeholder location="classpath:application.properties"/>
 
     <mvc:annotation-driven validator="validator"/>
-    <mvc:default-servlet-handler />
+    <mvc:default-servlet-handler/>
 
     <!--package scan-->
     <context:annotation-config></context:annotation-config>
     <context:component-scan base-package="com.group1.admin.controller"></context:component-scan>
 
+    <!--static resources config-->
+    <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/"></mvc:resources>
+    <mvc:resources mapping="/css/**" location="/WEB-INF/themes/"></mvc:resources>
+    <mvc:resources mapping="/js/**" location="/WEB-INF/js/"></mvc:resources>
+    <mvc:resources mapping="/themes/**" location="/WEB-INF/themes/"></mvc:resources>
+    <mvc:resources mapping="/html/**" location="/WEB-INF/html/"></mvc:resources>
+
     <mvc:interceptors>
         <!--&lt;!&ndash; 日志拦截器 &ndash;&gt;-->
         <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**" />-->
-            <!--<mvc:exclude-mapping path="/static/**" />-->
-            <!--<bean class="拦截器java代码路径" />-->
+        <!--<mvc:mapping path="/**" />-->
+        <!--<mvc:exclude-mapping path="/static/**" />-->
+        <!--<bean class="拦截器java代码路径" />-->
         <!--</mvc:interceptor>-->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="com.group1.core.interceptor.FormTokenInterceptor"/>
         </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/**/fonts/*"/>
+            <mvc:exclude-mapping path="/**/*.css"/>
+            <mvc:exclude-mapping path="/**/*.js"/>
+            <mvc:exclude-mapping path="/**/*.png"/>
+            <mvc:exclude-mapping path="/**/*.gif"/>
+            <mvc:exclude-mapping path="/**/*.jpg"/>
+            <mvc:exclude-mapping path="/**/*.jpeg"/>
+            <bean class="com.group1.admin.interceptor.LoginInterceptor">
+                <property name="exceptUrls">
+                    <list>
+                        <value>/login</value>
+                        <value>/admin/login</value>
+                        <value>/merchant/register</value>
+                        <value>/merchant/login</value>
+                        <value>/merchantDetail/shop</value>
+                        <value>/merchantDetail</value>
+                        <value>/complaint</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+
     </mvc:interceptors>
 
     <!--<mvc:annotation-driven json >-->
@@ -43,12 +75,6 @@
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
-    <!--static resources config-->
-    <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/"></mvc:resources>
-    <mvc:resources mapping="/css/**" location="/WEB-INF/themes/"></mvc:resources>
-    <mvc:resources mapping="/js/**" location="/WEB-INF/js/"></mvc:resources>
-    <mvc:resources mapping="/themes/**" location="/WEB-INF/themes/"></mvc:resources>
 
     <!--file upload helper-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -62,14 +88,16 @@
     </bean>
 
     <!-- validator-->
-    <bean id="requestHandler" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+    <bean id="requestHandler"
+          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
         <property name="useSuffixPatternMatch" value="false"/><!--关闭自动使用 .* 后缀-->
     </bean>
-    <bean id="requestAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    <bean id="requestAdapter"
+          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="synchronizeOnSession" value="true"/>
     </bean>
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
     </bean>
 
 </beans>

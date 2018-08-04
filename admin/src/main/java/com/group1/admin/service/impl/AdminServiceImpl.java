@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service
+@Service("adminService")
 public class AdminServiceImpl implements AdminService {
 
-    @Resource
+    @Resource(name = "adminDao")
     private AdminRepository adminRepository;
 
     @Override
@@ -20,6 +20,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin login(Admin admin) {
-        return null;
+        return adminRepository.login(admin.getLoginName(), admin.getPassword());
     }
 }
