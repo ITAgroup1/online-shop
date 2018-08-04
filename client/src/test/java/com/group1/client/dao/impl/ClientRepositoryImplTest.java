@@ -60,7 +60,7 @@ public class ClientRepositoryImplTest {
     @Test
     public void testRegister(){
         Client client = new Client();
-        client.setLoginName("joy2222");
+        client.setLoginName("joy1111");
         client.setPassword("123456");
         Assert.assertNotNull(clientRepository.save(client));
     }

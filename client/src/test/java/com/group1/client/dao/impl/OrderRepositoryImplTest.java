@@ -74,7 +74,7 @@ public class OrderRepositoryImplTest {
 
         order.setCost(200.0);
         order.setRemark("hurry up");
-        order.setOrderTime(1233);
+//        order.setOrderTime(1233);
 
 
         Assert.assertNotNull(orderRepository.save(order));

@@ -14,7 +14,7 @@
 <body>
 
 <!-- ship是我的项目名-->
-<form action="/client/login" method="post">
+<form action="/client/client/login" method="post">
     登录名：<input type="text" name="loginName"/><br>
     密碼&nbsp：<input type="text" name="password"/>
     <input type="submit" value="登录"/>

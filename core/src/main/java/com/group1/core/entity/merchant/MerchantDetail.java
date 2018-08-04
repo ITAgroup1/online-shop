@@ -25,7 +25,7 @@ public class MerchantDetail implements Serializable {
     @GeneratedValue(generator = "ug")
     private String id;
 
-    @OneToOne(mappedBy="merchantDetail",targetEntity=Merchant.class )//数据库的表并不会生成这个字段
+    @OneToOne(mappedBy="merchantDetail",fetch = FetchType.EAGER,targetEntity=Merchant.class )//数据库的表并不会生成这个字段
     private Merchant merchant;
 
     @Column

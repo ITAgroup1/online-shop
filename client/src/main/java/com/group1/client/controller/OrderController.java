@@ -6,8 +6,9 @@ import com.group1.core.entity.client.Client;
 import com.group1.core.entity.order.Order;
 import com.group1.core.handler.SpringWebSocketHandler;
 import com.group1.core.utils.*;
-import com.group1.core.utils.base.model.Page;
 import com.group1.core.utils.base.model.Pageable;
+import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactoryImpl;
+import org.apache.http.HttpResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,12 @@ import org.springframework.web.socket.TextMessage;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.ws.rs.PUT;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,17 +36,17 @@ public class OrderController {
     private OrderService orderService;
 
     @Resource
-    private JerseyPoolingClientFactoryBean jerseyPoolingClientFactoryBean;
+    private JerseyPoolingClientFactoryImpl jerseyPoolingClientFactoryBean;
 
     @Bean   // 这个注解会从Spring容器拿出Bean
     public SpringWebSocketHandler infoHandler() {
         return new SpringWebSocketHandler();
     }
 
-    // 給商家調用的接口
+    // 接收商家的http請求，并且將數據通過websocket返回到前臺
     @PostMapping("/websocket")
     @ResponseBody
-    public ResultBody send(Message message) {
+    public ResultBody send(@RequestBody Message message) {
         ResultBody resultBody = new ResultBody();
         String str = JsonUtil.objectToJson(message);
         infoHandler().sendMessageToUser(message.getReceiverId(), new TextMessage(str));
@@ -65,18 +66,20 @@ public class OrderController {
                     return resultBody;
                 }
                 Order result = orderService.save(orderDto,user);
-//                Message message = new Message(orderDto.getClient().getId(), orderDto.getShopId());
-//
-//                Map<String, Object> map = new HashMap<>();
-//                map.put("status", orderDto.getStatus());
-//                map.put("orderId", orderDto.getId());
-//                message.setMap(map);
+                Message message = new Message(result.getClient().getId(), result.getShopId());
 
-//                javax.ws.rs.client.Client client = jerseyPoolingClientFactoryBean.getObject();
-//                WebTarget webTarget = client.target(PropertiesUtils.getProperty("merchant_ws_url"));
-//                Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
-//                invocationBuilder.post(Entity.entity(message, MediaType.APPLICATION_JSON_TYPE));
-                resultBody.addData("order", result);
+                Map<String, Object> map = new HashMap<>();
+                map.put("status", result.getStatus());
+                map.put("orderId", result.getId());
+                message.setMap(map);
+
+                javax.ws.rs.client.Client client = jerseyPoolingClientFactoryBean.getObject();
+                WebTarget webTarget = client.target(PropertiesUtils.getProperty("merchant_ws_url"));
+                Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
+                String str = JsonUtil.objectToJson(message);
+                Response response = invocationBuilder.post(Entity.entity(str,MediaType.APPLICATION_JSON_TYPE));
+                System.out.println(response.getStatus());
+                System.out.println(response);
             } catch (Exception e) {
                 e.printStackTrace();
                 resultBody.addError("error", "client cannot get by factory");

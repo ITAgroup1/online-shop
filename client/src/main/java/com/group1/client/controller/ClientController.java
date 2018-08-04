@@ -6,6 +6,7 @@ import com.group1.core.entity.complaint.Complaint;
 import com.group1.core.utils.ResultBody;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -64,8 +65,29 @@ public class ClientController {
             resultBody.addErrors(errors.getAllErrors());
         }
         return resultBody;
-
     }
+
+//    @PostMapping("/login")
+//    @ResponseBody
+//    public ModelAndView login( @Valid Client client, Errors errors, HttpSession session){
+//        ResultBody resultBody = new ResultBody();
+//        if(!errors.hasErrors()){
+//            Client result = clientService.login(client);
+//            System.out.println(result);
+//            if(result!=null){
+//                String userId = result.getId();
+//                System.out.println(userId+" 登录");
+//                session.setAttribute(ATTRIBUTES_USERID, userId);
+//                session.setAttribute(ATTRIBUTES_USER, result);
+//                resultBody.addData("client",result);
+//            }else {
+//                resultBody.addError("errors","loginName or password is wrong");
+//            }
+//        }else {
+//            resultBody.addErrors(errors.getAllErrors());
+//        }
+//        return new ModelAndView("index");
+//    }
 
     @RequestMapping("/send")
     public ResultBody sendComplaint(@Valid Complaint complaint,Errors errors){
