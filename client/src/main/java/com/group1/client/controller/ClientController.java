@@ -35,14 +35,14 @@ public class ClientController {
         return resultBody;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ResponseBody
-    public ResultBody put(@RequestBody Client client,@PathVariable String id){
+    public ResultBody put(@RequestBody Client client,HttpSession session){
+        String id = (String) session.getAttribute(ATTRIBUTES_USERID);
         ResultBody resultBody = new ResultBody();
         Client c = clientService.update(client,id);
         resultBody.addData("client",c);
         return resultBody;
-
     }
 
     @PostMapping("/login")
