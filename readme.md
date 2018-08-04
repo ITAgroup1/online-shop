@@ -69,6 +69,9 @@
                     merchantDetail: #MerchantDetail
                 }
             }
+            request:{
+                merchant: #Merchant
+            }
         }
         
         //get the complaint of merchant
@@ -84,7 +87,7 @@
         }
        
         // merchant register
-        saveMerchant:{
+        registerMerchant:{
             url: "/merchant/register",
             method: 'POST',
             response: {
@@ -93,10 +96,13 @@
                     merchant: #Merchant
                 }
             }
+           request:{
+                merchant: #Merchant
+            }
         }
         
         // merchant login
-        findMerchant:{
+        loginMerchant:{
             url: "/merchant/login",
             method: 'POST',
             response: {
