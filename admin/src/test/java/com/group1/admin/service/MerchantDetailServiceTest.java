@@ -67,7 +67,7 @@ public class MerchantDetailServiceTest {
     @Test
     public void update() {
         MerchantDetail m = new MerchantDetail();
-        m.setId("8a5e9d1864fa926d0164fa9272b50000");
+        m.setId("8a5e9d1864fef81f0164fef826630000");
         m.setStatus(MerchantDetail.NO_PASSED);
         m.setAddress("Test address3");
         m.setIdcardNum("123456789012345678");
@@ -103,6 +103,10 @@ public class MerchantDetailServiceTest {
         pageable.setSize(10);
         pageable.setOffset(1);
         Page<MerchantDetail> page = service.listToUpdateStatus(pageable);
+        for(MerchantDetail m: page.getData()) {
+
+            System.out.println("id:"+m.getId()+"  "+m.getMerchant());
+        }
         System.out.println(page);
     }
 
