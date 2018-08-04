@@ -5,9 +5,7 @@ import com.group1.core.entity.client.Client;
 import com.group1.core.entity.comment.Comment;
 import com.group1.core.entity.order.Order;
 import com.group1.core.entity.order.OrderItem;
-import com.group1.core.entity.recipe.Recipe;
-import com.group1.core.entity.shop.Shop;
-import com.group1.core.utils.JerseyPoolingClientFactoryBean;
+import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactroy;
 import com.group1.core.utils.jms.ConsumerService;
 import com.group1.core.utils.jms.ProducerService;
 import org.junit.After;
@@ -19,17 +17,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
@@ -39,7 +29,7 @@ public class ClientServiceImplTest {
     private ClientRepository clientRepository;
 
     @Resource
-    private JerseyPoolingClientFactoryBean jerseyPoolingClientFactoryBean;
+    private JerseyPoolingClientFactroy jerseyPoolingClientFactoryBean;
 
     @Resource
     private ProducerService producerService;
@@ -51,11 +41,11 @@ public class ClientServiceImplTest {
     private Destination destination;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
@@ -81,8 +71,9 @@ public class ClientServiceImplTest {
         Comment comment = new Comment();
         comment.setScore(12);
         comment.setContent("hah");
-        comment.setOrder(order);
-        order.setComment(comment);
+//        comment.setOrder(order);
+//        order.setComment(comment);
+
 //        Recipe recipe = new Recipe();
 //        recipe.setDetail("a meal");
 //        recipe.setPrice(12);
@@ -95,13 +86,13 @@ public class ClientServiceImplTest {
 //        orderItem.setRecipe(recipe);
         Set<OrderItem> orderItems = new HashSet<>();
         orderItems.add(orderItem);
-        order.setOrderItems(orderItems);
+//        order.setOrderItems(orderItems);
 
         Set<Order> orders = new HashSet<>();
         orders.add(order);
         orders.add(order);
-        client.setOrders(orders);
-        order.setClient(client);
+//        client.setOrders(orders);
+//        order.setClient(client);
         clientRepository.save(client);
     }
 

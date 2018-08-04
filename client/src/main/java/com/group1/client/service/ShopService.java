@@ -7,4 +7,6 @@ import java.util.List;
 public interface ShopService {
     List<Shop> list();
     Shop save(Shop shop);
+
+    Shop findOne(String shopId);
 }

@@ -27,6 +27,7 @@ public class AdminController {
     public ResultBody login(@Valid Admin admin, Errors errors, HttpServletRequest request){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
+
             Admin a = adminService.login(admin);
             if(a!=null) {
                 System.out.println(a);
@@ -36,11 +37,13 @@ public class AdminController {
                 resultBody.setMessage("logiName or password is invalid");
                 resultBody.addError("errors","logiName or password is invalid");
             }
+
         }else {
             resultBody.addErrors(errors.getAllErrors());
         }
         return resultBody;
     }
+
 
     @RequestMapping("/login")
     public String login(){

@@ -1,4 +1,4 @@
-package com.group1.core.utils;
+package com.group1.core.utils.jerseyPoolingClientFactory;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -12,8 +12,8 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
-@Component("jerseyPoolingClient")
-public class JerseyPoolingClientFactoryBean implements FactoryBean<Client>, InitializingBean, DisposableBean {
+@Component
+public class JerseyPoolingClientFactoryImpl implements JerseyPoolingClientFactroy {
 
 	private Client client;
 
@@ -23,14 +23,14 @@ public class JerseyPoolingClientFactoryBean implements FactoryBean<Client>, Init
 
 	private ClientConfig clientConfig;
 
-	public JerseyPoolingClientFactoryBean() {
+	public JerseyPoolingClientFactoryImpl() {
 	}
 
-	public JerseyPoolingClientFactoryBean(ClientConfig clientConfig) {
+	public JerseyPoolingClientFactoryImpl(ClientConfig clientConfig) {
 		this.clientConfig = clientConfig;
 	}
 
-	public JerseyPoolingClientFactoryBean(int maxTotal, int defaultMaxPerRoute) {
+	public JerseyPoolingClientFactoryImpl(int maxTotal, int defaultMaxPerRoute) {
 		this.maxTotal = maxTotal;
 		this.defaultMaxPerRoute = defaultMaxPerRoute;
 	}

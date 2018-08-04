@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,13 +35,17 @@ public class CommentRepositoryImplTest {
     @Test
     public void testCommit(){
         Comment comment = new Comment();
-        Order order = new Order();
-        order.setId("1");
-        order.setShopId("1");
-        order.setAddress("here");
-        comment.setScore(3);
-        comment.setContent("一般");
-        comment.setOrder(order);
+        comment.setShopId("opIdI47");
+        comment.setScore(2);
+        comment.setContent("jicha");
+        comment.setCommentTime(System.currentTimeMillis()-1000*3600*10);
+
         Assert.assertNotNull(commentRepository.save(comment));
+    }
+
+    @Test
+    public void testList(){
+        List<Comment> comments = commentRepository.getAllByShopId("opIdI47");
+        comments.forEach( comment -> System.out.println(comment.toString()));
     }
 }

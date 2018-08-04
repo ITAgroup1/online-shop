@@ -1,5 +1,6 @@
 package com.group1.core.entity.comment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group1.core.entity.order.Order;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,13 +23,16 @@ public class Comment implements Serializable {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "comment_time")
+    private long commentTime;
+
     @Column(name = "shop_id")
     private String shopId;
 
 
-    //    one to one
+//        one to one
     @OneToOne(mappedBy = "comment", targetEntity = Order.class)
-    @JsonIgnoreProperties("comment")
+    @JsonIgnore
     private Order order;
 
 
@@ -70,5 +74,25 @@ public class Comment implements Serializable {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public long getCommentTime() {
+        return commentTime;
+    }
+
+    public void setCommentTime(long commentTime) {
+        this.commentTime = commentTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id='" + id + '\'' +
+                ", score=" + score +
+                ", content='" + content + '\'' +
+                ", commentTime=" + commentTime +
+                ", shopId='" + shopId + '\'' +
+                ", order=" + order +
+                '}';
     }
 }

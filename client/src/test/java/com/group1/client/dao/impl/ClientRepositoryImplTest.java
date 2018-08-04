@@ -44,15 +44,23 @@ public class ClientRepositoryImplTest {
     @Test
     public void login() {
         Client client = new Client();
-        client.setLoginName("joy2222");
-        client.setPassword("123456");
+        client.setLoginName("joy1234");
+        client.setPassword("234564");
         Assert.assertNotNull(clientRepository.login(client));
+    }
+
+    @Test
+    public void loginFail(){
+        Client client = new Client();
+        client.setLoginName("j");
+        client.setPassword("234564");
+        Assert.assertNull(clientRepository.login(client));
     }
 
     @Test
     public void testRegister(){
         Client client = new Client();
-        client.setLoginName("joy2222");
+        client.setLoginName("joy1111");
         client.setPassword("123456");
         Assert.assertNotNull(clientRepository.save(client));
     }

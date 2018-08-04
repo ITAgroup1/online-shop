@@ -159,7 +159,6 @@ public abstract class BaseRepositoryImpl <T,ID extends Serializable> implements 
         List<String> list=new ArrayList<>(set);
         for (int i=0;i<list.size()-1;i++){
             if ("java.lang.String".equals(map.get(list.get(i)).getClass().getTypeName())){
-                System.out.println("-*****"+map.get(list.get(i))+"------------"+list.get(i));
                 sql.append("u.").append(list.get(i)).append("='").append(map.get(list.get(i))).append("' , ");
             }else {
                 sql.append("u.").append(list.get(i)).append("=").append(map.get(list.get(i))).append(" , ");
