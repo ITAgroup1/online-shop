@@ -98,7 +98,17 @@ public class OrderRepositoryImplTest {
         Pageable pageable = new Pageable();
         pageable.setOffset(1);
         pageable.setSize(2);
-        System.out.println(orderRepository.findAll(pageable).getData());
+        System.out.println(orderRepository.findAll(pageable));
+
+    }
+
+    @Test
+    public void findAllById(){
+        String clientId = "8a5e9d1764ff18000164ff18064a0000";
+        Pageable pageable = new Pageable();
+        pageable.setOffset(1);
+        pageable.setSize(2);
+        System.out.println(orderRepository.findAllById(clientId,pageable));
 
     }
 
