@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ComplaintRepository extends JpaRepository<Complaint,String> {
 
-    public List<Complaint> queryDealedComplaint(String merchantId);
+    public List<Complaint> queryDealedComplaint(String shopId);
 }

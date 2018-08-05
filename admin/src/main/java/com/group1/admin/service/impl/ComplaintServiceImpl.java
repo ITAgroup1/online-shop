@@ -42,7 +42,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
-    public List<Complaint> listToMerchant(String merchantId) {
-        return complaintRepository.queryDealedComplaint(merchantId);
+    public List<Complaint> listToMerchant(String shopId) {
+        return complaintRepository.queryDealedComplaint(shopId);
     }
 }

@@ -7,6 +7,7 @@ import com.group1.core.utils.base.model.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 100000)
@@ -15,14 +16,16 @@ public class ComplaintController {
     @Resource(name = "complaintService")
     private ComplaintService service;
 
-    @GetMapping(value="/complaint/{merchantId}")
+    @GetMapping(value="/complaint/{shopId}")
     @ResponseBody
-    public ResultBody getComplaints(@PathVariable String merchantId) {
+    public ResultBody getComplaints(@PathVariable String shopId) {
         ResultBody resultBody = new ResultBody();
-        if (merchantId == null) {
+        if (shopId == null) {
             resultBody.addError("errors", "merchantId is null");
         } else {
-            resultBody.addData("complaints", service.listToMerchant(merchantId));
+            resultBody.setStatus("1");
+            List<Complaint> complaints = service.listToMerchant(shopId);
+            resultBody.addData("complaints", complaints);
         }
         return resultBody;
     }
