@@ -54,7 +54,7 @@
 
                             </div>
                             <div class="panel-body">
-                                <table class="order-list table table-striped">
+                                <table class="table table-striped" id="order-list">
                                     <tr>
                                         <th>订单号</th>
                                         <th>地址</th>
@@ -63,12 +63,12 @@
                                         <th>状态</th>
                                         <th>操作</th>
                                     </tr>
-                                    <tr class="order-item">
-                                        <td>id</td>
-                                        <td>address</td>
-                                        <td>phone</td>
-                                        <td>cost</td>
-                                        <td>status</td>
+                                    <tr v-for="order of this.orders" class="order-item">
+                                        <td>{{order.id}}</td>
+                                        <td>{{order.address}}</td>
+                                        <td>{{order.phone}}</td>
+                                        <td>{{order.cost}}</td>
+                                        <td>{{order.status}}</td>
                                         <td><a>123</a></td>
                                     </tr>
                                 </table>
@@ -97,6 +97,7 @@
 <script src="<%=basePath%>assets/vendor/chartist/js/chartist.min.js"></script>
 <script src="<%=basePath%>assets/scripts/klorofil-common.js"></script>
 <script src="<%=basePath%>assets/js/axios.js"></script>
+<script src="<%=basePath%>assets/js/vue.js"></script>
 <script src="<%=basePath%>assets/js/orders.js"></script>
 <script>
     window.contextPath = "<%=basePath%>";
