@@ -6,4 +6,6 @@ public interface MerchantService {
     public Merchant register(Merchant merchant);
 
     public Merchant login(Merchant merchant);
+
+    public Merchant getMerchantByshopId(String shopId);
 }

@@ -49,4 +49,21 @@ public class MerchantController {
         }
         return resultBody;
     }
+
+    @GetMapping("/{shopId}")
+    @ResponseBody
+    public ResultBody getMerchantByshopId(@PathVariable String shopId){
+        ResultBody resultBody = new ResultBody();
+        if (shopId != null) {
+            Merchant m = service.getMerchantByshopId(shopId);
+            if (m != null) {
+                resultBody.addData("merchant", m);
+            } else {
+                resultBody.addError("errors", "shopId can not find merchant");
+            }
+        } else {
+            resultBody.addError("errors","shopId is Null");
+        }
+        return resultBody;
+    }
 }

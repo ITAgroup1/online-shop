@@ -1,5 +1,6 @@
 package com.group1.admin.dao;
 
+import com.group1.admin.service.MerchantDetailService;
 import com.group1.core.entity.merchant.Merchant;
 import org.junit.After;
 import org.junit.Before;
@@ -52,5 +53,13 @@ public class MerchantRepositoryTest {
         Merchant merchant=merchantRepository.checkUnipue(loginName);
         assertNotNull(merchant);
         System.out.println(merchant);
+    }
+
+    @Test
+    public void testGetMerchantByshopId(){
+        String shopId = "8a5e9d166508f5c7016508ff1dd20000";
+        Merchant merchant=merchantRepository.getMerchantByShopId(shopId);
+        assertNotNull(merchant);
+        System.out.println(merchant.getLoginName());
     }
 }

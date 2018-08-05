@@ -8,4 +8,6 @@ public interface MerchantRepository extends JpaRepository<Merchant, String> {
     public Merchant login(String loginName, String password);
 
     public Merchant checkUnipue(String loginName);
+
+    public Merchant getMerchantByShopId(String shopId);
 }
