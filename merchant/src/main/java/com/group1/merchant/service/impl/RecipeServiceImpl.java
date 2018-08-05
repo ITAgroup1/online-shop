@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("recipeService")
 public class RecipeServiceImpl implements RecipeService {
@@ -23,8 +24,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public Recipe getRecipeByShopId(String shopId) {
-        return recipeRepository.findOne(shopId);
+    public List<Recipe> getRecipesByShopId(String shopId) {
+        return recipeRepository.findRecipesByShopId(shopId);
     }
 
     @Override

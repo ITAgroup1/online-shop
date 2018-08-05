@@ -1,6 +1,5 @@
-
-let merchantServer = "http://localhost:9090/merchant";
-let uploadServer = "http://localhost:9090/picServer";
+let merchantServer = "http://localhost:9090";
+let uploadServer = "http://10.222.29.153:10086";
 
 // 上传图片
 function uploadPic(item,successFunc){
@@ -15,8 +14,7 @@ function uploadPic(item,successFunc){
                type: "POST",
                url: uploadServer + "/upload",
                data: data,
-               dataType: 'json', 
-               async: false,
+               dataType: 'json',
                cache: false,
                contentType: false,
                processData: false,
@@ -32,7 +30,7 @@ function uploadPic(item,successFunc){
 
 // 删除菜
 function deleteRecipe() {
-    let isDelete = confirm("确定要删除？");
+    let isDelete = confirm("确定删除？");
     if(isDelete) {
         data = {};
         let div = $(this).parent();
@@ -43,9 +41,8 @@ function deleteRecipe() {
         data[input.prop("name")] = input.prop("value");
         console.log(data);
         $.ajax({
-            type: "POST",
-            url: merchantServer + "/recipe/delete",
-            data: data,
+            type: "DELETE",
+            url: merchantServer + "/recipe/" + data.id,
             success: function(data) {
                 if(data.status == true) {
                     alert(data.message);
@@ -71,23 +68,26 @@ function saveRecipe() {
     });
     data[$("#about-recipe-input textarea").prop("name")] = $("#about-recipe-input textarea").prop("value");
     console.log("------------------------获取img相对路径-----------------------------------");
-    data[$("#about-recipe-pic a").prop("name")] = $($("#about-recipe-pic a").children()[0]).prop("src").replace(uploadServer,"");
+    data[$("#about-recipe-pic a").prop("name")] = $($("#about-recipe-pic a").children()[0]).prop("src");
     console.log("------------------------发送Ajax异步请求-----------------------------------");
 
     console.log(data);
+    console.log(JSON.stringify(data))
     $.ajax({
         type: "POST",
-        url: merchantServer + "/recipe/save",
-        data: data,
+        url: merchantServer + "/recipe",
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
         success: function(data) {
             console.log(data);
-            let result = JSON.parse(data);
-            if(result.status == true) {
-                let newDiv = $(`<div class="method1" >
-                                <input type="hidden" name="recipeId" class="form-control" value="">
+            let result = data;
+            if(result.status === "1") {
+                let newDiv = $(`<div>
+                                <input type="hidden" name="id" class="form-control" value="">
                                 <p>food1</p>
                                 <a name="recipePic">
-                                <img  class="test" src="http://localhost:9090/picServer/31e4230/8b6d2c6/2aeb321/765a3c440db.jpg" width="450px" height="330px" />
+                                <img class="img-responsive" alt="图片" src=""/>
                                 </a>
                                 <p>25.00(￥)</p>
                                 <button type="button" class="btn btn-danger">
@@ -103,10 +103,10 @@ function saveRecipe() {
                 let button2 = $(newDiv.children()[5]); //修改按钮
    
 
-                input.prop("value", result.data.recipe.recipeId);
-                p1.prop("value", result.data.recipe.recipeName);
-                img.prop("src", uploadServer + result.data.recipe.recipePic);
-                p2.prop("value", result.data.recipe.price + "(￥)");
+                input.prop("value", result.data.recipe.id);
+                p1.text(result.data.recipe.recipeName);
+                img.prop("src", result.data.recipe.recipePic);
+                p2.text(result.data.recipe.price + "(￥)");
                 button1.on("click", deleteRecipe);
                 button2.on("click", function() {
                     alert("修改");
@@ -138,7 +138,7 @@ $(function() {
         console.log(data);
         if(data.status == true) {
             let uploadImg = $("#about-recipe-pic img");
-            console.log(uploadImg.prop("src", uploadServer + data.data.url));
+            console.log(uploadImg.prop("src", data.data.url));
         }else {
             confirm("上传失败！请重传！");
         }

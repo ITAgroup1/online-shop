@@ -1,31 +1,65 @@
 package com.group1.merchant.controller;
 
+import com.group1.core.entity.merchant.Merchant;
+import com.group1.core.entity.merchant.MerchantDetail;
 import com.group1.core.entity.recipe.Recipe;
+import com.group1.core.entity.shop.Shop;
 import com.group1.core.utils.ResultBody;
+import com.group1.merchant.service.MerchantDetailService;
 import com.group1.merchant.service.RecipeService;
+import com.group1.merchant.service.ShopService;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/recipe")
-@SessionAttributes("merchant")
 public class RecipeController {
 
     @Resource(name = "recipeService")
     private RecipeService recipeService;
 
+    @Resource(name = "merchantDetailService")
+    private MerchantDetailService merchantDetailService;
+
+    @Resource(name = "shopService")
+    private ShopService shopService;
+
     @PostMapping
-    public ResultBody saveRecipe(@Valid @RequestBody Recipe recipe, Errors errors) {
+    @ResponseBody
+    public ResultBody saveRecipe(@Valid @RequestBody Recipe recipe, Errors errors, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ResultBody resultBody = new ResultBody();
-        if(errors.hasErrors()) {
-            resultBody.addData("errors", errors);
-        }else{
-            resultBody.addData("recipe", recipeService.saveRecipe(recipe));
+        Merchant merchant = (Merchant) session.getAttribute("merchant");
+        if(merchant == null) {
+            response.sendRedirect("/");
         }
-        return resultBody;
+
+        MerchantDetail merchantDetail = merchantDetailService.getMerchantDetail(merchant);
+        if(merchantDetail != null && merchantDetail.getStatus().equals(MerchantDetail.PASSED)) {
+            System.out.println(errors.hasErrors());
+            if(errors.hasErrors()) {
+                resultBody.addData("errors", errors);
+            }else{
+                String shopId = merchantDetail.getShopId();
+                Shop shop = shopService.findByShopId(shopId);
+                recipe.setShop(shop);
+                resultBody.addData("recipe", recipeService.saveRecipe(recipe));
+            }
+            return resultBody;
+        }else {
+            resultBody.addData("errors","No Application Shop Or Application failed");
+            request.getRequestDispatcher("merchantDetail").forward(request, response);
+            return resultBody;
+        }
     }
 
     @PutMapping
@@ -39,20 +73,33 @@ public class RecipeController {
         return resultBody;
     }
 
-    @GetMapping("/{shopId}")
-    public ResultBody getRecipes(@PathVariable String shopId) {
-        ResultBody resultBody = new ResultBody();
-        resultBody.addData("recipes", recipeService.getRecipeByShopId(shopId));
-        return resultBody;
+    @GetMapping
+    public void getRecipes(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Merchant merchant = (Merchant) session.getAttribute("merchant");
+        if(merchant == null) {
+            response.sendRedirect("/");
+            return;
+        }
+        MerchantDetail merchantDetail = merchantDetailService.getMerchantDetail(merchant);
+        if(merchantDetail !=null && merchantDetail.getStatus().equals(MerchantDetail.PASSED)) {
+            String shopId = merchantDetail.getShopId();
+            List<Recipe> recipes = recipeService.getRecipesByShopId(shopId);
+            request.setAttribute("recipes", recipes);
+            request.getRequestDispatcher("recipeManager").forward(request,response);
+        }else {
+            request.getRequestDispatcher("merchantDetail").forward(request, response);
+        }
     }
 
     @DeleteMapping("/{recipeId}")
+    @ResponseBody
     public ResultBody deleteRecipe(@PathVariable String recipeId) {
         ResultBody resultBody = new ResultBody();
         boolean isDelete = recipeService.deleteRecipeById(recipeId);
         if(!isDelete) {
             resultBody.addData("errors", "delete recipe fail");
         } else {
+            resultBody.setMessage("删除成功！");
             resultBody.addData("recipeId", recipeId);
         }
         return resultBody;

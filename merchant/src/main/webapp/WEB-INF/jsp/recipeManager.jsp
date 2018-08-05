@@ -60,11 +60,11 @@
                                     <!-- <input type="hidden" name="recipeId" class="form-control" value=""> -->
                                     <h4>菜名：</h4><input type="text" name="recipeName" class="form-control" placeholder="菜名" value="${recipe.recipeName}">
                                     <br>
-                                    <h4>菜介绍：</h4><textarea name="recipeDetail" class="form-control" placeholder="不少于100字，不超过500字" rows="4" >${recipe.recipeDetail}</textarea>                                    
+                                    <h4>菜介绍：</h4><textarea name="recipeDetail" class="form-control" placeholder="不少于100字，不超过500字" rows="4" >${recipe.recipeDetail}</textarea>
                                     <br>
-                                    <h4>菜价(￥)：</h4><input type="number" name="recipePrice" class="form-control" placeholder="菜价" min="1" max="1000" value="${recipe.recipePrice}">
+                                    <h4>菜价(￥)：</h4><input type="number" name="price" class="form-control" placeholder="菜价" min="1" max="1000" value="${recipe.price}">
                                     <br>
-                                    <input type="hidden" name="shopId" class="form-control" value="${merchant.shop.shopId}">                                                                    
+                                    <%--<input type="hidden" name="shopId" class="form-control" value="${recipe.shop.id}">--%>
                                 </div>
                             </div>
                             <!-- END INPUTS 1--> 
@@ -75,9 +75,9 @@
                                 </div>
                                 <div class="panel-body" id="about-recipe-pic">
                                     <h3 class="panel-heading">上传菜图片</h3>
-                                    <div class="method1" > 
+                                    <div>
                                         <a name="recipePic">
-                                            <img  class="test" src="<%=basePath%>assets/img/non-upload-pic.jpg" width="450px" height="330px" />
+                                            <img  class="img-responsive"  alt="图片" src="<%=basePath%>assets/img/add_img.png"/>
                                         </a>
                                     </div><hr>                                                                                                                         
                                 </div>
@@ -90,21 +90,10 @@
                                 </div>
                                 <div class="panel-body">
                                     <div>
-                                        <button type="button" name="btn-save" class="btn btn-primary btn-block">保存</button>
+                                        <button type="button" name="btn-save" class="btn btn-primary btn-block">添加</button>
                                     </div>
                                 </div>
                             </div>
-<!--                             <div class="panel"> -->
-<!--                                     <div class="panel-heading"> -->
-<!--                                         <h2 class="panel-title"></h2> -->
-<!--                                     </div> -->
-<!--                                     <div class="panel-body"> -->
-<!--                                         <div> -->
-<!--                                             <button type="button" name="btn-new-add" class="btn btn-primary btn-block">新添加</button> -->
-<!--                                         </div> -->
-<!--                                     </div> -->
-<!--                                 </div>                             -->
-                            <!-- END INPUTS 1-->                                 
                         </div>
                         <div class="col-md-6">
                                 <div class="panel">
@@ -112,43 +101,23 @@
                                             <h2 class="panel-title">菜描述</h2>
                                         </div>
                                         <div class="panel-body" id="recipe-list">
-                                        <c:forEach items="${recipeList}" var="recipe">
-                                                <div class="method1" > 
-                                                        <input type="hidden" name="recipeId" class="form-control" value="${recipe.recipeId}">
+                                        <c:forEach items="${recipes}" var="recipe">
+                                                <div>
+                                                        <input type="hidden" name="id" class="form-control" value="${recipe.id}">
                                                         <p>${recipe.recipeName}</p>                                                                                                        
                                                         <a name="recipePic">
-                                                            <img  class="test" src="<%=imgServer%>${recipe.recipePic}" width="450px" height="330px" />
+                                                            <img  class="img-responsive" alt="图片" src="${recipe.recipePic}"/>
                                                         </a>
-                                                        <p>${recipe.recipePrice}(￥)</p>
+                                                        <p>${recipe.price}(￥)</p>
                                                         <button type="button" class="btn btn-danger">删除</button>                                                        
-                                                        <!--<button type="button" class="btn btn-primary">修改</button>-->
+                                                        <button type="button" class="btn btn-primary">修改</button>
                                                 </div><hr>                                        
                                         </c:forEach>
-<!-- 
-                                                <div class="method1" >
-                                                        <input type="hidden" name="recipeId" class="form-control" value="2">
-                                                        <p>food2</p>                                                                                                        
-                                                        <a name="recipePic">
-                                                            <img  class="test" src="http://localhost:9090/picServer/d29696c/4df2c06/dd54e26/fb8358646f.jpg" width="450px" height="330px" />
-                                                        </a>
-                                                        <p>20.00(￥)</p>
-                                                        <button type="button" class="btn btn-danger">删除</button>                                                        
-                                                        <button type="button" class="btn btn-primary">修改</button>  
-                                                </div><hr>  
-                                                <div class="method1" > 
-                                                        <input type="hidden" name="recipeId" class="form-control" value="3">
-                                                        <p>food3</p>                                                                                                        
-                                                        <a name="recipePic">
-                                                            <img  class="test" src="http://localhost:9090/picServer/fa2b71d/744bd6b/17a4e9c/f8a6d0e57d4.jpg" width="450px" height="330px" />
-                                                        </a>
-                                                        <p>40.00(￥)</p>
-                                                        <button type="button" class="btn btn-danger">删除</button>                                                        
-                                                        <button type="button" class="btn btn-primary">修改</button> 
-                                                </div><hr>      -->                                                                                                                                               
                                         </div>
                                 </div>
                         </div>
                     </div>
+                 </div>
             </div>
         </div>     
         <!-- END MAIN CONTENT -->
