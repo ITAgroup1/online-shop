@@ -1,3 +1,4 @@
+/*
 package com.group1.client.listener;
 
 import javax.jms.JMSException;
@@ -21,3 +22,4 @@ public class ConsumerMessageListener  implements MessageListener {
     }
 
 }
+*/

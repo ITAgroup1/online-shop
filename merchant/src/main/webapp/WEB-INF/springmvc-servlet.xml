@@ -4,6 +4,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -13,29 +14,36 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <context:property-placeholder location="classpath:application.properties"/>
 
     <!--package scan-->
-    <context:annotation-config></context:annotation-config>
-    <context:component-scan base-package="com.group1.merchant.controller"></context:component-scan>
+    <context:annotation-config/>
 
     <!--<mvc:annotation-driven json >-->
+    <!--开启注解-->
     <mvc:annotation-driven enable-matrix-variables="true">
         <mvc:message-converters>
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <!--访问静态资源（假如没找到相应的控制器就去找静态资源，如果都没有则返回404）-->
+    <!--<mvc:default-servlet-handler/>-->
+
+    <context:component-scan base-package="com.group1.merchant.controller"/>
+
+
 
     <!--static resources config-->
-    <mvc:resources mapping="/html/**" location="/html/"></mvc:resources>
-    <mvc:resources mapping="/css/**" location="/css/"></mvc:resources>
-    <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
+    <mvc:resources mapping="/img/**" location="/img/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/js/**" location="/assets/js/"/>
+    <mvc:resources mapping="/assets/**" location="/assets/"/>
 
     <!--file upload helper-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="2000000000"></property>
+        <property name="maxUploadSize" value="2000000000"/>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -44,4 +52,25 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--interceptor-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/*.jsp"/>
+            <mvc:exclude-mapping path="/assets/**"/>
+            <mvc:exclude-mapping path="/img/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <bean class="com.group1.merchant.interceptor.LoginAuthenticationInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="socketHandler" class="com.group1.core.handler.SpringWebSocketHandler"/>
+
+    <websocket:handlers allowed-origins="*">
+        <websocket:mapping handler="socketHandler" path="/merchant/socketServer" />
+        <websocket:handshake-interceptors>
+            <bean class="com.group1.core.interceptor.SpringWebSocketHandlerInterceptor"/>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
 </beans>

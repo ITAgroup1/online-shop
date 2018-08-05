@@ -35,8 +35,8 @@ public class Shop {
     private Double distributionCost;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable(name="customer_shopPic",joinColumns = @JoinColumn(name="shop_id"))
-    @Column(name="shopPic")
+    @JoinTable(name="t_shop_pic",joinColumns = @JoinColumn(name="shop_id"))
+    @Column(name="shop_pic")
     @NotNull(message="店内图片不能为空")
     private Set<String> shopPic;
 
@@ -47,8 +47,8 @@ public class Shop {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "merchantDetail")
-    private String merchantDetail_id;
+    @Column(name = "merchantDetail_id")
+    private String merchantDetailId;
 
     @Column(name = "introduction")
     private String introduction;
@@ -132,12 +132,12 @@ public class Shop {
         this.address = address;
     }
 
-    public String getMerchantDetail_id() {
-        return merchantDetail_id;
+    public String getMerchantDetailId() {
+        return merchantDetailId;
     }
 
-    public void setMerchantDetail_id(String merchantDetail_id) {
-        this.merchantDetail_id = merchantDetail_id;
+    public void setMerchantDetailId(String merchantDetailId) {
+        this.merchantDetailId = merchantDetailId;
     }
 
     public Double getScore() {

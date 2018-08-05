@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = {"classpath*:applicationContext.xml"})
 public class MerchantDetailRepositoryTest {
 
-    @Resource
+    @Resource(name="merchantDetailDao")
     private MerchantDetailRepository merchantDetailRepository;
 
 
@@ -36,9 +36,36 @@ public class MerchantDetailRepositoryTest {
     public void tearDown() throws Exception {
     }
 
+
     @Test
     public void testSave() {
         MerchantDetail m = new MerchantDetail();
+        m.setStatus(MerchantDetail.UNTREATED);
+        m.setAddress("Test addre");
+        m.setIdcardNum("123456789012345678");
+        m.setIntroduction("Test Inoduce7");
+        m.setMerchantName("Test MerchtName7");
+        m.setIdcardPic("testUrl");
+        Set<String> shopPiceset =  new HashSet<>();
+        shopPiceset.add("test pic st10");
+        shopPiceset.add("test pic st1");
+        shopPiceset.add("test pic se2");
+        m.setShopPic(shopPiceset);
+        m.setBusinessPic("bussiner pic12");
+        m.setShopId("shopIdId12");
+        Merchant merchant = new Merchant();
+        merchant.setId("3");
+        m.setMerchant(merchant);
+        MerchantDetail m2=merchantDetailRepository.save(m);
+        assertNotNull(m2);
+        System.out.print(m2);
+    }
+
+
+    @Test
+    public void testUpdate() {
+        MerchantDetail m = new MerchantDetail();
+        m.setId("8a5e9d1864f937c40164f937c9670000");
         m.setStatus(MerchantDetail.UNTREATED);
         m.setAddress("Test address3");
         m.setIdcardNum("123456789012345678");
@@ -46,16 +73,13 @@ public class MerchantDetailRepositoryTest {
         m.setMerchantName("Test MerchantName7");
         m.setIdcardPic("testUrl");
         Set<String> shopPiceset =  new HashSet<>();
-        shopPiceset.add("test pic set10");
-        shopPiceset.add("test pic set1");
-        shopPiceset.add("test pic set12");
+        shopPiceset.add("test pic set1010");
+        shopPiceset.add("test pic set001");
+        shopPiceset.add("test pic set100");
         m.setShopPic(shopPiceset);
         m.setBusinessPic("bussiner pic12");
-        m.setShopId("shopIdId37");
-        Merchant merchant = new Merchant();
-        merchant.setId("3");
-        m.setMerchant(merchant);
-        MerchantDetail m2=merchantDetailRepository.insert(m);
+        m.setShopId("sid308");
+        MerchantDetail m2=merchantDetailRepository.save(m);
         assertNotNull(m2);
         System.out.print(m2);
     }
@@ -69,8 +93,8 @@ public class MerchantDetailRepositoryTest {
     @Test
     public void updateStatus() {
 
-        merchantDetailRepository.updateStatus("8a5e9d1864f8e5020164f8e5068c0000", MerchantDetail.PASSED);
-        MerchantDetail m = merchantDetailRepository.findOne("8a5e9d1864f8e5020164f8e5068c0000");
+        merchantDetailRepository.updateStatus("8a5e9d1864f99a580164f99a5d5b0000", MerchantDetail.PASSED);
+        MerchantDetail m = merchantDetailRepository.findOne("8a5e9d1864f99a580164f99a5d5b0000");
         System.out.println(m.getStatus());
     }
 

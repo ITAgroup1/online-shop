@@ -30,6 +30,7 @@ public class Recipe implements Serializable {
 
     @ManyToOne(targetEntity = Shop.class,fetch=FetchType.EAGER)
     @JoinColumn(name="shop_id")
+    @JsonIgnore
     private Shop shop;
 
     public String getId() {
