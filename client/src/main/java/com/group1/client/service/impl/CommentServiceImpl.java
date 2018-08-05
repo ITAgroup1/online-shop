@@ -34,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
             Double average1 = (total + comment.getScore())/(count+1);
             shop.setScore(average1);
         }
-        return commentRepository.save(comment);
+        return commentRepository.add(comment);
 
     }
 

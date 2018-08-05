@@ -12,4 +12,6 @@ public interface ClientService {
     Client login(Client client);
 
     Complaint complain(Complaint complaint);
+
+    Client findClientByLoginName(String loginName);
 }

@@ -25,9 +25,14 @@ public class ClientController {
 
     @PostMapping("/register")
     @ResponseBody
-    public ResultBody register(@Valid Client client,Errors errors){
+    public ResultBody register(@RequestBody @Valid Client client,Errors errors){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
+            Client result = clientService.findClientByLoginName(client.getLoginName());
+            if(result!=null){
+                resultBody.addError("errors","該賬戶已經被注冊");
+                return resultBody;
+            }
             resultBody.addData("client",clientService.save(client));
         }else {
             resultBody.addErrors(errors.getAllErrors());
@@ -93,8 +98,8 @@ public class ClientController {
 //        return new ModelAndView("index");
 //    }
 
-    @RequestMapping("/send")
-    public ResultBody sendComplaint(@Valid Complaint complaint,Errors errors){
+    @PostMapping("/send")
+    public ResultBody sendComplaint(@RequestBody @Valid Complaint complaint,Errors errors){
         ResultBody resultBody = new ResultBody();
         if(!errors.hasErrors()){
             resultBody.addData("complaint",clientService.complain(complaint));

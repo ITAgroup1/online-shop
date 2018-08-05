@@ -53,6 +53,8 @@ public class OrderController {
     public ResultBody send(@RequestBody Message message) {
         ResultBody resultBody = new ResultBody();
         String str = JsonUtil.objectToJson(message);
+        Order order =  JsonUtil.mapToObject((Map) message.getMap().get("order"),Order.class);
+        orderService.update(order.getId(),order.getStatus());
         infoHandler().sendMessageToUser(message.getReceiverId(), new TextMessage(str));
         resultBody.addData("result", "success send");
         return resultBody;
@@ -74,11 +76,11 @@ public class OrderController {
 
                 Map<String, Object> map = new HashMap<>();
                 map.put("status", result.getStatus());
-                map.put("orderId", result.getId());
+                map.put("order", result);
                 message.setMap(map);
 
                 javax.ws.rs.client.Client client = jerseyPoolingClientFactoryBean.getObject();
-                WebTarget webTarget = client.target(PropertiesUtils.getProperty("merchant_ws_url"));
+                WebTarget webTarget = client.target(PropertiesUtils.getProperty("ws_url"));
                 Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
                 String str = JsonUtil.objectToJson(message);
                 Response response = invocationBuilder.post(Entity.entity(str, MediaType.APPLICATION_JSON_TYPE));
@@ -86,7 +88,7 @@ public class OrderController {
                 System.out.println(response);
             } catch (Exception e) {
                 e.printStackTrace();
-                resultBody.addError("error", "client cannot get by factory");
+//                resultBody.addError("error", "client cannot get by factory");
             }
 
         } else {
@@ -138,8 +140,8 @@ public class OrderController {
 
     @GetMapping("/detail/{orderId}")
     @ResponseBody
-    public ResultBody findDetailByOrderId(@PathVariable String orderId){
-         ResultBody resultBody = new ResultBody();
+    public ResultBody findDetailByOrderId(@PathVariable String orderId) {
+        ResultBody resultBody = new ResultBody();
         List<OrderItem> orderItems = orderService.findOrderDetailByOrderId(orderId);
         resultBody.addData("orderItems", orderItems);
         return resultBody;
