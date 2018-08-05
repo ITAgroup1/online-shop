@@ -3,6 +3,7 @@ package com.group1.core.handler;
 import com.group1.core.utils.JsonUtil;
 import com.group1.core.utils.Message;
 import com.group1.core.utils.PropertiesUtils;
+import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactoryImpl;
 import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactroy;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -23,6 +24,9 @@ import static com.group1.core.interceptor.SpringWebSocketHandlerInterceptor.ATTR
 
 public class SpringWebSocketHandler extends TextWebSocketHandler {
     private static final Map<String, WebSocketSession> users;//这个会出现性能问题，最好用Map来存储，key用userid
+
+    @Resource
+    private JerseyPoolingClientFactroy jerseyPoolingClientFactoryBean;
 
     static {
         users = new ConcurrentHashMap<>();

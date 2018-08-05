@@ -33,4 +33,15 @@ public class MerchantRepositoryImpl extends JPARepositoryImpl<Merchant, String> 
             merchant = list.get(0);
         return merchant;
     }
+
+    @Override
+    public Merchant getMerchantByShopId(String shopId) {
+        Merchant merchant = null;
+        Query query = entityManager.createQuery("SELECT M.merchant FROM  MerchantDetail M where  M.shopId =:shopId");
+        query.setParameter("shopId",shopId);
+        List<Merchant> list = query.getResultList();
+        if (list.size() > 0)
+            merchant = list.get(0);
+        return merchant;
+    }
 }

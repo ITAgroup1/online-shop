@@ -72,7 +72,7 @@ public class ShopServiceTest {
         message.setMap(map);
 
         javax.ws.rs.client.Client client = jerseyPoolingClientFactoryBean.getObject();
-        WebTarget webTarget = client.target(PropertiesUtils.getProperty("client_ws_url"));
+        WebTarget webTarget = client.target(PropertiesUtils.getProperty("ws_url"));
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
         String str = JsonUtil.objectToJson(message);
         Response response = invocationBuilder.post(Entity.entity(str,MediaType.APPLICATION_JSON_TYPE));

@@ -43,6 +43,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Complaint complain(Complaint complaint) {
+        complaint.setStatus(1);
         ResultBody resultBody = new ResultBody();
         resultBody.addData("type","Complaint");
         resultBody.addData("complaint",complaint);
@@ -51,5 +52,10 @@ public class ClientServiceImpl implements ClientService {
         return complaint;
 
 
+    }
+
+    @Override
+    public Client findClientByLoginName(String loginName) {
+        return clientRepository.findClientByLoginName(loginName);
     }
 }

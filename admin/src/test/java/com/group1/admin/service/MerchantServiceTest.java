@@ -66,4 +66,12 @@ public class MerchantServiceTest {
         assertNull(m);
     }
 
+    @Test
+    public void findMerchantByshopId() {
+
+        Merchant m=service.getMerchantByshopId("8a5e9d166508f5c7016508ff1dd20000");
+        assertNotNull(m);
+        System.out.println(m.getLoginName());
+    }
+
 }
