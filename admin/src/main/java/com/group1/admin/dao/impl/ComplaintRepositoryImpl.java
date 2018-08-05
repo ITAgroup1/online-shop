@@ -14,12 +14,12 @@ public class ComplaintRepositoryImpl extends JPARepositoryImpl<Complaint, String
 
 
     @Override
-    public List<Complaint> queryDealedComplaint(String merchantId) {
-        Query query = entityManager.createQuery("Select C From Complaint C Where C.status =:untreated and C.merchantId =:merchantId");
+    public List<Complaint> queryDealedComplaint(String shopId) {
+
+        Query query = entityManager.createQuery("Select C From Complaint C Where C.status =:untreated and C.shopId =:shopId");
         query.setParameter("untreated", Complaint.FINISHED);
-        query.setParameter("merchantId", merchantId);
+        query.setParameter("shopId", shopId);
         List<Complaint> data = query.getResultList();
-        ;
         return data;
     }
 }

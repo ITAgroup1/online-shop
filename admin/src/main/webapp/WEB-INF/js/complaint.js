@@ -102,7 +102,7 @@
 
             tbody.empty();
             model.forEach((item,index)=>{
-                $("<tr>").append($("<td>").text(item.merchantId))
+                $("<tr>")
                     .append($("<td>").text(item.shopId))
                     .append($("<td>").text(item.content))
                     .append($("<td>").text(that.getStatus(item.status)))
