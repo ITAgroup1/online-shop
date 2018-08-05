@@ -59,6 +59,7 @@
                         <value>/admin/login</value>
                         <value>/merchant/register</value>
                         <value>/merchant/login</value>
+                        <value>/merchant</value>
                         <value>/merchantDetail/shop</value>
                         <value>/merchantDetail</value>
                         <value>/complaint</value>

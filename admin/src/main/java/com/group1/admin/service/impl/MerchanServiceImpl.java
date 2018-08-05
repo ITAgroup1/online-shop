@@ -29,4 +29,9 @@ public class MerchanServiceImpl implements MerchantService {
     public Merchant login(Merchant merchant) {
         return merchantRepository.login(merchant.getLoginName(), merchant.getPassword());
     }
+
+    @Override
+    public Merchant getMerchantByshopId(String shopId) {
+        return merchantRepository.getMerchantByShopId(shopId);
+    }
 }
