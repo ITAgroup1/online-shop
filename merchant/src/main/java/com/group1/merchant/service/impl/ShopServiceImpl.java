@@ -44,8 +44,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public Shop findByShopId(String shop_id) {
-        return null;
+    public Shop findByShopId(String shopId) {
+        return shopRepository.findOne(shopId);
     }
 
     @Override

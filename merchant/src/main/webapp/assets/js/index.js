@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     let formData = {};
-    let imgServer = "http://localhost:10086/";
+    let imgServer = "http://10.222.29.153:10086/";
 
     let IDUploadBtn = $("#add-id-img-btn");
     uploadBtn(IDUploadBtn,"idcardPic");

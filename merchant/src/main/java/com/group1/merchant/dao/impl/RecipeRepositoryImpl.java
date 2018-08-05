@@ -18,12 +18,10 @@ public class RecipeRepositoryImpl extends JPARepositoryImpl<Recipe,String> imple
 
     @Override
     public List<Recipe> findRecipesByShopId(String shopId) {
-        String jsql = "select r from Recipe r where r.shopId=:shopId";
+        String jsql = "select r from Recipe r where r.shop.id=:shopId";
         Query query = entityManager.createQuery(jsql);
         query.setParameter("shopId", shopId);
         List<Recipe> recipes = query.getResultList();
         return recipes;
     }
-
-
 }
