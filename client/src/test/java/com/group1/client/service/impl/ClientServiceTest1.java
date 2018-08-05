@@ -41,7 +41,7 @@ public class ClientServiceTest1 {
     @Test
     public void save() {
         Client client = new Client();
-        client.setLoginName("joy111555");
+        client.setLoginName("joy2222");
         client.setPassword("123456");
         Assert.assertNotNull(clientService.save(client));
     }

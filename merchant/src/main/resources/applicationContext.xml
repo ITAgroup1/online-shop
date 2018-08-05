@@ -58,6 +58,7 @@
                 <value>com.group1.core.entity.comment</value>
                 <value>com.group1.core.entity.client</value>
                 <value>com.group1.core.entity.order</value>
+                <value>com.group1.core.entity.merchant</value>
             </list>
         </property>
         <property name="jpaProperties">

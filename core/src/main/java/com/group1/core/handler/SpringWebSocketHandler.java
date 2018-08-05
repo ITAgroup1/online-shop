@@ -1,10 +1,20 @@
 package com.group1.core.handler;
 
+import com.group1.core.utils.JsonUtil;
+import com.group1.core.utils.PropertiesUtils;
+import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactoryImpl;
+import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactroy;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import javax.annotation.Resource;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +23,9 @@ import static com.group1.core.interceptor.SpringWebSocketHandlerInterceptor.ATTR
 
 public class SpringWebSocketHandler extends TextWebSocketHandler {
     private static final Map<String, WebSocketSession> users;//这个会出现性能问题，最好用Map来存储，key用userid
+
+    @Resource
+    private JerseyPoolingClientFactroy jerseyPoolingClientFactoryBean;
 
     static {
         users = new ConcurrentHashMap<>();
@@ -49,8 +62,16 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
      * js调用websocket.send时候，会调用该方法
      */
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.println(message.getPayload());
-        super.handleTextMessage(session, message);
+//        System.out.println(message.getPayload());
+//        super.handleTextMessage(session, message);
+        javax.ws.rs.client.Client client = jerseyPoolingClientFactoryBean.getObject();
+        WebTarget webTarget = client.target(PropertiesUtils.getProperty("ws_url"));
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON_TYPE);
+        String str = message.getPayload();
+        //Message msg = JsonUtil.jsonToObject(str,Message.class);
+        Response response = invocationBuilder.post(Entity.entity(str,MediaType.APPLICATION_JSON_TYPE));
+        System.out.println(response.getStatus());
+        System.out.println(response);
     }
 
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {

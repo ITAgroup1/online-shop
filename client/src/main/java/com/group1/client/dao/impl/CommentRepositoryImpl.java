@@ -26,4 +26,11 @@ public class CommentRepositoryImpl extends JPARepositoryImpl<Comment,String> imp
         Integer count = Integer.valueOf(String.valueOf(query.getSingleResult()));
         return count;
     }
+
+    @Override
+    public Comment add(Comment comment) {
+        comment.setCommentTime(System.currentTimeMillis());
+        entityManager.persist(comment);
+        return comment;
+    }
 }
