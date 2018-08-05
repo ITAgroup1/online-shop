@@ -10,14 +10,13 @@ import com.group1.merchant.service.MerchantDetailService;
 import com.group1.merchant.service.OrderSerivce;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.socket.TextMessage;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -52,6 +51,21 @@ public class OrderController {
         Merchant merchant = merchantDetailService.getMerchantDetail(shopId);
         infoHandler().sendMessageToUser(merchant.getId(), new TextMessage(str));
         resultBody.addData("result", "success send");
+        return resultBody;
+    }
+
+    @ResponseBody
+    @RequestMapping
+    public ResultBody orderList(HttpSession httpSession){
+        Merchant merchant = (Merchant) httpSession.getAttribute("merchant");
+        ResultBody resultBody = new ResultBody();
+
+        if(merchant==null){
+            resultBody.addError("errors","請重新登陸");
+        }else {
+            List<Order> orders = orderService.listOrderByMerchantId(merchant.getId());
+            resultBody.addData("orderList",orders);
+        }
         return resultBody;
     }
 }
