@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri= "http://java.sun.com/jsp/jstl/core" %>
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.group1.core.utils.PropertiesUtils" %>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-	String imgServer = PropertiesUtils.getProperty("image.server");
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    //String imgServer = PropertiesUtils.getProperty("image.server");
+    String imgServer = "";
 %>
 <!doctype html>
 <html lang="en">
@@ -47,91 +48,94 @@
         <div class="main-content">
             <div class="container-fluid">
                 <h3 class="page-title">商家详细信息</h3>
-	            <c:choose>
-				    <c:when test="${merchantDetail == null}">
-		                <div class="row">
-		                    <div class="col-md-12">
-		                        <div class="panel panel-headline">
-		                            <div class="panel-heading">
-		                                <h3 class="panel-title">还没开通店铺? <a href="<%=basePath%>shop/new">申请开通</a></h3>
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
-                	</c:when>
-                	<c:otherwise>
-		                <div class="row">
-		                    <div class="col-md-12" style="height: 100%">
-		                        <!-- PANEL HEADLINE -->
-		                        <div class="panel panel-headline" style="height: 100%">
-		                            <div class="panel-body row" style="height: 100%">
-		                                <div class="col-md-4">
-		                                    <h2>基本信息</h2>
-		                                    <div class="row">
-		                                        <h4>商家店铺详情ID : ${merchantDetail.id}</h4>
-		                                        <%--<h4>商家ID : ${merchantDetail.merchantID}</h4>--%>
-		                                        <h4>商家身份证ID : ${merchantDetail.idcardNum}</h4>
-		                                        <h4>商家姓名 : ${merchantDetail.merchantName}</h4>
-		                                        <h4>店铺状态 : 
-		                                        	<c:choose>
-														<c:when test="${merchantDetail.status == 0}">
-															待處理 
-														</c:when>
-														<c:when test="${merchantDetail.status == 1}">
-															審核通過 <a href="<%=basePath%>shop/shopIndex">管理商店</a>
-														</c:when>
-														<c:when test="${merchantDetail.status == 2}">
-															駁回 <a href="<%=basePath%>shop/update">修改</a>
-														</c:when>
-														<c:when test="${merchantDetail.status == 3}">
-															不同意 
-														</c:when>
-													</c:choose>
-		                                        </h4>
-		                                        <h4>店铺简介 : ${merchantDetail.introduction}</h4>
-		                                    </div>
-		                                </div>
-		                                <div class="col-md-8">
-		                                    <div class="row">
-		                                        <div class="col-md-6">
-		                                            <h2>营业执照</h2>
-		                                            <div style="height: 200px;">
-		                                                <img style="height: 100%" src="<%=imgServer%>${merchantDetail.businessPic}">
-		                                            </div>
-		                                        </div>
-		                                        <div class="col-md-6">
-		                                            <h2>身份证照片</h2>
-		                                            <div style="height: 200px;">
-		                                                <img style="height: 100%" src="<%=imgServer%>${merchantDetail.idcardPic}">
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!-- END PANEL HEADLINE -->
-		                    </div>
-		                    <div class="col-md-12">
-		                        <!-- PANEL HEADLINE -->
-		                        <div class="panel panel-headline">
-		                            <div class="panel-body">
-		                                <div>
-		                                    <h2>店铺图片</h2>
-		                                    <div class="row" style="height: 300px;">
-			                                    <c:forEach items="${merchantDetail.shopPic}" var="pic">
-				                                    <div  style="height: 100%" class="col-md-4">
-			                                            <img style="height: 100%;width: 100%;" src="<%=imgServer%>${pic}">
-			                                        </div>
-												</c:forEach>
-		                                    </div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <!-- END PANEL HEADLINE -->
-		                    </div>
-		                </div>
-	                </c:otherwise>
-            	</c:choose>
+                <c:choose>
+                    <c:when test="${merchantDetail == null}">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-headline">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">还没开通店铺? <a href="<%=basePath%>shop_form">申请开通</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="row">
+                            <div class="col-md-12" style="height: 100%">
+                                <!-- PANEL HEADLINE -->
+                                <div class="panel panel-headline" style="height: 100%">
+                                    <div class="panel-body row" style="height: 100%">
+                                        <div class="col-md-4">
+                                            <h2>基本信息</h2>
+                                            <div class="row">
+                                                <h4>商家店铺详情ID : ${merchantDetail.id}</h4>
+                                                    <%--<h4>商家ID : ${merchantDetail.merchantID}</h4>--%>
+                                                <h4>商家身份证ID : ${merchantDetail.idcardNum}</h4>
+                                                <h4>商家姓名 : ${merchantDetail.merchantName}</h4>
+                                                <h4>店铺状态 :
+                                                    <c:choose>
+                                                        <c:when test="${merchantDetail.status == 0}">
+                                                            待處理
+                                                        </c:when>
+                                                        <c:when test="${merchantDetail.status == 1}">
+                                                            審核通過 <a href="<%=basePath%>shop/shopIndex">管理商店</a>
+                                                        </c:when>
+                                                        <c:when test="${merchantDetail.status == 2}">
+                                                            駁回 <a href="<%=basePath%>shop/update">修改</a>
+                                                        </c:when>
+                                                        <c:when test="${merchantDetail.status == 3}">
+                                                            不同意
+                                                        </c:when>
+                                                    </c:choose>
+                                                </h4>
+                                                <h4>店铺简介 : ${merchantDetail.introduction}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h2>营业执照</h2>
+                                                    <div style="height: 200px;">
+                                                        <img style="height: 100%"
+                                                             src="<%=imgServer%>${merchantDetail.businessPic}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h2>身份证照片</h2>
+                                                    <div style="height: 200px;">
+                                                        <img style="height: 100%"
+                                                             src="<%=imgServer%>${merchantDetail.idcardPic}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END PANEL HEADLINE -->
+                            </div>
+                            <div class="col-md-12">
+                                <!-- PANEL HEADLINE -->
+                                <div class="panel panel-headline">
+                                    <div class="panel-body">
+                                        <div>
+                                            <h2>店铺图片</h2>
+                                            <div class="row" style="height: 300px;">
+                                                <c:forEach items="${merchantDetail.shopPic}" var="pic">
+                                                    <div style="height: 100%" class="col-md-4">
+                                                        <img style="height: 100%;width: 100%;"
+                                                             src="<%=imgServer%>${pic}">
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END PANEL HEADLINE -->
+                            </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
         <!-- END MAIN CONTENT -->
@@ -153,7 +157,7 @@
 <script src="<%=basePath%>assets/vendor/chartist/js/chartist.min.js"></script>
 <script src="<%=basePath%>assets/scripts/klorofil-common.js"></script>
 <script>
-	window.contextPath = "<%=basePath%>";
+    window.contextPath = "<%=basePath%>";
 </script>
 
 

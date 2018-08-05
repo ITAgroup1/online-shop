@@ -53,7 +53,7 @@
     </bean>
 
     <!--interceptor-->
-    <!--<mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/*.jsp"/>
@@ -63,7 +63,7 @@
             <mvc:exclude-mapping path="/js/**"/>
             <bean class="com.group1.merchant.interceptor.LoginAuthenticationInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
 
     <bean id="socketHandler" class="com.group1.core.handler.SpringWebSocketHandler"/>
 

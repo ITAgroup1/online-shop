@@ -53,7 +53,16 @@ $(document).ready(() => {
                 let res = JSON.parse(data);
                 let order = res.map.order;
                 order.client = res.map.client;
-                this.orders.unshift(order);
+
+                if(order.status === 1){
+                    this.orders.unshift(order);
+                }else{
+                    this.orders.forEach((item) => {
+                        if(order.id === item.id){
+                           item.status = order.status;
+                        }
+                    })
+                }
             },
             handleClose(){
 

@@ -1,10 +1,4 @@
-addRecipe.jsp
-listRecipe.jsp
-login.jsp
-modifyRecipe.jsp
-recipeManager.jsp
-register.jsp
-shopManager.jsp<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.group1.core.utils.PropertiesUtils" %>
 <%
@@ -14,7 +8,7 @@ shopManager.jsp<%@ page language="java" contentType="text/html; charset=UTF-8"
 %>
 <nav class="navbar navbar-default navbar-fixed-top">
         <div class="brand">
-            <a href="index.html"><img src="<%=basePath%>assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+            <a href="/"><img src="<%=basePath%>assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
             <div class="navbar-btn">

@@ -139,7 +139,7 @@ function bindUploadPic() {
                                         </a>
                                     </div><hr>`);
                     console.log(newDiv);
-                    $($(newDiv.children()[0]).children()[0]).prop("src",  uploadServer + data.data.url);
+                    $($(newDiv.children()[0]).children()[0]).prop("src", data.data.url);
                     $(item).parent().parent().before(newDiv);
                 });
             } 

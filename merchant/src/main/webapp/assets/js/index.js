@@ -40,7 +40,7 @@ $(document).ready(function () {
                         if(data.status === "1"){
                             let url = data.data.url;
                             let imgTag = $(`<div class="image-item">
-                                <img src="${imgServer + url}">
+                                <img src="${url}">
                             </div>`);
                             $btn.parent().before(imgTag);
                             if(!formData[key]){

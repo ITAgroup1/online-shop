@@ -54,10 +54,9 @@
 
                             </div>
                             <div class="panel-body">
-                                <table class="table table-striped">
-                                    <tr class="complaint-item">
-                                        <td>123123</td>
-                                    </tr>
+                                <table class="table table-striped" id="complaint-list">
+                                    <tr><th>投诉内容</th></tr>
+                                    <tr v-for=""></tr>
                                 </table>
                             </div>
                         </div>
@@ -84,6 +83,9 @@
 <script src="<%=basePath%>assets/vendor/chartist/js/chartist.min.js"></script>
 <script src="<%=basePath%>assets/scripts/klorofil-common.js"></script>
 <script src="<%=basePath%>assets/js/axios.js"></script>
+<script src="<%=basePath%>assets/vendor/toastr/toastr.min.js"></script>
+<script src="<%=basePath%>assets/js/vue.js"></script>
+<script src="<%=basePath%>assets/js/ClientWS.js"></script>
 <script src="<%=basePath%>assets/js/complaint.js"></script>
 <script>
     window.contextPath = "<%=basePath%>";
