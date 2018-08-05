@@ -38,15 +38,15 @@ public class OrderController {
     @PostMapping("/websocket")
     @ResponseBody
     public ResultBody send(@RequestBody Message message) {
+
         ResultBody resultBody = new ResultBody();
         Map<String, Object> map = message.getMap();
-        String orderId = (String) map.get("orderId");
+        Order order = JsonUtil.mapToObject((Map) map.get("order"),Order.class);
         Integer status = (Integer) map.get("status");
-        Order order = orderService.update(orderId, status);
-        message.getMap().put("status", order.getStatus().toString());
-        String str = JsonUtil.objectToJson(order);
-        System.out.println("merchant :");
-        System.out.println(str);
+        Order res = orderService.update(order.getId(), status);
+        message.getMap().put("status", res.getStatus().toString());
+        message.getMap().put("client", res.getClient());
+        String str = JsonUtil.objectToJson(message);
         String shopId = message.getReceiverId();
         Merchant merchant = merchantDetailService.getMerchantDetail(shopId);
         infoHandler().sendMessageToUser(merchant.getId(), new TextMessage(str));
@@ -57,13 +57,14 @@ public class OrderController {
     @ResponseBody
     @RequestMapping
     public ResultBody orderList(HttpSession httpSession){
+
         Merchant merchant = (Merchant) httpSession.getAttribute("merchant");
         ResultBody resultBody = new ResultBody();
 
         if(merchant==null){
             resultBody.addError("errors","請重新登陸");
         }else {
-            List<Order> orders = orderService.listOrderByMerchantId(merchant.getId());
+            List<Order> orders = orderService.listOrderByMerchantId(merchant);
             resultBody.addData("orderList",orders);
         }
         return resultBody;

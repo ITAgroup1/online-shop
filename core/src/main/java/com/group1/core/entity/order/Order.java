@@ -54,7 +54,7 @@ public class Order implements Serializable , Cloneable {
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="c_id")
-    @JsonIgnore
+//    @JsonIgnore
     private Client client;
 
     @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
