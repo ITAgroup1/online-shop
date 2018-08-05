@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/merchantDetail")
@@ -28,6 +29,10 @@ public class MerchantDetailController {
     @ResponseBody
     public ResultBody setUpShop(MerchantDetail merchantDetail,Shop shop, @ModelAttribute("merchant") Merchant merchant) {
         ResultBody resultBody = new ResultBody();
+
+        shop.setServiceStartTime((new Date()).getTime());
+        shop.setServiceEndTime((new Date()).getTime());
+        shop.setScore(0.0);
 
         Shop shop1 = shopService.saveShop(shop);
 

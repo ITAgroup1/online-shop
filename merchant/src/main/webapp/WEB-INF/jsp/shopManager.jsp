@@ -5,7 +5,7 @@
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-    String imgServer = PropertiesUtils.getProperty("image.server");
+    String imgServer = "";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -50,30 +50,100 @@
             <div class="container-fluid">
                 <h3 class="page-title">店铺管理</h3>
                     <div class="rows">
-                        <div class="col-md-6">
+                        <%--<div class="col-md-8">--%>
+                            <%--<!-- START INPUTS 1 -->--%>
+                            <%--<div class="panel">--%>
+                                <%--<div class="panel-heading">--%>
+                                    <%--<h2 class="panel-title">店铺描述</h2><hr>--%>
+                                    <%--<h1 class="panel-heading">评分:${shop.score}</h1>--%>
+                                <%--</div>--%>
+                                <%--<div class="panel-body" id="about-shop-input">--%>
+                                    <%--<input type="hidden" name="id" class="form-control" value="${shop.id}">--%>
+                                    <%--<h4>店铺名称：</h4><input type="text" name="shopName" class="form-control" placeholder="店铺名称" value="${shop.shopName}">--%>
+                                    <%--<br>--%>
+                                    <%--<h4>服务开始时间：</h4><input type="time" name="serviceStartTime" class="form-control" placeholder="服务开始时间" value="${serviceStartTime}" >--%>
+                                    <%--<br>--%>
+                                    <%--<h4>服务结束时间：</h4><input type="time" name="serviceEndTime" class="form-control" placeholder="服务结束时间" value="${serviceEndTime}">--%>
+                                    <%--<br> --%>
+                                    <%--<h4>配送范围(KM)：</h4><input type="number" name="serviceRange" class="form-control" placeholder="配送范围" min="1" max="20" value="${shop.serviceRange}">--%>
+                                    <%--<br>  --%>
+                                    <%--<h4>配送費用(￥)：</h4><input type="number" name="distributionCost" class="form-control" placeholder="配送费用" min="1.0" max="30.0" value="${shop.distributionCost}">--%>
+                                    <%--<br>   --%>
+                                    <%--<h4>店铺地址：</h4><input type="text" name="address" class="form-control" placeholder="店铺地址" value="${shop.address}">--%>
+                                    <%--<br> --%>
+                                    <%--<input type="hidden" name="merchantDetailId" class="form-control" value="${shop.merchantDetailId}">--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<!-- END INPUTS 1--> --%>
+                            <%--<!-- START INPUTS 2 -->--%>
+                            <%--<div class="panel">--%>
+                                <%--<div class="panel-heading">--%>
+                                    <%--<h3 class="panel-title"></h3>--%>
+                                <%--</div>--%>
+                                <%--<div class="panel-body" id="about-shop-pic">--%>
+                                    <%--<h3 class="panel-heading">营业执照</h3>--%>
+                                    <%--<div>--%>
+                                        <%--<a name="businessPic">--%>
+                                            <%--<img  class="img-responsive"  alt="Responsive image" src="<%=imgServer%>${shop.businessPic}"/>--%>
+                                        <%--</a>--%>
+                                    <%--</div><hr>--%>
+
+                                    <%--<h3 class="panel-heading">店铺图片</h3>--%>
+									<%--<c:forEach items="${shop.shopPic}" var="shopPic">--%>
+                                        <%--<div>--%>
+                                            <%--<a name="shopPic">--%>
+                                                <%--<img class="img-responsive" alt="图片" src="<%=imgServer%>${shopPic}"/>--%>
+                                            <%--</a>--%>
+                                        <%--</div><hr>--%>
+									<%--</c:forEach>--%>
+									<%--<div>--%>
+                                		<%--<a name="shopPic">--%>
+                                            <%--<img class="img-responsive" alt="图片" src="<%=basePath%>assets/img/add_img.png"/>--%>
+                                        <%--</a>--%>
+                                    <%--</div><hr> --%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<!-- END INPUTS 2-->                               --%>
+                            <%--<!-- START INPUTS 1 -->--%>
+                            <%--<div class="panel">--%>
+                                <%--<div class="panel-heading">--%>
+                                    <%--<h2 class="panel-title"></h2>--%>
+                                <%--</div>--%>
+                                <%--<div class="panel-body">--%>
+                                    <%--<div>--%>
+                                        <%--<button type="button" name="btn-modify" class="btn btn-primary btn-block">修改</button>--%>
+                                        <%--<!-- <button type="button" name="btn-modify-cancel" class="btn btn-primary btn-block">取消</button> -->--%>
+                                        <%--<button type="button" name="btn-save" class="btn btn-primary btn-block">保存</button>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                            <%--</div>--%>
+                            <%--<!-- END INPUTS 1-->                                 --%>
+                        <%--</div>--%>
+                        <div class="col-md-8">
                             <!-- START INPUTS 1 -->
                             <div class="panel">
                                 <div class="panel-heading">
-                                    <h2 class="panel-title">店铺描述</h2>
+                                    <h2 class="panel-title">店铺描述</h2><hr>
+                                    <h1 class="panel-heading">评分:${shop.score}</h1>
                                 </div>
                                 <div class="panel-body" id="about-shop-input">
-                                    <input type="hidden" name="shopId" class="form-control" value="${shop.shopId}">
+                                    <input type="hidden" name="id" class="form-control" value="${shop.id}">
                                     <h4>店铺名称：</h4><input type="text" name="shopName" class="form-control" placeholder="店铺名称" value="${shop.shopName}">
                                     <br>
                                     <h4>服务开始时间：</h4><input type="time" name="serviceStartTime" class="form-control" placeholder="服务开始时间" value="${serviceStartTime}" >
                                     <br>
-                                    <h4>服务结束时间：</h4><input type="time" name="servicEndTime" class="form-control" placeholder="服务结束时间" value="${servicEndTime}">
-                                    <br> 
+                                    <h4>服务结束时间：</h4><input type="time" name="serviceEndTime" class="form-control" placeholder="服务结束时间" value="${serviceEndTime}">
+                                    <br>
                                     <h4>配送范围(KM)：</h4><input type="number" name="serviceRange" class="form-control" placeholder="配送范围" min="1" max="20" value="${shop.serviceRange}">
-                                    <br>  
+                                    <br>
                                     <h4>配送費用(￥)：</h4><input type="number" name="distributionCost" class="form-control" placeholder="配送费用" min="1.0" max="30.0" value="${shop.distributionCost}">
-                                    <br>   
+                                    <br>
                                     <h4>店铺地址：</h4><input type="text" name="address" class="form-control" placeholder="店铺地址" value="${shop.address}">
-                                    <br> 
-                                    <input type="hidden" name="merchantId" class="form-control" value="${shop.merchantId}">                                                                    
+                                    <br>
+                                    <input type="hidden" name="merchantDetailId" class="form-control" value="${shop.merchantDetailId}">
                                 </div>
                             </div>
-                            <!-- END INPUTS 1--> 
+                            <!-- END INPUTS 1-->
                             <!-- START INPUTS 2 -->
                             <div class="panel">
                                 <div class="panel-heading">
@@ -81,27 +151,28 @@
                                 </div>
                                 <div class="panel-body" id="about-shop-pic">
                                     <h3 class="panel-heading">营业执照</h3>
-                                    <div class="method1" > 
+                                    <div>
                                         <a name="businessPic">
-                                            <img  class="test" src="<%=imgServer%>${shop.businessPic}" width="450px" height="330px" />
+                                            <img  class="img-responsive"  alt="Responsive image" src="<%=imgServer%>${shop.businessPic}"/>
                                         </a>
-                                    </div><hr> 
+                                    </div><hr>
+
                                     <h3 class="panel-heading">店铺图片</h3>
-									<c:forEach items="${shopPics}" var="shopPic">
-	                                    <div class="method1">
-	                                        <a name="shopPic">
-	                                            <img class="test" src="<%=imgServer%>${shopPic}" width="450px" height="330px" />
-	                                        </a>
-	                                    </div><hr> 									
-									</c:forEach>
-									<div>
-                                		<a name="shopPic">
-                                            <img class="test" src="<%=basePath%>assets/img/non-upload-pic.jpg" width="450px" height="330px" />
+                                    <c:forEach items="${shop.shopPic}" var="shopPic">
+                                        <div>
+                                            <a name="shopPic">
+                                                <img class="img-responsive" alt="图片" src="<%=imgServer%>${shopPic}"/>
+                                            </a>
+                                        </div><hr>
+                                    </c:forEach>
+                                    <div>
+                                        <a name="shopPic">
+                                            <img class="img-responsive" alt="图片" src="<%=basePath%>assets/img/add_img.png"/>
                                         </a>
-                                    </div><hr> 
+                                    </div><hr>
                                 </div>
                             </div>
-                            <!-- END INPUTS 2-->                               
+                            <!-- END INPUTS 2-->
                             <!-- START INPUTS 1 -->
                             <div class="panel">
                                 <div class="panel-heading">
@@ -115,7 +186,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- END INPUTS 1-->                                 
+                            <!-- END INPUTS 1-->
+                        </div>
+                        <div class="col-md-4">
                         </div>
                     </div>
             </div>

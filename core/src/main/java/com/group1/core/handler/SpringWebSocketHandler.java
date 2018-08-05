@@ -1,6 +1,7 @@
 package com.group1.core.handler;
 
 import com.group1.core.utils.JsonUtil;
+import com.group1.core.utils.Message;
 import com.group1.core.utils.PropertiesUtils;
 import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactoryImpl;
 import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactroy;
@@ -30,6 +31,8 @@ public class SpringWebSocketHandler extends TextWebSocketHandler {
     static {
         users = new ConcurrentHashMap<>();
     }
+    @Resource
+    private JerseyPoolingClientFactroy jerseyPoolingClientFactoryBean;
 
     public SpringWebSocketHandler() {
         // TODO Auto-generated constructor stub

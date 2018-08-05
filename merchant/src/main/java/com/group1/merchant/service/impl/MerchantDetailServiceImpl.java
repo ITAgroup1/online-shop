@@ -6,15 +6,19 @@ import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFacto
 import com.group1.core.utils.JsonUtil;
 import com.group1.core.utils.PropertiesUtils;
 import com.group1.core.utils.ResultBody;
+import com.group1.core.utils.jerseyPoolingClientFactory.JerseyPoolingClientFactroy;
 import com.group1.core.utils.jms.ProducerService;
 import com.group1.merchant.dao.MerchantDetailRepository;
 import com.group1.merchant.service.MerchantDetailService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.jms.Destination;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 import java.util.Map;
 
 @Service("merchantDetailService")
@@ -22,7 +26,7 @@ import java.util.Map;
 public class MerchantDetailServiceImpl implements MerchantDetailService {
 
     @Resource
-    private JerseyPoolingClientFactoryImpl jerseyPoolingClient;
+    private JerseyPoolingClientFactroy jerseyPoolingClient;
 
     @Resource
     private MerchantDetailRepository merchantDetailRepository;
@@ -39,10 +43,10 @@ public class MerchantDetailServiceImpl implements MerchantDetailService {
     public MerchantDetail sendMerchantDetail(MerchantDetail merchantDetail) {
         ResultBody resultBody = new ResultBody();
         resultBody.addData("merchantDetail", merchantDetail);
-        resultBody.addData("type","MerchantDetail");
+        resultBody.addData("type", "MerchantDetail");
         String merchantDetailJson = JsonUtil.objectToJson(resultBody);
 
-        producerService.sendMessage(destination,merchantDetailJson);
+        producerService.sendMessage(destination, merchantDetailJson);
         return merchantDetail;
     }
 
@@ -70,12 +74,12 @@ public class MerchantDetailServiceImpl implements MerchantDetailService {
             Client client = jerseyPoolingClient.getObject();
             String path = PropertiesUtils.getProperty("merchantDetail.verify.path");
             ResultBody resultBody = JerseyJsonService.post(client, adminServer, path, merchant, ResultBody.class);
-            if(resultBody == null)
+            if (resultBody == null)
                 return merchantDetail;
-            if(resultBody.getStatus() == ResultBody.STATUS_ERROR)
+            if (resultBody.getStatus() == ResultBody.STATUS_ERROR)
                 return merchantDetail;
-            System.out.println( resultBody.getData("merchantDetail").getClass().getName());
-            merchantDetail = JsonUtil.mapToObject((Map) resultBody.getData("merchantDetail"),MerchantDetail.class);
+            System.out.println(resultBody.getData("merchantDetail").getClass().getName());
+            merchantDetail = JsonUtil.mapToObject((Map) resultBody.getData("merchantDetail"), MerchantDetail.class);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +89,21 @@ public class MerchantDetailServiceImpl implements MerchantDetailService {
 
     @Override
     public Merchant getMerchantDetail(String shopId) {
-        MerchantDetail merchantDetail = merchantDetailRepository.getMerchantDetailByShopId(shopId);
-        return merchantDetail.getMerchant();
+        try {
+            Client client = jerseyPoolingClient.getObject();
+            String path = PropertiesUtils.getProperty("merchant.byshopId");
+            WebTarget target = client.target(adminServer + path + "/" + shopId);
+            Response response = target.request().buildGet().invoke();
+            String str = response.readEntity(String.class);
+            ResultBody resultBody = JsonUtil.jsonToObject(str, ResultBody.class);
+            if (ResultBody.STATUS_ERROR.equals(resultBody.getStatus()))
+                return null;
+            System.out.println(resultBody.getData("merchant").getClass().getName());
+            Merchant merchant = JsonUtil.mapToObject((Map) resultBody.getData("merchant"), Merchant.class);
+            return merchant;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

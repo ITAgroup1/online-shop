@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     let formData = {};
-    let imgServer = "http://localhost:10086/";
+    let imgServer = "http://10.222.29.153:10086/";
 
     let IDUploadBtn = $("#add-id-img-btn");
     uploadBtn(IDUploadBtn,"idcardPic");
@@ -40,7 +40,7 @@ $(document).ready(function () {
                         if(data.status === "1"){
                             let url = data.data.url;
                             let imgTag = $(`<div class="image-item">
-                                <img src="${imgServer + url}">
+                                <img src="${url}">
                             </div>`);
                             $btn.parent().before(imgTag);
                             if(!formData[key]){

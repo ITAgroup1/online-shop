@@ -1,6 +1,6 @@
-let merchantServer = "http://localhost:9090/merchant";
+let merchantServer = "http://localhost:9090/";
 // let uploadServer = "http://10.222.29.153:9090/picServer";
-let uploadServer = "http://localhost:9090/picServer";
+let uploadServer = "http://10.222.29.153:10086";
 // let uploadServer = "file:///D:/ITA/demo-project/Merchant/src";
 
 Date.prototype.format = function(fmt) { 
@@ -64,54 +64,48 @@ function editable(boolVal) {
 
 // 提交修改后的商店信息
 function modifyShop() {
-    let submitFormData = new FormData();
-    console.log("--------------------------获取input表单数据-------------------------------");
-    $.each($("#about-shop-input input"), function(index,item) {
-        console.log($(item).prop("name") + ":" + $(item).prop("value"));
-        submitFormData.set($(item).prop("name"), $(item).prop("value"))
+    let data ={};
+    let shopImgs =[];
+
+    // get input data
+    $.each($("#about-shop-input input"), (index, item)=>{
+        let $input = $(item);
+        data[$input.prop("name")] = $input.prop("value");
     });
 
-    console.log("------------------------获取img相对路径-----------------------------------");
-    let shopPicName = "";
+    // get img data
+    let firstIndex = 0;
     let lastIndex = $("#about-shop-pic div").length -1;
-    $.each($("#about-shop-pic a"), function(index,item) {
-        let a = $(item);
-        let img = $(a.children()[0]);
-        // console.log(a.prop("name") + ":" + img.prop("src").replace(uploadServer,""));
-        if(index == 0) {
-            submitFormData.set(a.prop("name"),img.prop("src").replace(uploadServer,""));
-        }else{
-            if(index != lastIndex) {
-                shopPicName = a.prop("name");
-                submitFormData.append(a.prop("name"),img.prop("src").replace(uploadServer,""));
-            }
+    $.each($("#about-shop-pic div"), (index, item)=> {
+        $img = $(item).find("img");
+        if(index == firstIndex) {
+            data["businessPic"] = $img.prop("src").replace(uploadServer, "");
+        }else if(index != lastIndex) {
+            shopImgs.push($img.prop("src").replace(uploadServer, ""));
         }
     });
-    submitFormData.set(shopPicName, submitFormData.getAll(shopPicName).join(";;"))
-    data = {}
-    for(let key of submitFormData.keys()) { //2011-10-12 12:00:00
-        let val = submitFormData.get(key);
-        if(key == "serviceStartTime" || key == "servicEndTime") {
-            var date = (new Date).getTime();
-            var dTime = new Date(date).format("yyyy/MM/dd");
-            var lTime = val;
-            let newDate = new Date(dTime + " " + lTime).getTime();
-            val = newDate;
-            console.log(val);
+
+    data["shopPic"] = shopImgs;
+    for(let key of Object.keys(data)) {
+        if(key == "serviceStartTime" || key == "serviceEndTime") {
+            let dayDate  = (new Date()).format("yyyy/MM/dd");
+            data[key] = (new Date(dayDate + " " + data[key])).getTime();
         }
-        console.log(key + " : " + val);
-        data[key] = val;
     }
-    console.log("------------------------发送Ajax异步请求-----------------------------------"); 
+
+    console.log("------------------------发送Ajax异步请求-----------------------------------");
     console.log(data);
     $.ajax({
-        type: "POST",
-        url: merchantServer + "/shop/modify",
-        data: data,      
+        type: "PUT",
+        url: merchantServer + "shop",
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
         success: function(data) {
             console.log(data);
-            let result = JSON.parse(data);
-            if(result.status == true) {
+            let result = data;
+            console.log(result);
+            if(result.status === "1") {
                 alert("保存成功!");
             }else {
                 alert("保存失败!")
@@ -120,7 +114,7 @@ function modifyShop() {
         error: function(err) {
             console.log(err);
         }
-    });   
+    });
 }
 
 // 绑定上传事件
@@ -139,9 +133,13 @@ function bindUploadPic() {
             } else {
                 uploadPic(item, function(data) {
                     console.log(data);
-                    let newDiv = $('<div class="method1"><a name="shopPic"><img class="test" src="" width="450px" height="330px" /></a></div><hr>');
+                    let newDiv = $(`<div>
+                                		<a name="shopPic">
+                                            <img class="img-responsive" alt="图片" src="<%=basePath%>assets/img/add_img.png"/>
+                                        </a>
+                                    </div><hr>`);
                     console.log(newDiv);
-                    $($(newDiv.children()[0]).children()[0]).prop("src",  uploadServer + data.data.url);
+                    $($(newDiv.children()[0]).children()[0]).prop("src", data.data.url);
                     $(item).parent().parent().before(newDiv);
                 });
             } 

@@ -63,13 +63,25 @@
                                         <th>状态</th>
                                         <th>操作</th>
                                     </tr>
-                                    <tr v-for="order of this.orders" class="order-item">
+                                    <tr v-for="order,index of this.orders" class="order-item">
                                         <td>{{order.id}}</td>
                                         <td>{{order.address}}</td>
                                         <td>{{order.phone}}</td>
                                         <td>{{order.cost}}</td>
-                                        <td>{{order.status}}</td>
-                                        <td><a>123</a></td>
+                                        <td>
+                                            <span v-if="order.status == 1">已付款，等待接单</span>
+                                            <span v-if="order.status == 2">已接单</span>
+                                            <span v-if="order.status == 3">配送中</span>
+                                            <span v-if="order.status == 4">到达指定地点</span>
+                                            <span v-if="order.status == 5">订单结束（商家拒绝接单）</span>
+                                            <span v-if="order.status == 6">订单结束（订单取消）</span>
+                                            <span v-if="order.status == 7">订单结束（已评价）</span>
+                                        </td>
+                                        <td>
+                                            <span v-if="order.status == 1"><a @click="accept(index)">接单</a><a style="margin-left: 10px">拒绝</a></span>
+                                            <span v-if="order.status == 2"><a @click="deliver(index)">配送</a></span>
+                                            <span v-if="order.status == 3"><a @click="arrive(index)">配送</a></span>
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
@@ -97,12 +109,12 @@
 <script src="<%=basePath%>assets/vendor/chartist/js/chartist.min.js"></script>
 <script src="<%=basePath%>assets/scripts/klorofil-common.js"></script>
 <script src="<%=basePath%>assets/js/axios.js"></script>
+<script src="<%=basePath%>assets/vendor/toastr/toastr.min.js"></script>
 <script src="<%=basePath%>assets/js/vue.js"></script>
 <script src="<%=basePath%>assets/js/orders.js"></script>
 <script>
     window.contextPath = "<%=basePath%>";
 </script>
-
 
 </body>
 

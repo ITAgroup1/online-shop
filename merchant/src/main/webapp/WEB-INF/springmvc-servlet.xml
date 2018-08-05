@@ -4,6 +4,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -13,7 +14,7 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <context:property-placeholder location="classpath:application.properties"/>
 
@@ -52,7 +53,7 @@
     </bean>
 
     <!--interceptor-->
-    <!--<mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/*.jsp"/>
@@ -62,5 +63,14 @@
             <mvc:exclude-mapping path="/js/**"/>
             <bean class="com.group1.merchant.interceptor.LoginAuthenticationInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
+
+    <bean id="socketHandler" class="com.group1.core.handler.SpringWebSocketHandler"/>
+
+    <websocket:handlers allowed-origins="*">
+        <websocket:mapping handler="socketHandler" path="/merchant/socketServer" />
+        <websocket:handshake-interceptors>
+            <bean class="com.group1.core.interceptor.SpringWebSocketHandlerInterceptor"/>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
 </beans>
