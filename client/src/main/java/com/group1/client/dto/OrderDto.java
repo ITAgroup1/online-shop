@@ -5,6 +5,7 @@ import com.group1.core.entity.client.Client;
 import com.group1.core.entity.comment.Comment;
 import com.group1.core.entity.order.Order;
 import com.group1.core.entity.order.OrderItem;
+import com.group1.core.entity.shop.Shop;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -27,11 +28,18 @@ public class OrderDto extends Order implements Serializable {
          super.setOrderItems(this.getItems());
      }*/
 
-
-
+    private Shop shop;
 
     public void setItems(Set<OrderItem> items) {
         super.setOrderItems(items);
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
     public Order toOrder(){
@@ -53,6 +61,28 @@ public class OrderDto extends Order implements Serializable {
         if(this.getOrderItems()!=null) order.setOrderItems(this.getOrderItems());
 
         return order;
+    }
+
+    public static OrderDto byOrder(Order order){
+
+        OrderDto orderDto = new OrderDto();
+        if(order.getId()!=null) orderDto.setId(order.getId());
+        if(order.getShopId()!=null) orderDto.setShopId(order.getShopId());
+        if(order.getAddress()!=null) orderDto.setAddress(order.getAddress());
+        if(order.getPhone()!=null) orderDto.setPhone(order.getPhone());
+        if(order.getCost()!=null) orderDto.setCost(order.getCost());
+        if ((order.getOrderTime() != null)) {
+            orderDto.setOrderTime(order.getOrderTime());
+        } else {
+            orderDto.setOrderTime(System.currentTimeMillis());
+        }
+        if(order.getRemark()!=null) orderDto.setRemark(order.getRemark());
+        if(order.getStatus()!=null) orderDto.setStatus(order.getStatus());
+        if(order.getComment()!=null) orderDto.setComment(order.getComment());
+        if(order.getClient()!=null) orderDto.setClient(order.getClient());
+        if(order.getOrderItems()!=null) orderDto.setOrderItems(order.getOrderItems());
+
+        return orderDto;
     }
 
 }

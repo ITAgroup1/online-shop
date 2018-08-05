@@ -3,6 +3,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -13,7 +14,9 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/websocket
+        http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <context:property-placeholder location="classpath:application.properties"/>
 
@@ -42,5 +45,14 @@
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <bean id="socketHandler" class="com.group1.core.handler.SpringWebSocketHandler"></bean>
+
+    <websocket:handlers allowed-origins="*">
+        <websocket:mapping handler="socketHandler" path="/socketServer" />
+        <websocket:handshake-interceptors>
+            <bean class="com.group1.core.interceptor.SpringWebSocketHandlerInterceptor"></bean>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
 
 </beans>
